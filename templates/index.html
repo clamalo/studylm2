@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyLM - Your AI Study Assistant</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1157/1157109.png">
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">StudyLM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/"><i class="bi bi-house-door"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/study-guide"><i class="bi bi-journal-text"></i> Learn</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-5">
+        <div class="row">
+            <div class="col-lg-10 mx-auto text-center mb-5">
+                <h1 class="mb-3">Your Personal AI Study Assistant</h1>
+                <p class="lead">Upload your class materials and get instant, AI-generated study guides and interactive quizzes</p>
+            </div>
+        </div>
+        
+        <div class="row justify-content-center mb-5">
+            <div class="col-lg-10">
+                <div class="card shadow-lg">
+                    <div class="card-header bg-primary text-white">
+                        <h2 class="mb-0 fs-4"><i class="bi bi-cloud-upload"></i> Upload Your Study Materials</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="uploadForm" enctype="multipart/form-data">
+                            <div class="mb-4">
+                                <div class="upload-area" id="uploadArea">
+                                    <div class="upload-icon">
+                                        <i class="bi bi-cloud-arrow-up"></i>
+                                    </div>
+                                    <h3 class="mb-3">Drag and drop files here</h3>
+                                    <p class="text-muted mb-4">or</p>
+                                    <input type="file" id="fileUpload" name="files[]" class="d-none" multiple accept=".pdf,.docx,.txt">
+                                    <button type="button" class="btn btn-primary btn-lg px-4" id="browseBtn">Browse Files</button>
+                                    <div class="mt-4 text-muted">
+                                        <small>Supported formats: PDF, DOCX, TXT (Max size: 50MB)</small>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div id="fileList" class="mb-4">
+                                <!-- Selected files will be shown here -->
+                            </div>
+                            
+                            <div class="d-grid gap-2">
+                                <button type="submit" class="btn btn-lg btn-secondary" id="generateBtn">
+                                    <i class="bi bi-lightning-charge"></i> Generate Study Guide
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row mb-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h3 class="card-title mb-4"><i class="bi bi-info-circle"></i> How It Works</h3>
+                        <div class="row g-4">
+                            <div class="col-md-4">
+                                <div class="d-flex">
+                                    <div class="step-number me-3">1</div>
+                                    <div>
+                                        <h5>Upload Materials</h5>
+                                        <p class="text-muted">Upload your lecture notes, slides, or readings. PDF, DOCX, and TXT files work best.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex">
+                                    <div class="step-number me-3">2</div>
+                                    <div>
+                                        <h5>AI Processing</h5>
+                                        <p class="text-muted">The AI analyzes the content and organizes key concepts into a structured study guide.</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="d-flex">
+                                    <div class="step-number me-3">3</div>
+                                    <div>
+                                        <h5>Learn Effectively</h5>
+                                        <p class="text-muted">Review the guide, test yourself with quizzes, and get clarification through AI chat.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <div class="col-lg-10 mx-auto">
+                <div class="card">
+                    <div class="card-body text-center">
+                        <div class="feature-icon mb-3 mx-auto">
+                            <i class="bi bi-journal-text text-primary"></i>
+                        </div>
+                        <h4>Ready to Learn?</h4>
+                        <p>Get started with your AI-powered study experience. Our system creates structured study guides from your materials and lets you ask questions to an AI that understands your content.</p>
+                        <div class="mt-4">
+                            <a href="/study-guide" class="btn btn-primary btn-lg">Start Learning</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-light border-top mt-5 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">&copy; 2023 StudyLM - A personal study tool</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="/" class="text-muted">Home</a></li>
+                        <li class="list-inline-item"><a href="/study-guide" class="text-muted">Learn</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <div id="loadingOverlay" class="d-none">
+        <div class="loading-content">
+            <div class="spinner-border text-primary mb-4" role="status" style="width: 3rem; height: 3rem;">
+                <span class="visually-hidden">Loading...</span>
+            </div>
+            <h3 class="mb-3">Creating your study guide</h3>
+            <p class="mb-1">Analyzing your materials...</p>
+            <p class="text-muted small">This may take a few minutes depending on file size and complexity.</p>
+            <div class="progress mt-4" style="height: 10px;">
+                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 100%"></div>
+            </div>
+        </div>
+    </div>
+    
+    <style>
+        .step-number {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 36px;
+            height: 36px;
+            background-color: var(--primary);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        
+        .feature-icon {
+            font-size: 2rem;
+            color: var(--primary);
+        }
+    </style>
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/script.js"></script>
+</body>
+</html>

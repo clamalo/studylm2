@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyLM - Study Guide</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <link rel="icon" type="image/png" href="https://cdn-icons-png.flaticon.com/512/1157/1157109.png">
+    <!-- Add print-specific meta tags to hide browser headers/footers -->
+    <style>
+        @page {
+            size: auto;
+            margin: 0mm;  /* Set all margins to 0 */
+        }
+        
+        @media print {
+            /* Hide all browser-generated headers and footers */
+            @page {
+                margin: 0;
+            }
+            
+            html, body {
+                width: 210mm;
+                height: 297mm; /* A4 size */
+                margin: 15mm !important; /* Add some margin inside the page instead */
+                padding: 0 !important;
+            }
+            
+            /* Hide URL, date, and page numbers */
+            body::before, body::after {
+                content: '';
+                display: none !important;
+            }
+            
+            /* Additional browser-specific fixes */
+            /* Chrome, Safari, and Edge */
+            html {
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
+            }
+            
+            /* Firefox */
+            body {
+                -moz-osx-font-smoothing: grayscale;
+            }
+        }
+        
+        /* Quiz container and question styles */
+        .quiz-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid #dee2e6;
+        }
+        
+        .quiz-card {
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .quiz-card:hover {
+            box-shadow: var(--shadow-md);
+        }
+        
+        /* Answer choice styling */
+        .form-check {
+            padding: 0.75rem 1.25rem;
+            margin-bottom: 0.5rem;
+            border-radius: var(--radius-md);
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+        }
+        
+        .form-check:hover {
+            background-color: rgba(0, 123, 255, 0.05);
+        }
+        
+        /* Selected answer choice */
+        .form-check-input:checked + .form-check-label {
+            font-weight: 600;
+        }
+        
+        .form-check-input:checked ~ .form-check {
+            background-color: rgba(0, 123, 255, 0.15);
+            border-left: 3px solid var(--primary);
+        }
+        
+        /* Correct and incorrect answer styles */
+        .correct-answer {
+            background-color: rgba(25, 135, 84, 0.1);
+            border-left: 3px solid var(--success);
+            padding-left: 10px;
+        }
+        
+        .wrong-answer {
+            background-color: rgba(220, 53, 69, 0.1);
+            border-left: 3px solid var(--danger);
+            padding-left: 10px;
+        }
+        
+        /* Quiz score container */
+        .quiz-score-container {
+            margin-top: 1rem;
+        }
+        
+        /* Container styling for overview, key points, and quiz sections */
+        .overview-container, .key-points-container, .quiz-container {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border: 1px solid #dee2e6;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .overview-container:hover, .key-points-container:hover, .quiz-container:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+        
+        .overview-container {
+            border-left: 4px solid var(--primary);
+        }
+        
+        .key-points-container {
+            border-left: 4px solid var(--success);
+        }
+        
+        .quiz-container {
+            border-left: 4px solid var(--info);
+        }
+
+        /* Unit summary container */
+        .unit-summary-container {
+            border-radius: 8px;
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-left: 4px solid var(--secondary);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            padding: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .unit-summary-container:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">StudyLM</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/"><i class="bi bi-house-door"></i> Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/study-guide"><i class="bi bi-journal-text"></i> Learn</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container my-4">
+        <div class="mode-toggle-container text-center mb-4">
+            <div class="btn-group" role="group" aria-label="Study Mode Toggle">
+                <a href="/study-guide" class="btn btn-primary"><i class="bi bi-journal-text"></i> Learn Mode</a>
+                <a href="/chat" class="btn btn-outline-primary"><i class="bi bi-chat-dots"></i> Chat Mode</a>
+            </div>
+        </div>
+        
+        <header class="mb-4">
+            <div class="row align-items-center">
+                <div class="col-md-8">
+                    <h1>Study Guide</h1>
+                    <p class="text-muted mb-0">AI-generated content for effective learning</p>
+                </div>
+                <div class="col-md-4 text-md-end">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-sm btn-outline-secondary" id="print-guide">
+                            <i class="bi bi-printer"></i> Print
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+        
+        <!-- Unit selector pagination -->
+        <div class="unit-selector mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <div class="d-flex align-items-center justify-content-between">
+                        <h4 class="mb-0"><i class="bi bi-book"></i> Units</h4>
+                        <div class="unit-pagination">
+                            <div class="btn-group">
+                                {% for unit_index in range(data|length) %}
+                                {% set unit = data[unit_index] %}
+                                <button type="button" class="btn btn-outline-primary unit-btn" data-unit="{{ unit_index + 1 }}">
+                                    {{ unit_index + 1 }}
+                                </button>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="unit-titles mt-3">
+                        <select id="unit-select" class="form-select form-select-sm">
+                            <option value="" disabled selected>Select a Unit</option>
+                            {% for unit_index in range(data|length) %}
+                            {% set unit = data[unit_index] %}
+                            <option value="{{ unit_index + 1 }}">Unit {{ unit_index + 1 }}: {{ unit.unit }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="row">
+            <!-- Sticky Table of Contents Sidebar -->
+            <div class="col-lg-3 mb-4 d-none d-lg-block">
+                <div class="sticky-toc">
+                    <div class="toc-card">
+                        <div class="toc-card-header">
+                            <h5 class="mb-0"><i class="bi bi-list-nested"></i> Contents</h5>
+                        </div>
+                        <div class="toc-card-body">
+                            <nav id="toc" class="toc-nav">
+                                <!-- This will be populated dynamically based on the active unit -->
+                            </nav>
+                        </div>
+                    </div>
+                    
+                    <div class="d-grid gap-2 mt-3">
+                        <a href="/chat" class="btn btn-primary">
+                            <i class="bi bi-chat-dots"></i> Ask Questions
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Mobile TOC dropdown (visible only on small screens) -->
+            <div class="col-12 mb-4 d-block d-lg-none">
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h5 class="mb-0"><i class="bi bi-list-nested"></i> Contents</h5>
+                    </div>
+                    <div class="card-body p-0">
+                        <select id="mobile-toc" class="form-select">
+                            <option value="">Jump to section...</option>
+                            <!-- This will be populated dynamically based on the active unit -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Main Content Area -->
+            <div class="col-lg-9">
+                <div class="content-area">
+                    {% for unit_index in range(data|length) %}
+                    {% set unit = data[unit_index] %}
+                    <div class="unit-section mb-5" id="unit-{{ unit_index + 1 }}" style="display: none;">
+                        <div class="card">
+                            <div class="card-header bg-primary text-white">
+                                <h2 class="mb-0">{{ unit.unit }}</h2>
+                            </div>
+                            <div class="card-body">
+                                <div class="overview mb-4">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <i class="bi bi-info-circle-fill text-primary me-2 fs-4"></i>
+                                        <h3 class="mb-0">Overview</h3>
+                                    </div>
+                                    <p>{{ unit.overview }}</p>
+                                </div>
+                                
+                                {% for section_index in range(unit.sections|length) %}
+                                {% set section = unit.sections[section_index] %}
+                                <div class="section mb-5" id="section-{{ unit_index + 1 }}-{{ section_index + 1 }}">
+                                    <h3 class="section-title">
+                                        <i class="bi bi-bookmark-fill me-2"></i>{{ section.section_title }}
+                                    </h3>
+                                    
+                                    <div class="narrative mb-4">
+                                        <p>{{ section.narrative }}</p>
+                                    </div>
+                                    
+                                    <div class="key-points mb-4">
+                                        <div class="key-points-container">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <i class="bi bi-check2-circle text-success me-2 fs-4"></i>
+                                                <h4 class="mb-0">Key Points</h4>
+                                            </div>
+                                            <ul class="key-points-list">
+                                                {% for point in section.key_points %}
+                                                <li>{{ point }}</li>
+                                                {% endfor %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="section-quiz mb-4">
+                                        <div class="quiz-container">
+                                            <div class="d-flex align-items-center mb-3">
+                                                <i class="bi bi-question-circle text-primary me-2 fs-4"></i>
+                                                <h4 class="mb-0">Practice Questions</h4>
+                                            </div>
+                                            
+                                            {% for quiz_index in range(section.quizzes|length) %}
+                                            {% set quiz = section.quizzes[quiz_index] %}
+                                            <div class="card mb-3 quiz-card">
+                                                <div class="card-header">
+                                                    <div class="d-flex justify-content-between align-items-center">
+                                                        <h5 class="mb-0">{{ quiz.question }}</h5>
+                                                        <span class="badge bg-primary">Question {{ quiz_index + 1 }}/{{ section.quizzes|length }}</span>
+                                                    </div>
+                                                </div>
+                                                <div class="card-body">
+                                                    <div class="choices">
+                                                        {% for choice in quiz.choices %}
+                                                        <div class="form-check">
+                                                            <input class="form-check-input section-quiz-option" type="radio" 
+                                                                name="quiz-{{ unit_index }}-{{ section_index }}-{{ quiz_index }}" 
+                                                                value="{{ choice }}"
+                                                                data-correct="{{ quiz.correct_answer }}"
+                                                                data-quiz-group="section-quiz-{{ unit_index }}-{{ section_index }}">
+                                                            <label class="form-check-label">{{ choice }}</label>
+                                                        </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                    <div class="answer-feedback mt-3 d-none">
+                                                        <div class="alert alert-success correct-answer d-none">
+                                                            <i class="bi bi-check-circle-fill me-2"></i> Correct! The answer is: {{ quiz.correct_answer }}
+                                                        </div>
+                                                        <div class="alert alert-danger wrong-answer d-none">
+                                                            <i class="bi bi-x-circle-fill me-2"></i> Incorrect. The correct answer is: {{ quiz.correct_answer }}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            {% endfor %}
+                                            
+                                            <div class="d-grid mt-4 mb-3">
+                                                <button type="button" class="btn btn-primary" id="submit-section-quiz-{{ unit_index }}-{{ section_index }}" disabled>
+                                                    <i class="bi bi-check-circle"></i> Submit Answers
+                                                </button>
+                                                <div class="quiz-score-container mt-3"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                
+                                <div class="unit-quiz mb-4" id="unit-quiz-{{ unit_index + 1 }}">
+                                    <div class="quiz-container">
+                                        <div class="d-flex align-items-center mb-3">
+                                            <i class="bi bi-award text-primary me-2 fs-4"></i>
+                                            <h3 class="mb-0">Unit Assessment</h3>
+                                        </div>
+                                        <p class="text-muted mb-4">Test your understanding of this unit with these comprehensive questions.</p>
+                                        
+                                        {% for unit_quiz_index in range(unit.unit_quiz|length) %}
+                                        {% set quiz = unit.unit_quiz[unit_quiz_index] %}
+                                        <div class="card mb-3 quiz-card">
+                                            <div class="card-header">
+                                                <div class="d-flex justify-content-between align-items-center">
+                                                    <h5 class="mb-0">{{ quiz.question }}</h5>
+                                                    <span class="badge bg-primary">Question {{ unit_quiz_index + 1 }}/{{ unit.unit_quiz|length }}</span>
+                                                </div>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="choices">
+                                                    {% for choice in quiz.choices %}
+                                                    <div class="form-check">
+                                                        <input class="form-check-input unit-quiz-option" type="radio" 
+                                                            name="unit-quiz-{{ unit_index }}-{{ unit_quiz_index }}" 
+                                                            value="{{ choice }}"
+                                                            data-correct="{{ quiz.correct_answer }}" 
+                                                            data-quiz-group="unit-quiz-{{ unit_index + 1 }}">
+                                                        <label class="form-check-label">{{ choice }}</label>
+                                                    </div>
+                                                    {% endfor %}
+                                                </div>
+                                                <div class="answer-feedback mt-3 d-none">
+                                                    <div class="alert alert-success correct-answer d-none">
+                                                        <i class="bi bi-check-circle-fill me-2"></i> Correct! The answer is: {{ quiz.correct_answer }}
+                                                    </div>
+                                                    <div class="alert alert-danger wrong-answer d-none">
+                                                        <i class="bi bi-x-circle-fill me-2"></i> Incorrect. The correct answer is: {{ quiz.correct_answer }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        {% endfor %}
+                                        
+                                        <div class="d-grid mt-4 mb-3">
+                                            <button type="button" class="btn btn-primary" id="submit-unit-quiz-{{ unit_index + 1 }}" disabled>
+                                                <i class="bi bi-check-circle"></i> Submit Answers
+                                            </button>
+                                            <div class="quiz-score-container mt-3"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="unit-summary-container">
+                                    <div class="card bg-light mt-4 mb-4">
+                                        <div class="card-body">
+                                            <div class="d-flex">
+                                                <i class="bi bi-chat-dots text-primary fs-2 me-3"></i>
+                                                <div>
+                                                    <h4>Need help with this content?</h4>
+                                                    <p class="mb-2">Ask the AI assistant for explanations or additional examples.</p>
+                                                    <a href="/chat" class="btn btn-sm btn-primary">
+                                                        <i class="bi bi-chat-dots"></i> Chat with AI
+                                                    </a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <nav class="unit-navigation d-flex justify-content-between mt-4">
+                                    <button type="button" class="btn btn-outline-primary prev-unit-btn" data-unit="{{ unit_index }}" {% if unit_index == 0 %}disabled{% endif %}>
+                                        <i class="bi bi-arrow-left"></i> Previous Unit
+                                    </button>
+                                    
+                                    {% if unit_index == data|length - 1 %}
+                                    <a href="#" class="btn btn-success" id="complete-button">
+                                        <i class="bi bi-check-circle"></i> Mark Complete
+                                    </a>
+                                    {% else %}
+                                    <button type="button" class="btn btn-outline-primary next-unit-btn" data-unit="{{ unit_index + 2 }}">
+                                        Next Unit <i class="bi bi-arrow-right"></i>
+                                    </button>
+                                    {% endif %}
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer class="bg-light border-top mt-4 py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6">
+                    <p class="mb-0 text-muted">&copy; 2023 StudyLM - A personal study tool</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item"><a href="/" class="text-muted">Home</a></li>
+                        <li class="list-inline-item"><a href="/study-guide" class="text-muted">Learn</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <a href="#" class="btn btn-primary btn-floating" id="back-to-top">
+        <i class="bi bi-arrow-up"></i>
+    </a>
+    
+    <style>
+        .key-points-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-points-list li {
+            position: relative;
+            padding: 0.5rem 1rem 0.5rem 2rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--light);
+            border-radius: var(--radius-md);
+            transition: transform 0.2s ease;
+        }
+        
+        .key-points-list li:hover {
+            transform: translateX(5px);
+            background-color: var(--focus-bg);
+        }
+        
+        .key-points-list li:before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            display: inline-block;
+            position: absolute;
+            left: 1rem;
+        }
+        
+        .btn-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 50px;
+            z-index: 99;
+            display: none;
+            box-shadow: var(--shadow-lg);
+        }
+        
+        .toc-link.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .toc-sub-link.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--focus-bg);
+            color: var(--primary);
+        }
+        
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: var(--light-gray);
+        }
+        
+        .unit-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .unit-navigation button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Fade-in animation for unit transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .unit-section.active {
+            display: block !important;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .section {
+            margin-bottom: 3rem !important;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            background-color: var(--light);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            font-weight: 700;
+        }
+        
+        /* For printing */
+        @media print {
+            .navbar, .mode-toggle-container, .sticky-toc, .col-12.mb-4.d-block.d-lg-none,
+            footer, .btn-floating, .d-grid, .card-footer, .btn, .unit-selector {
+                display: none !important;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            .card {
+                border: none;
+                box-shadow: none;
+            }
+            
+            .card-header {
+                background-color: transparent !important;
+                color: black !important;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .col-lg-9 {
+                width: 100%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .unit-section {
+                page-break-before: always;
+                display: block !important;
+            }
+            
+            .unit-section:first-child {
+                page-break-before: avoid;
+            }
+        }
+    </style>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/static/js/study_guide.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Count total units
+            const totalUnits = {{ data|length }};
+            let currentUnit = 1;
+            
+            // Function to update TOC based on current unit
+            function updateTOC(unitIndex) {
+                const toc = document.getElementById('toc');
+                const mobileToc = document.getElementById('mobile-toc');
+                
+                // Clear current TOC
+                toc.innerHTML = '';
+                mobileToc.innerHTML = '<option value="">Jump to section...</option>';
+                
+                // Get unit data
+                const unit = {{ data|tojson }}[unitIndex - 1];
+                
+                // Build TOC for the specific unit
+                const unitLink = document.createElement('a');
+                unitLink.className = 'toc-link active';
+                unitLink.href = `#overview-${unitIndex}`;
+                unitLink.innerHTML = `<i class="bi bi-book me-2"></i> ${unit.unit}`;
+                toc.appendChild(unitLink);
+                
+                // Add unit overview to mobile TOC
+                const overviewOption = document.createElement('option');
+                overviewOption.value = `#overview-${unitIndex}`;
+                overviewOption.textContent = 'Overview';
+                mobileToc.appendChild(overviewOption);
+                
+                // Sections container
+                const sectionsDiv = document.createElement('div');
+                sectionsDiv.className = 'mb-2';
+                
+                // Add sections
+                unit.sections.forEach((section, sectionIndex) => {
+                    const sectionLink = document.createElement('a');
+                    sectionLink.className = 'toc-sub-link';
+                    sectionLink.href = `#section-${unitIndex}-${sectionIndex + 1}`;
+                    sectionLink.textContent = section.section_title;
+                    sectionsDiv.appendChild(sectionLink);
+                    
+                    // Add to mobile TOC
+                    const sectionOption = document.createElement('option');
+                    sectionOption.value = `#section-${unitIndex}-${sectionIndex + 1}`;
+                    sectionOption.textContent = `    ${section.section_title}`;
+                    mobileToc.appendChild(sectionOption);
+                });
+                
+                // Add unit quiz link
+                const quizLink = document.createElement('a');
+                quizLink.className = 'toc-sub-link';
+                quizLink.href = `#unit-quiz-${unitIndex}`;
+                quizLink.innerHTML = `<i class="bi bi-check2-square"></i> Unit Quiz`;
+                sectionsDiv.appendChild(quizLink);
+                
+                // Add unit quiz to mobile TOC
+                const quizOption = document.createElement('option');
+                quizOption.value = `#unit-quiz-${unitIndex}`;
+                quizOption.textContent = '    Unit Quiz';
+                mobileToc.appendChild(quizOption);
+                
+                toc.appendChild(sectionsDiv);
+                
+                // Update section highlight listeners
+                setupSectionHighlighting();
+            }
+            
+            // Function to display a specific unit and hide others
+            function showUnit(unitIndex, preventScroll = false) {
+                // Update currentUnit variable
+                currentUnit = parseInt(unitIndex);
+                
+                // Save current scroll position if needed
+                const currentScrollPosition = preventScroll ? window.scrollY : 0;
+                
+                // Hide all units
+                document.querySelectorAll('.unit-section').forEach(section => {
+                    section.style.display = 'none';
+                    section.classList.remove('active');
+                });
+                
+                // Show the selected unit
+                const unitToShow = document.getElementById(`unit-${unitIndex}`);
+                if (unitToShow) {
+                    unitToShow.style.display = 'block';
+                    // Add slight delay for animation effect
+                    setTimeout(() => {
+                        unitToShow.classList.add('active');
+                    }, 50);
+                }
+                
+                // Update unit selector buttons
+                document.querySelectorAll('.unit-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                    if (parseInt(btn.dataset.unit) === currentUnit) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // Update unit select dropdown
+                document.getElementById('unit-select').value = unitIndex;
+                
+                // Update TOC to match this unit
+                updateTOC(unitIndex);
+                
+                // Update URL with hash but prevent scrolling
+                if (preventScroll) {
+                    // Use setTimeout to ensure this happens after browser's automatic scrolling
+                    setTimeout(() => {
+                        window.scrollTo(0, currentScrollPosition);
+                    }, 0);
+                    
+                    // Update URL without causing a scroll
+                    const cleanUrl = window.location.href.split('#')[0];
+                    window.history.replaceState(null, null, cleanUrl + `#unit-${unitIndex}`);
+                }
+            }
+            
+            // Initialize with first unit or from URL hash
+            function initializeUnits() {
+                let initialUnit = 1;
+                
+                // First remove any existing hash to prevent automatic scrolling
+                if (window.location.hash) {
+                    const cleanUrl = window.location.href.split('#')[0];
+                    window.history.replaceState(null, null, cleanUrl);
+                    
+                    // Parse the hash we just removed
+                    const hash = window.location.hash;
+                    if (hash && hash.startsWith('#unit-')) {
+                        const unitFromHash = parseInt(hash.replace('#unit-', ''));
+                        if (unitFromHash >= 1 && unitFromHash <= totalUnits) {
+                            initialUnit = unitFromHash;
+                        }
+                    }
+                }
+                
+                // Force scroll to top
+                window.scrollTo(0, 0);
+                
+                // Add a small delay to ensure browser doesn't try to scroll to the hash
+                setTimeout(() => {
+                    // Show initial unit without scrolling
+                    showUnit(initialUnit, true);
+                }, 50);
+            }
+            
+            // Event listeners for unit buttons
+            document.querySelectorAll('.unit-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    const unitIndex = parseInt(this.dataset.unit);
+                    showUnit(unitIndex, true);
+                });
+            });
+            
+            // Event listener for unit select dropdown
+            document.getElementById('unit-select').addEventListener('change', function() {
+                showUnit(this.value, true);
+            });
+            
+            // Event listeners for previous/next buttons
+            document.querySelectorAll('.prev-unit-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (currentUnit > 1) {
+                        showUnit(currentUnit - 1, true);
+                    }
+                });
+            });
+            
+            document.querySelectorAll('.next-unit-btn').forEach(button => {
+                button.addEventListener('click', function() {
+                    if (currentUnit < totalUnits) {
+                        showUnit(currentUnit + 1, true);
+                    }
+                });
+            });
+            
+            // Completely disable automatic hash scrolling by preventing the default action
+            // This ensures links with hash don't cause scrolling
+            window.addEventListener('hashchange', function(e) {
+                e.preventDefault();
+                
+                const hash = window.location.hash;
+                if (hash && hash.startsWith('#unit-')) {
+                    const unitFromHash = parseInt(hash.replace('#unit-', ''));
+                    if (unitFromHash >= 1 && unitFromHash <= totalUnits && unitFromHash !== currentUnit) {
+                        showUnit(unitFromHash, true);
+                    }
+                }
+                
+                return false;
+            });
+            
+            // Disable default hash navigation behavior globally
+            document.addEventListener('click', function(e) {
+                const target = e.target.closest('a');
+                if (target && target.hash && target.hash.startsWith('#unit-')) {
+                    e.preventDefault();
+                    const unitFromHash = parseInt(target.hash.replace('#unit-', ''));
+                    if (unitFromHash >= 1 && unitFromHash <= totalUnits) {
+                        showUnit(unitFromHash, true);
+                    }
+                }
+            });
+            
+            // Function to setup section highlighting
+            function setupSectionHighlighting() {
+                const sections = document.querySelectorAll(`.unit-section[id="unit-${currentUnit}"] .section, #unit-quiz-${currentUnit}`);
+                const tocLinks = document.querySelectorAll('.toc-sub-link');
+                
+                window.addEventListener('scroll', function() {
+                    let current = '';
+                    
+                    sections.forEach(section => {
+                        const sectionTop = section.offsetTop;
+                        if (pageYOffset >= sectionTop - 100) {
+                            current = '#' + section.getAttribute('id');
+                        }
+                    });
+                    
+                    tocLinks.forEach(link => {
+                        link.classList.remove('active');
+                        if (link.getAttribute('href') === current) {
+                            link.classList.add('active');
+                        }
+                    });
+                });
+            }
+            
+            // Back to top button
+            const backToTopButton = document.getElementById('back-to-top');
+            
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    backToTopButton.style.display = 'block';
+                } else {
+                    backToTopButton.style.display = 'none';
+                }
+            });
+            
+            backToTopButton.addEventListener('click', function(e) {
+                e.preventDefault();
+                window.scrollTo({top: 0, behavior: 'smooth'});
+            });
+            
+            // Enhanced print functionality
+            const printButton = document.getElementById('print-guide');
+            if (printButton) {
+                printButton.addEventListener('click', function() {
+                    // Show all units for printing
+                    document.querySelectorAll('.unit-section').forEach(section => {
+                        section.style.display = 'block';
+                    });
+                    
+                    // Set print-specific page setup
+                    const style = document.createElement('style');
+                    style.innerHTML = `
+                        @page { 
+                            size: auto;
+                            margin: 0mm !important;
+                        }
+                    `;
+                    document.head.appendChild(style);
+                    
+                    // Use the print API
+                    window.print();
+                    
+                    // Remove the style element after printing
+                    setTimeout(() => {
+                        document.head.removeChild(style);
+                        // Hide all units again except current
+                        showUnit(currentUnit);
+                    }, 1000);
+                });
+            }
+            
+            // "Mark Complete" button functionality
+            const completeButton = document.getElementById('complete-button');
+            if (completeButton) {
+                completeButton.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Show congratulations message
+                    alert('Congratulations! You\'ve completed this study guide. Keep reviewing regularly for best retention.');
+                    
+                    // Save completion status
+                    localStorage.setItem('studyGuideCompleted', 'true');
+                });
+            }
+            
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href.startsWith('#unit-')) {
+                        // Unit links are handled separately
+                        return;
+                    }
+                    
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        // Smooth scroll to the element
+                        targetElement.scrollIntoView({ behavior: 'smooth' });
+                        
+                        // Highlight the element briefly
+                        setTimeout(() => {
+                            targetElement.classList.add('highlight-section');
+                            setTimeout(() => {
+                                targetElement.classList.remove('highlight-section');
+                            }, 2000);
+                        }, 500);
+                    }
+                });
+            });
+            
+            // Initialize units display - wrap in a timeout to ensure DOM is fully ready
+            setTimeout(initializeUnits, 0);
+        });
+    </script>
+</body>
+</html>
