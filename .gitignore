@@ -46,3 +46,6 @@ static/generated/
 # Testing
 .coverage
 htmlcov/
+
+static/output.json
+file_uris.json
