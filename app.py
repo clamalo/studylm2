@@ -1,4 +1,3 @@
-# app.py
 import os
 import json
 import uuid
@@ -70,10 +69,13 @@ def load_files_from_uris():
 def create_input_with_files(file_refs, additional_text=None):
     """
     Create an input list with files separated by two newlines.
+    Prepend the file display name before each file.
     Optionally append additional text at the end.
     """
     input_list = []
     for i, file_ref in enumerate(file_refs):
+        # Prepend the file display name
+        input_list.append(f"File: {file_ref.display_name}\n")
         input_list.append(file_ref)
         if i < len(file_refs) - 1:
             input_list.append('\n\n')  # Add two new lines between files
@@ -87,9 +89,9 @@ def generate_study_guide(file_refs):
     """Generate a structured study guide from the files"""
     # Create new model configured for JSON response
     json_response_model = genai.GenerativeModel(
-        # model_name='gemini-2.0-flash',
-        model_name = 'gemini-2.5-pro-exp-03-25',
-        system_instruction="Always respond in English and format responses as valid JSON. "
+        model_name='gemini-2.0-flash',
+        # model_name = 'gemini-2.5-pro-exp-03-25',
+        # system_instruction="Always respond in English and format responses as valid JSON. "
     )
     
     # Prompt for structured study guide
@@ -369,7 +371,7 @@ def send_chat():
             active_chats[chat_id] = {
                 "chat": chat,
                 "model": model_name,
-                "first_message": True  # Flag to track if this is the first message
+                "first_message": True
             }
         else:
             logger.debug(f"Using existing chat session for ID: {chat_id}")
@@ -403,23 +405,18 @@ def send_chat():
                 for message in previous_chat_history:
                     if message.role == "user":
                         if needs_context:
-                            # For the first user message, add file context
                             logger.debug("Adding file context with first user message in history")
-                            file_context = create_input_with_files(
-                                file_refs, 
-                                f"\nYou are analyzing these documents to help the user understand and learn from them. The user asks: {message.parts[0].text}"
-                            )
-                            chat.send_message(file_context)
+                            combined_message = create_input_with_files(file_refs, additional_text=message.parts[0].text)
+                            chat.send_message(combined_message)
                             needs_context = False
                         else:
-                            # For subsequent messages, just send the user message as is
                             chat.send_message(message.parts[0].text)
                 
                 # Update chat and model in our dictionary
                 active_chats[chat_id] = {
                     "chat": chat,
                     "model": model_name,
-                    "first_message": False  # This is not the first message since we transferred history
+                    "first_message": False
                 }
             else:
                 # Use the existing chat session
@@ -437,22 +434,13 @@ def send_chat():
                 # Check if this is the first message for this chat session
                 is_first_message = active_chats[chat_id].get("first_message", False)
                 
-                # Send the user's message to the chat with streaming enabled
-                logger.debug(f"Starting to process message: '{user_message[:30]}...' (truncated)")
-                
                 if is_first_message:
-                    # For the first message, include the file context
-                    logger.debug("This is the first message - including file context")
-                    file_context = create_input_with_files(
-                        file_refs, 
-                        f"\nYou are analyzing these documents to help the user understand and learn from them. The user asks: {user_message}"
-                    )
-                    response_stream = chat.send_message(file_context, stream=True)
-                    
-                    # Update the flag to indicate this is no longer the first message
+                    # Attach files to the user's message for the first message
+                    logger.debug("First message: attaching files to user's message")
+                    combined_message = create_input_with_files(file_refs, additional_text=user_message)
+                    response_stream = chat.send_message(combined_message, stream=True)
                     active_chats[chat_id]["first_message"] = False
                 else:
-                    # For subsequent messages, just send the user message
                     response_stream = chat.send_message(user_message, stream=True)
                 
                 # Stream each chunk as it comes in
@@ -463,11 +451,9 @@ def send_chat():
                     chunk_count += 1
                     if chunk.text:
                         full_response += chunk.text
-                        # Put each chunk in the queue
                         chunk_data = {'chunk': chunk.text, 'full_response': full_response}
                         logger.debug(f"Adding chunk #{chunk_count}: '{chunk.text[:30]}...' (truncated)")
                         queue.put(chunk_data)
-                        # Small sleep to ensure chunks are processed in order by the client
                         time.sleep(0.01)
                 
                 logger.debug(f"Processed {chunk_count} chunks in total")
@@ -480,8 +466,6 @@ def send_chat():
                 error_msg = str(e)
                 logger.error(f"Error in worker thread: {error_msg}")
                 logger.error(traceback.format_exc())
-                
-                # Put the error in the queue
                 queue = message_queues.get(chat_id)
                 if queue:
                     queue.put({'error': error_msg})
@@ -500,8 +484,6 @@ def send_chat():
         error_msg = str(e)
         logger.error(f"Error in send_chat: {error_msg}")
         logger.error(traceback.format_exc())
-        
-        # Put the error in the queue
         if chat_id in message_queues:
             message_queues[chat_id].put({'error': error_msg})
             message_queues[chat_id].put({'done': True})

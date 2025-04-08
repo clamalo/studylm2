@@ -1,965 +1,761 @@
 [
   {
-    "overview": "This unit introduces the concepts of sensation and perception, emphasizing their evolutionary roots and foundational functions. It explores how biological systems, unlike engineered ones, build upon existing structures and face inherent challenges in interpreting the physical world.",
+    "overview": "This unit introduces the problem of personal identity, exploring various perspectives and thought experiments that challenge our understanding of what makes us the same person over time. It contrasts substance and psychological approaches to personal identity, setting the stage for a deeper dive into these theories.",
     "sections": [
       {
         "key_points": [
-          "Brains and cognitive functions evolved, they were not designed.",
-          "Evolutionary solutions often build upon and reuse older structures (Bauplan).",
-          "Biological solutions are constrained and may differ from engineered solutions.",
-          "Cognitive functions can be understood through an evolutionary ontology, linking behaviors to underlying neural systems.",
-          "Fundamental behaviors include avoidance and approach, potentially explaining contralateral organization.",
-          "Sensation is the transformation of physical stimuli into neural signals.",
-          "Perception involves integrating and interpreting sensory signals to create a meaningful representation of the world."
+          "Personal identity is a philosophical problem concerning what makes a person the same person over time.",
+          "There are different approaches to understanding personal identity, including substance-based and psychology-based theories.",
+          "Thought experiments and real-life cases like amnesia and split-brain patients challenge our intuitive notions of personal identity."
         ],
-        "narrative": "This section lays the groundwork by explaining that minds and bodies are products of evolution, not design. Unlike computers, animal brains reflect their evolutionary history, where new capabilities are often built upon pre-existing structures (a concept known as 'Bauplan'). This leads to incremental, constrained changes. Paul Cisek's ontology provides an evolutionary framework for understanding cognition, starting from basic life functions like metabolism and replication, branching into physiology and behavior. Foundational behaviors observed across many animals, such as avoiding harm (e.g., turning away from sudden light changes) and approaching resources, are linked to early neural organization, potentially explaining contralateral control. Sensation is defined as the initial process of converting physical energy (like light) into neural signals, while perception is the subsequent process of organizing, interpreting, and integrating these signals to understand the environment.",
+        "narrative": "The problem of personal identity centers on determining what makes a person the same person over time, despite physical and psychological changes. We start to address the basic question, 'What am I?'  Several views are presented, including that we are collections of cells, brains, or sets of psychological states.  Thought experiments involving scenarios like total recall, where memories can be implanted, or real-life conditions like amnesia, where memories are lost, or the existence of split-brain patients (where the communication between hemispheres of the brain is severed) help to highlight the complexities involved in this philosophical area.",
         "quizzes": [
           {
             "choices": [
-              "Animals are meticulously designed like computers.",
-              "Evolutionary solutions build upon and reuse previous structures.",
-              "Biological systems always find the most optimal engineered solutions.",
-              "Animal brains develop independently of evolutionary history."
+              "The study of physical objects and their properties.",
+              "The investigation into the fundamental nature of reality, existence, and our relationship to them.",
+              "The analysis of social structures and human behavior.",
+              "The branch of mathematics dealing with abstract structures."
             ],
-            "correct_answer": "Evolutionary solutions build upon and reuse previous structures.",
-            "question": "Which statement best describes the evolutionary perspective on brain development presented?"
+            "correct_answer": "The investigation into the fundamental nature of reality, existence, and our relationship to them.",
+            "question": "What is philosophy?"
           },
           {
             "choices": [
-              "The process of interpreting neural signals.",
-              "The transformation of physical stimuli into neural signals.",
-              "The integration of signals across different modalities.",
-              "The conscious awareness of the environment."
+              "A condition in which a person only remembers events from their childhood.",
+              "A medical condition that can be treated with medication.",
+              "A loss of memory, often due to brain injury, illness, or psychological trauma.",
+              "The state of being fully conscious and aware of one's surroundings."
             ],
-            "correct_answer": "The transformation of physical stimuli into neural signals.",
-            "question": "How is 'sensation' defined in this context?"
+            "correct_answer": "A loss of memory, often due to brain injury, illness, or psychological trauma.",
+            "question": "What is amnesia?"
           },
           {
             "choices": [
-              "To demonstrate complex problem-solving.",
-              "To illustrate the concept of cortical expansion.",
-              "To show foundational approach and avoidance behaviors common in the animal kingdom.",
-              "To explain the function of the optic nerve."
+              "Severing all neural connections in the brain.",
+              "Surgically dividing the corpus callosum, the structure connecting the two hemispheres of the brain.",
+              "Implanting false memories into the brain.",
+              "Removing the outer layer of the brain."
             ],
-            "correct_answer": "To show foundational approach and avoidance behaviors common in the animal kingdom.",
-            "question": "What was the likely purpose of showing the starfish video?"
+            "correct_answer": "Surgically dividing the corpus callosum, the structure connecting the two hemispheres of the brain.",
+            "question": "What is a split-brain procedure?"
           }
         ],
-        "section_title": "Evolutionary Foundations and Basic Functions"
-      },
-      {
-        "key_points": [
-          "Perception aims to recognize objects/situations and guide action.",
-          "Vision faces challenges like ambiguity (multiple interpretations).",
-          "Context heavily influences how we perceive objects or images.",
-          "Invariance requires recognizing an object despite changes in viewpoint, size, or lighting.",
-          "Selectivity involves distinguishing between different objects, even if they produce similar retinal images.",
-          "Movement (Perception from Action - Gibson) helps resolve ambiguity and provides information about 3D shape and distance (e.g., motion parallax)."
-        ],
-        "narrative": "Perception is not a passive reception of information but an active process of interpretation. Its primary goals are to recognize elements in the environment, assign value to them, and guide appropriate actions. However, this process faces significant challenges. Ambiguity arises because a single retinal image can correspond to multiple real-world objects or scenes (e.g., Necker cube, Rubin's vase). Context plays a crucial role; the surrounding information influences our interpretation (e.g., 'the dress' illusion). The invariance challenge means our visual system must recognize an object as the same despite variations in how it appears on the retina due to different viewpoints, distances (size), or lighting conditions. Conversely, the selectivity challenge involves distinguishing different objects that might cast similar images on the retina. Gibson highlighted that perception is intrinsically linked to action; moving our body, head, or eyes generates new information (like motion parallax, a depth cue) that helps resolve these challenges and understand the 3D structure of the world.",
-        "quizzes": [
-          {
-            "choices": [
-              "The challenge of seeing objects clearly in low light.",
-              "The fact that a single image can be interpreted in multiple ways.",
-              "The difficulty in recognizing objects from far away.",
-              "The inability to perceive certain wavelengths of light."
-            ],
-            "correct_answer": "The fact that a single image can be interpreted in multiple ways.",
-            "question": "What is the 'ambiguity challenge' in visual perception?"
-          },
-          {
-            "choices": [
-              "Recognizing an object remains stable regardless of viewing angle or distance.",
-              "Distinguishing between two very similar objects.",
-              "The influence of surrounding information on perception.",
-              "Understanding how illusions trick the visual system."
-            ],
-            "correct_answer": "Recognizing an object remains stable regardless of viewing angle or distance.",
-            "question": "The 'invariance challenge' refers to which aspect of perception?"
-          },
-          {
-            "choices": [
-              "It complicates perception by adding too much data.",
-              "It is irrelevant to solving perceptual challenges.",
-              "It primarily helps in recognizing colors accurately.",
-              "It provides additional information (e.g., motion parallax) to resolve ambiguity and understand 3D structure."
-            ],
-            "correct_answer": "It provides additional information (e.g., motion parallax) to resolve ambiguity and understand 3D structure.",
-            "question": "According to Gibson (Perception from Action), how does movement aid perception?"
-          }
-        ],
-        "section_title": "Goals and Challenges of Perception"
-      },
-      {
-        "key_points": [
-          "The brain processes visual information via distinct pathways.",
-          "The geniculostriate pathway is crucial for conscious object recognition (Retina -> LGN -> V1).",
-          "The tectopulvinar pathway is involved in orienting (Retina -> Superior Colliculus -> Pulvinar).",
-          "Early visual processing involves segregation (pulling signals apart) and feature extraction.",
-          "Information is often organized topographically (retinotopic maps).",
-          "Integration combines segregated signals for more complex perception."
-        ],
-        "narrative": "The brain employs specialized pathways to process visual information. This unit focuses primarily on the geniculostriate pathway, the main route for conscious visual perception, traveling from the retina, through the Lateral Geniculate Nucleus (LGN) of the thalamus, to the primary visual cortex (V1). Another pathway, the tectopulvinar system (discussed later), bypasses V1 and is involved in orienting attention. Early stages of visual processing, particularly in the retina and LGN, involve segregating information – breaking down the visual input into fundamental features like location, wavelength (color), and contrast. This involves extracting basic features from the physical stimulus. This segregated information is often organized in maps that preserve the spatial relationships of the original stimulus (retinotopic maps). Later stages involve integrating these features within and across different sensory modalities, combined with existing knowledge, to achieve perception.",
-        "quizzes": [
-          {
-            "choices": [
-              "Retina -> V1 -> LGN",
-              "Retina -> LGN -> V1",
-              "Retina -> Pulvinar -> V1",
-              "Retina -> Superior Colliculus -> LGN"
-            ],
-            "correct_answer": "Retina -> LGN -> V1",
-            "question": "What is the correct sequence for the geniculostriate pathway?"
-          },
-          {
-            "choices": [
-              "Combining different features to form an object.",
-              "Interpreting the meaning of a visual scene.",
-              "Breaking down visual input into basic features like location and color.",
-              "Using memory to influence perception."
-            ],
-            "correct_answer": "Breaking down visual input into basic features like location and color.",
-            "question": "What does 'segregation' refer to in early visual processing?"
-          },
-          {
-            "choices": [
-              "Geniculostriate pathway",
-              "Tectopulvinar pathway",
-              "Somatosensory pathway",
-              "Auditory pathway"
-            ],
-            "correct_answer": "Tectopulvinar pathway",
-            "question": "Which visual pathway is primarily involved in orienting attention towards stimuli?"
-          }
-        ],
-        "section_title": "Overview of Visual Pathways and Processing Principles"
+        "section_title": "Introduction to Personal Identity"
       }
     ],
-    "unit": "Unit 1: Foundations of Sensation and Perception",
+    "unit": "The Problem of Personal Identity",
     "unit_quiz": [
       {
         "choices": [
-          "The idea that brains are designed like efficient computers.",
-          "The principle that evolutionary solutions often reuse and modify existing structures.",
-          "A detailed map of all cortical areas in the brain.",
-          "A type of computational model for visual recognition."
+          "What makes a thing the same thing over time.",
+          "The moral status of animals.",
+          "The existence of God.",
+          "The relationship between mind and body."
         ],
-        "correct_answer": "The principle that evolutionary solutions often reuse and modify existing structures.",
-        "question": "What does the term 'Bauplan' refer to in the context of brain evolution?"
+        "correct_answer": "What makes a thing the same thing over time.",
+        "question": "What is the central question of personal identity?"
       },
       {
         "choices": [
-          "Perception is the initial detection of stimuli, while sensation is the interpretation.",
-          "Sensation is the transformation of physical energy into neural signals; perception is the interpretation of these signals.",
-          "Sensation happens in the brain, while perception happens in the sensory organs.",
-          "They are identical processes with different names."
+          "Total Recall",
+          "The Matrix",
+          "Inception",
+          "Blade Runner"
         ],
-        "correct_answer": "Sensation is the transformation of physical energy into neural signals; perception is the interpretation of these signals.",
-        "question": "What is the fundamental difference between sensation and perception?"
+        "correct_answer": "Total Recall",
+        "question": "Which movie is used as an example of questions on personal identity in the course materials?"
       },
       {
         "choices": [
-          "The brain's ability to see in complete darkness.",
-          "Recognizing an object despite changes in viewing angle, size, or illumination.",
-          "The way context affects color perception.",
-          "The limited capacity of visual working memory."
-        ],
-        "correct_answer": "Recognizing an object despite changes in viewing angle, size, or illumination.",
-        "question": "Which of these describes the 'invariance challenge' in vision?"
-      },
-      {
-        "choices": [
-          "The Necker cube appearing to flip orientation.",
-          "Recognizing a friend from a distance.",
-          "Distinguishing between red and green.",
-          "Reading text clearly on a page."
-        ],
-        "correct_answer": "The Necker cube appearing to flip orientation.",
-        "question": "Which is an example of perceptual ambiguity?"
-      },
-      {
-        "choices": [
-          "Marr proposed vision reconstructs 3D objects; Gibson emphasized vision guides action.",
-          "Gibson focused on retina; Marr focused on V1.",
-          "Marr believed movement was key; Gibson believed context was key.",
-          "Gibson studied ambiguity; Marr studied invariance."
-        ],
-        "correct_answer": "Marr proposed vision reconstructs 3D objects; Gibson emphasized vision guides action.",
-        "question": "How did Marr's and Gibson's views on the purpose of vision differ?"
-      },
-      {
-        "choices": [
-          "Retina -> Thalamus (LGN) -> Primary Visual Cortex (V1)",
-          "Retina -> Primary Visual Cortex (V1) -> Thalamus (LGN)",
-          "Retina -> Superior Colliculus -> Primary Visual Cortex (V1)",
-          "Thalamus (LGN) -> Retina -> Primary Visual Cortex (V1)"
-        ],
-        "correct_answer": "Retina -> Thalamus (LGN) -> Primary Visual Cortex (V1)",
-        "question": "The geniculostriate pathway follows which route?"
-      },
-      {
-        "choices": [
-          "Integration",
-          "Segregation",
-          "Topography",
-          "Computation"
-        ],
-        "correct_answer": "Segregation",
-        "question": "Pulling signals apart in early vision to get different features of the world is known as:"
-      },
-      {
-        "choices": [
-          "Approach and Avoidance",
-          "Recognition and Categorization",
-          "Segregation and Integration",
-          "Sensation and Perception"
-        ],
-        "correct_answer": "Approach and Avoidance",
-        "question": "What are the two foundational functions discussed in the context of early animal behavior and contralateral organization?"
-      },
-      {
-        "choices": [
-          "Motion parallax",
-          "Color constancy",
-          "Object recognition",
-          "Feature extraction"
-        ],
-        "correct_answer": "Motion parallax",
-        "question": "According to Gibson's 'Perception from Action', moving the head provides depth cues like:"
-      },
-      {
-        "choices": [
-          "It focuses solely on high-level object recognition.",
-          "It suggests cognition arises from distinct, evolved modules for specific survival needs.",
-          "It equates the brain directly with a computer's processing unit.",
-          "It ignores the role of behavior in cognitive function."
-        ],
-        "correct_answer": "It suggests cognition arises from distinct, evolved modules for specific survival needs.",
-        "question": "What is a key aspect of Cisek's evolutionary ontology of cognition?"
-      }
-    ]
-  },
-  {
-    "overview": "This unit delves into the initial stages of visual processing, starting from the transformation of light in the retina to the feature extraction performed in the primary visual cortex (V1). It covers the roles of different retinal cells, the concept of receptive fields, and how V1 organizes incoming information about edges, orientation, motion, and depth.",
-    "sections": [
-      {
-        "key_points": [
-          "The retina transforms electromagnetic radiation (light) into neural signals.",
-          "Cones are responsible for color vision (specific wavelengths) and detail, concentrated in the fovea.",
-          "Rods provide greater light sensitivity (night vision) and detect motion, more numerous in the periphery.",
-          "Retinal ganglion cells receive input via bipolar cells and perform early feature detection.",
-          "Magnocellular (M) cells receive input mainly from rods, are sensitive to light and motion (fast).",
-          "Parvocellular (P) cells receive input mainly from cones, preserve detail and color (slower).",
-          "A receptive field is the part of the visual field coded by a single neuron."
-        ],
-        "narrative": "The visual process begins in the retina, where photoreceptor cells (rods and cones) convert light energy into neural signals. Cones, concentrated in the central fovea, are sensitive to specific wavelengths (blue, green, red) and provide high-acuity color vision. Rods, more abundant in the periphery, are more sensitive to light levels, enabling vision in dim conditions, but do not distinguish colors. These photoreceptors synapse onto bipolar cells, which in turn connect to retinal ganglion cells. These ganglion cells are the output neurons of the retina, sending signals to the brain via the optic nerve. They already begin processing the visual input. Two main types exist: Magnocellular (M) cells, primarily connected to rods, respond quickly to light changes and motion over large areas. Parvocellular (P) cells, mainly connected to cones, respond to specific colors and fine details more slowly. Each ganglion cell (and subsequent visual neuron) responds to light in a specific region of the visual field called its receptive field.",
-        "quizzes": [
-          {
-            "choices": [
-              "Rods detect color; Cones detect light levels.",
-              "Cones are in the periphery; Rods are in the fovea.",
-              "Cones provide detail/color vision; Rods provide light sensitivity/night vision.",
-              "Rods respond faster than Cones."
-            ],
-            "correct_answer": "Cones provide detail/color vision; Rods provide light sensitivity/night vision.",
-            "question": "What is the primary functional difference between rods and cones?"
-          },
-          {
-            "choices": [
-              "Mainly rods, sensitive to detail and color, slow.",
-              "Mainly cones, sensitive to light and motion, fast.",
-              "Mainly rods, sensitive to light and motion, fast.",
-              "Mainly cones, sensitive to detail and color, slow."
-            ],
-            "correct_answer": "Mainly rods, sensitive to light and motion, fast.",
-            "question": "Which characteristics describe Magnocellular (M) retinal ganglion cells?"
-          },
-          {
-            "choices": [
-              "The lens of the eye.",
-              "The entire area visible to both eyes.",
-              "The specific region of the visual field that a single neuron responds to.",
-              "The range of wavelengths a photoreceptor can detect."
-            ],
-            "correct_answer": "The specific region of the visual field that a single neuron responds to.",
-            "question": "What is a 'receptive field' in the visual system?"
-          }
-        ],
-        "section_title": "Retinal Processing: Rods, Cones, and Ganglion Cells"
-      },
-      {
-        "key_points": [
-          "Retinal ganglion cells often have center-surround receptive fields, coding contrast.",
-          "On-center cells are excited by light in the center and inhibited by light in the surround.",
-          "Off-center cells are inhibited by light in the center and excited by light in the surround.",
-          "These cells respond most strongly to edges (differences in illumination).",
-          "Information travels via the optic nerve, crosses partially at the optic chiasm, and reaches the LGN.",
-          "The LGN maintains segregation of M and P pathways and input from each eye into different layers.",
-          "LGN layers are retinotopically mapped."
-        ],
-        "narrative": "Retinal ganglion cells don't just report light levels; they primarily code contrast, the difference in illumination between adjacent areas. Many have a center-surround receptive field structure. An 'on-center' cell increases its firing rate when light hits the center of its receptive field and decreases when light hits the surrounding area. An 'off-center' cell does the opposite. This arrangement makes them highly sensitive to edges and largely unresponsive to uniform illumination. The axons of ganglion cells form the optic nerve. Information from the nasal (inner) half of each retina crosses to the opposite brain hemisphere at the optic chiasm, while information from the temporal (outer) half stays on the same side. This ensures that the left visual field is processed in the right hemisphere, and vice versa. The optic nerve axons terminate in the Lateral Geniculate Nucleus (LGN) of the thalamus. The LGN preserves the segregation established in the retina: M and P cells project to different layers, and inputs from the left and right eyes remain separated in distinct layers. Each layer within the LGN maintains a retinotopic map, meaning adjacent points in the visual field are represented by adjacent neurons in the LGN layer.",
-        "quizzes": [
-          {
-            "choices": [
-              "Absolute light level",
-              "Color saturation",
-              "Contrast (differences in light levels)",
-              "Movement direction"
-            ],
-            "correct_answer": "Contrast (differences in light levels)",
-            "question": "What do center-surround receptive fields in retinal ganglion cells primarily detect?"
-          },
-          {
-            "choices": [
-              "Excited by light in the center, inhibited by light in the surround.",
-              "Inhibited by light in the center, excited by light in the surround.",
-              "Excited by light anywhere in its receptive field.",
-              "Inhibited by light anywhere in its receptive field."
-            ],
-            "correct_answer": "Excited by light in the center, inhibited by light in the surround.",
-            "question": "How does an 'on-center' ganglion cell respond to light?"
-          },
-          {
-            "choices": [
-              "All visual information crosses to the opposite hemisphere.",
-              "All visual information stays on the same side.",
-              "Information from the temporal retinas crosses; information from the nasal retinas stays.",
-              "Information from the nasal retinas crosses; information from the temporal retinas stays."
-            ],
-            "correct_answer": "Information from the nasal retinas crosses; information from the temporal retinas stays.",
-            "question": "What happens to visual information at the optic chiasm?"
-          }
-        ],
-        "section_title": "Contrast Detection and the Lateral Geniculate Nucleus (LGN)"
-      },
-      {
-        "key_points": [
-          "V1 (Primary Visual Cortex or Striate Cortex) is the first cortical stage of visual processing.",
-          "Simple cells in V1 respond to oriented bars/edges in specific locations.",
-          "Complex cells in V1 respond to oriented bars/edges anywhere within their receptive field, often direction-sensitive.",
-          "V1 combines contrast information from LGN cells to detect edges.",
-          "V1 maintains a retinotopic map (cortical magnification: fovea over-represented).",
-          "V1 has ocular dominance columns (cells preferring input from one eye) and orientation columns.",
-          "V1 integrates input from both eyes for binocular disparity, enabling stereopsis (depth perception)."
-        ],
-        "narrative": "The primary visual cortex (V1), also known as striate cortex (due to its layered appearance), is located in the occipital lobe and is the first cortical area to receive visual input from the LGN. V1 neurons have more sophisticated receptive fields than LGN or retinal cells. 'Simple cells' respond best to bars of light or edges with a specific orientation at a specific location within their receptive field. They are thought to be constructed by combining inputs from several LGN cells with aligned center-surround fields. 'Complex cells' also respond to oriented edges but are less sensitive to the exact location within their larger receptive field; many are also sensitive to the direction of motion. V1 is highly organized. It contains a precise retinotopic map, where adjacent parts of the visual field are mapped onto adjacent parts of V1, although the fovea receives disproportionately large representation (cortical magnification). V1 is also organized into columns: ocular dominance columns contain cells that respond preferentially to input from either the left or right eye, while orientation columns contain cells that respond best to edges of the same orientation. By comparing the slightly different images received by the two eyes (binocular disparity), V1 computes depth information (stereopsis). V1 is crucial for conscious visual perception.",
-        "quizzes": [
-          {
-            "choices": [
-              "Circles of light",
-              "Uniform illumination",
-              "Oriented bars or edges at specific locations",
-              "Complex shapes like faces"
-            ],
-            "correct_answer": "Oriented bars or edges at specific locations",
-            "question": "What kind of stimulus do 'simple cells' in V1 respond best to?"
-          },
-          {
-            "choices": [
-              "The fovea is represented by a smaller area than the periphery.",
-              "All parts of the visual field have equal representation.",
-              "The fovea (central vision) has a disproportionately large representation.",
-              "The map is organized by color instead of location."
-            ],
-            "correct_answer": "The fovea (central vision) has a disproportionately large representation.",
-            "question": "What does 'cortical magnification' in the V1 retinotopic map mean?"
-          },
-          {
-            "choices": [
-              "Motion parallax",
-              "Texture gradient",
-              "Binocular disparity",
-              "Linear perspective"
-            ],
-            "correct_answer": "Binocular disparity",
-            "question": "V1 uses which cue, based on the difference between the images in the two eyes, to compute depth?"
-          }
-        ],
-        "section_title": "Primary Visual Cortex (V1): Feature Detection and Organization"
-      }
-    ],
-    "unit": "Unit 2: Early Visual Processing: Retina to V1",
-    "unit_quiz": [
-      {
-        "choices": [
-          "Fovea; Periphery",
-          "Periphery; Fovea",
-          "Optic nerve; LGN",
-          "LGN; Optic nerve"
-        ],
-        "correct_answer": "Fovea; Periphery",
-        "question": "Cones are concentrated in the ______, whereas rods are more numerous in the ______."
-      },
-      {
-        "choices": [
-          "Photoreceptors",
-          "Bipolar cells",
-          "Amacrine cells",
-          "Retinal ganglion cells"
-        ],
-        "correct_answer": "Retinal ganglion cells",
-        "question": "Which retinal cells have axons that form the optic nerve?"
-      },
-      {
-        "choices": [
-          "M cells preserve detail; P cells detect motion.",
-          "P cells receive rod input; M cells receive cone input.",
-          "M cells have larger receptive fields and faster responses than P cells.",
-          "P cells are located in the LGN; M cells are in V1."
-        ],
-        "correct_answer": "M cells have larger receptive fields and faster responses than P cells.",
-        "question": "What is a key difference between Magnocellular (M) and Parvocellular (P) pathways?"
-      },
-      {
-        "choices": [
-          "It increases firing for uniform light.",
-          "It responds strongly to edges or spots of light contrasting with the background.",
-          "It detects the absolute brightness of light.",
-          "It only responds to colored light."
-        ],
-        "correct_answer": "It responds strongly to edges or spots of light contrasting with the background.",
-        "question": "What is the functional significance of the center-surround receptive field structure?"
-      },
-      {
-        "choices": [
-          "Integrating signals from both eyes.",
-          "Segregating M/P pathways and inputs from each eye into layers.",
-          "Detecting complex object features.",
-          "Generating motor commands for eye movements."
-        ],
-        "correct_answer": "Segregating M/P pathways and inputs from each eye into layers.",
-        "question": "What is a primary role of the Lateral Geniculate Nucleus (LGN)?"
-      },
-      {
-        "choices": [
-          "Retinal Ganglion Cells",
-          "LGN Cells",
-          "V1 Simple Cells",
-          "V1 Complex Cells"
-        ],
-        "correct_answer": "V1 Simple Cells",
-        "question": "Which neurons respond best to stationary bars of light with a specific orientation and location?"
-      },
-      {
-        "choices": [
-          "Sensitivity to motion direction",
-          "Larger receptive fields and less sensitivity to precise location",
-          "Preference for specific orientations",
+          "A soul",
+          "A bundle of perceptions",
+          "A stream of consciousness",
           "All of the above"
         ],
         "correct_answer": "All of the above",
-        "question": "Which is characteristic of V1 Complex Cells compared to Simple Cells?"
+        "question": "What are some of the proposed answers to 'What am I?'"
       },
       {
         "choices": [
-          "Auditory map",
-          "Somatosensory map",
-          "Retinotopic map",
-          "Motor map"
+          "The continuity of consciousness.",
+          "The survival of the physical body.",
+          "The ability to perform actions.",
+          "The preservation of social status."
         ],
-        "correct_answer": "Retinotopic map",
-        "question": "The organization in LGN and V1 where adjacent visual field locations are represented by adjacent neurons is called a:"
+        "correct_answer": "The continuity of consciousness.",
+        "question": "Which of the following is most important in a 'psychological' view of personal identity?"
       },
       {
         "choices": [
-          "Orientation columns",
-          "Ocular dominance columns",
-          "Color blobs",
-          "Direction columns"
+          "Reincarnation with memories",
+          "Reincarnation without memories",
+          "Amnesia",
+          "Jekyll and Hyde"
         ],
-        "correct_answer": "Ocular dominance columns",
-        "question": "In V1, columns of cells that preferentially respond to input from one eye are called:"
+        "correct_answer": "Reincarnation without memories",
+        "question": "What are some thought experiments that relate to personal identity?"
       },
       {
         "choices": [
-          "Conscious visual perception",
-          "Reflexive eye movements",
-          "Auditory processing",
-          "Motor control"
+          "A neurological disorder",
+          "A psychological defense mechanism",
+          "An irreversible loss of memory",
+          "A state of heightened awareness"
         ],
-        "correct_answer": "Conscious visual perception",
-        "question": "Based on the take-aways, V1 is considered important for what aspect of vision?"
+        "correct_answer": "An irreversible loss of memory",
+        "question": "What is the best characterization of the term amnesia?"
+      },
+      {
+        "choices": [
+          "Severing the connection between the mind and the body",
+          "Transferring memories from one brain to another",
+          "Dividing the connection between the cerebral hemispheres",
+          "Removing the frontal lobe"
+        ],
+        "correct_answer": "Dividing the connection between the cerebral hemispheres",
+        "question": "A split brain patient has had what procedure?"
+      },
+      {
+        "choices": [
+          "The study of the soul",
+          "The study of memory",
+          "The study of consciousness",
+          "The study of the brain"
+        ],
+        "correct_answer": "The study of the soul",
+        "question": "If personal identity depends on 'substance', which one of these is most likely what is meant by substance?"
+      },
+      {
+        "choices": [
+          "Biological properties",
+          "Physical properties",
+          "Psychological properties",
+          "Social roles"
+        ],
+        "correct_answer": "Psychological properties",
+        "question": "In what does a psychological theory of personal identity place the most emphasis?"
+      },
+      {
+        "choices": [
+          "Lindsay Lohan",
+          "Duncan Proctor",
+          "Jonathan Coryell",
+          "All of the above"
+        ],
+        "correct_answer": "All of the above",
+        "question": "Who was mentioned in the course materials in connection with questions of personal identity?"
       }
     ]
   },
   {
-    "overview": "This unit explores the ventral visual processing stream, often called the 'what' pathway, which is crucial for object recognition and categorization. It examines how visual information is processed hierarchically, moving from simple features in V1 to complex object representations in the inferotemporal cortex, and discusses the impact of damage to this pathway (agnosias). The roles of feedback and inference in resolving ambiguity and incorporating context are also highlighted.",
+    "overview": "This unit focuses on Locke's theory of personal identity. It looks at his claim that personal identity depends on 'psychology', and not substance.  It covers Locke's arguments against the soul theory, including dreamless sleep and the prince and the cobbler, and introduces Reid's critique of Locke based on transitivity.",
     "sections": [
       {
         "key_points": [
-          "Visual processing splits into two main streams after V1.",
-          "The Ventral Stream ('What' pathway) projects towards the temporal lobe and is involved in object recognition, categorization, and assigning value.",
-          "The Dorsal Stream ('Where'/'How' pathway) projects towards the parietal lobe and is involved in spatial location, movement, and guiding actions.",
-          "Lesion studies provide evidence for this segregation (e.g., double dissociations).",
-          "Damage to V4 can cause achromatopsia (color blindness).",
-          "Damage to V5/MT can cause akinetopsia (motion blindness)."
+          "Locke rejects the idea that personal identity depends on having the same soul or the same body.",
+          "Locke argues that personal identity is based on continuity of consciousness and memory.",
+          "Locke uses thought experiments, like the Prince and the Cobbler, to illustrate his points."
         ],
-        "narrative": "Beyond V1, visual processing largely diverges into two major pathways. The Ventral Stream travels downwards towards the inferior temporal lobe and is primarily concerned with identifying *what* an object is – its features, identity, and significance. The Dorsal Stream projects upwards into the parietal lobe and deals with *where* an object is in space and *how* to interact with it. Evidence for this functional segregation comes from lesion studies. For instance, damage to specific areas within these streams can cause selective deficits. Area V4, part of the ventral stream, is critical for color perception; damage can lead to cerebral achromatopsia, where the patient loses the ability to perceive colors despite intact cones. Area V5 (also known as MT - Middle Temporal), considered part of the dorsal stream but crucial for both, is vital for motion perception; damage can cause akinetopsia, where motion appears as a series of snapshots (Patient L.M.). These specific deficits following localized brain damage illustrate double dissociation, supporting the idea of functionally specialized visual pathways.",
+        "narrative": "Locke rejects the soul theory (the idea that personal identity depends on the sameness of a soul) and considers thought experiments and real life cases for support. The thought experiment of the Prince and the Cobbler (switching bodies) and the phenomenon of dreamless sleep both point towards what matters being psychological. To explain the concept of identity, Locke distinguishes between physical particles (continuous space-time), inanimate objects (same particles), and animate objects (same life). Locke's memory link theory: A is the same person as B if and only if B remembers having an experience as A.",
         "quizzes": [
           {
             "choices": [
-              "Object recognition ('What')",
-              "Spatial location ('Where'/'How')",
-              "Color processing",
-              "Motion detection"
+              "Substance, specifically the soul.",
+              "Biological functions and the body.",
+              "Social relationships and roles.",
+              "Consciousness and memory."
             ],
-            "correct_answer": "Object recognition ('What')",
-            "question": "What is the primary function associated with the Ventral Visual Processing Stream?"
+            "correct_answer": "Consciousness and memory.",
+            "question": "According to Locke, on what does personal identity primarily depend?"
           },
           {
             "choices": [
-              "V1",
-              "V4",
-              "V5/MT",
-              "LGN"
+              "A person with amnesia is no longer the same person.",
+              "A person is the same as long as their body remains intact.",
+              "Souls are transferred, but the person remains the same.",
+              "The prince is now the cobbler and vice-versa."
             ],
-            "correct_answer": "V4",
-            "question": "Damage to which visual area is associated with cerebral achromatopsia (loss of color perception)?"
+            "correct_answer": "The prince is now the cobbler and vice-versa.",
+            "question": "In the Prince and the Cobbler example, what does Locke mean by it?"
           },
           {
             "choices": [
-              "Achromatopsia (color blindness)",
-              "Akinetopsia (motion blindness)",
-              "Prosopagnosia (face blindness)",
-              "Apperceptive agnosia (shape perception failure)"
+              "That we stop existing when we sleep",
+              "The soul exists, and the person persists.",
+              "We are the same person regardless of whether we dream",
+              "Our souls get replaced every night."
             ],
-            "correct_answer": "Akinetopsia (motion blindness)",
-            "question": "Patient L.M., who perceived motion as a series of static frames, suffered from:"
+            "correct_answer": "The soul exists, and the person persists.",
+            "question": "In respect to dreamless sleep, what is Locke's view?"
           }
         ],
-        "section_title": "Two Visual Streams: Ventral ('What') vs. Dorsal ('Where'/'How')"
+        "section_title": "Locke's Theory: Psychology over Substance"
       },
       {
         "key_points": [
-          "The ventral stream processes information hierarchically.",
-          "Receptive fields (RFs) become larger and respond to more complex features in later areas (e.g., V1 lines -> V2 intersections -> V4 complex shapes -> IT objects).",
-          "Processing progresses from simple features to more abstract representations.",
-          "Increasing RF size contributes to invariance (recognizing objects regardless of location/size) but reduces spatial precision.",
-          "Combinations of features from earlier areas build complexity.",
-          "Damage along the ventral stream leads to various agnosias (failures to recognize)."
+          "Reid's critique targets the transitivity of identity in Locke's memory-based theory.",
+          "The brave officer is the whipped child, but Locke's theory says he can't be due to lack of memory.",
+          "Reid argues that memory is evidence of identity, not what constitutes identity itself."
         ],
-        "narrative": "The ventral stream exhibits hierarchical organization. As information flows from posterior (V1) to anterior areas (like V2, V4, and Inferotemporal cortex - IT), neurons respond to increasingly complex stimuli. While V1 neurons respond to simple oriented lines, V2 neurons might respond to combinations like angles or intersections, V4 to more complex shapes, and IT cortex to whole objects like faces or specific items. Concurrently, the receptive fields of these neurons generally increase in size. This pooling of information over larger areas helps achieve viewpoint and size invariance – recognizing an object regardless of its specific position or size on the retina. However, this comes at the cost of reduced spatial precision. The combination of inputs from neurons in earlier areas allows neurons in later areas to represent more complex and abstract features. Damage at different stages of this hierarchy results in different types of visual agnosia, a failure to recognize objects despite intact basic visual abilities. More posterior lesions might cause apperceptive agnosia (difficulty perceiving shapes), while more anterior lesions might cause associative agnosia (difficulty linking a perceived shape to its meaning or name) or category-specific agnosias like prosopagnosia (inability to recognize faces).",
+        "narrative": "Thomas Reid attacks Locke's positive theory, arguing that it violates our firm notions of transitivity (that is, if A=B and B=C, then A=C). Reid has several arguments for the same soul, different person (sleep, different psychologies), and makes his case with his story of the brave officer and the general that does not remember his childhood whipping.  Therefore, O=B; G=O; G≠B.",
         "quizzes": [
           {
             "choices": [
-              "They become smaller and more specific.",
-              "They stay the same size but respond faster.",
-              "They become larger and respond to more complex features.",
-              "They disappear entirely in later areas."
+              "It supports the idea that memory is the sole criterion for personal identity.",
+              "It says the relations are not transitive, so who cares.",
+              "It highlights a contradiction in Locke's theory regarding memory and identity.",
+              "It provides an example of how one person can be multiple people at the same time."
             ],
-            "correct_answer": "They become larger and respond to more complex features.",
-            "question": "How do receptive fields typically change as information progresses along the ventral stream?"
+            "correct_answer": "It highlights a contradiction in Locke's theory regarding memory and identity.",
+            "question": "What is the purpose of Reid's case of the boy, officer, and general?"
           },
           {
             "choices": [
-              "Increased spatial precision",
-              "Better color discrimination",
-              "Contribution to stimulus invariance",
-              "Faster reaction times"
+              "Identity is absolute, all or nothing",
+              "Identity can be a matter of degree",
+              "Identity is relative to perspective",
+              "The term cannot be defined"
             ],
-            "correct_answer": "Contribution to stimulus invariance",
-            "question": "What is a functional consequence of receptive fields increasing in size along the ventral stream?"
+            "correct_answer": "Identity is absolute, all or nothing",
+            "question": "What does the course say about identity and strictness?"
           },
           {
             "choices": [
-              "Apperceptive agnosia (failure to perceive basic shapes)",
-              "Associative agnosia (failure to link percept with meaning)",
-              "Prosopagnosia (failure to recognize faces)",
-              "All of the above are types of agnosia related to ventral stream processing."
+              "There is no problem; it's a feature",
+              "Perhaps Locke is speaking of a 'wide' identity, rather than strict identity",
+              "Therefore, psychology is wrong",
+              "The conclusion can't be helped"
             ],
-            "correct_answer": "All of the above are types of agnosia related to ventral stream processing.",
-            "question": "Damage to the ventral stream can result in which condition(s)?"
+            "correct_answer": "Perhaps Locke is speaking of a 'wide' identity, rather than strict identity",
+            "question": "What is a solution to Reid's problem?"
           }
         ],
-        "section_title": "Hierarchical Processing in the Ventral Stream and Agnosias"
-      },
-      {
-        "key_points": [
-          "Visual processing involves both feedforward and feedback connections.",
-          "Feedforward processing builds complexity hierarchically (V1->V2->V4->IT).",
-          "Feedback processing allows later areas to influence earlier ones.",
-          "Feedback helps resolve ambiguity, incorporates context, and fills in missing information (inference).",
-          "Feedback reflects internal information, expectations, and experience (e.g., scene statistics, perceptual learning).",
-          "Feedback effects can start quickly (within ~100 ms)."
-        ],
-        "narrative": "Object recognition isn't purely a one-way 'feedforward' process where information simply flows from V1 to IT. While the initial sweep of information is feedforward, building complexity hierarchically, there are extensive 'feedback' connections projecting from later areas back to earlier ones (e.g., IT back to V4/V2/V1). This feedback plays a crucial role in perception. It allows the system to use context, expectations, and prior knowledge to refine interpretations, resolve ambiguities (like those seen in illusory contours or amodal completion where the brain infers edges or shapes that aren't physically present), and 'fill in' missing information based on internal models or experience. For example, recognizing a dalmatian in a noisy image becomes easier once you know what to look for, demonstrating perceptual learning mediated by feedback. These feedback influences are not slow afterthoughts; they begin rapidly, within about 100 milliseconds, shaping perception almost immediately.",
-        "quizzes": [
-          {
-            "choices": [
-              "Information flows strictly from V1 to IT.",
-              "Information flows from IT back to V1/V2/V4.",
-              "Information bypasses V1 and goes straight to IT.",
-              "Information processing stops at V4."
-            ],
-            "correct_answer": "Information flows from IT back to V1/V2/V4.",
-            "question": "What is meant by 'feedback' processing in the ventral stream?"
-          },
-          {
-            "choices": [
-              "Slowing down processing speed.",
-              "Ignoring contextual information.",
-              "Resolving ambiguity and incorporating expectations.",
-              "Increasing receptive field size."
-            ],
-            "correct_answer": "Resolving ambiguity and incorporating expectations.",
-            "question": "What is a key function of feedback connections in visual perception?"
-          },
-          {
-            "choices": [
-              "Illusory contours",
-              "Amodal completion",
-              "Context effects",
-              "All of the above"
-            ],
-            "correct_answer": "All of the above",
-            "question": "Which phenomenon illustrates the brain using inference or 'filling in' information, likely involving feedback?"
-          }
-        ],
-        "section_title": "Feedback, Inference, and Experience in Recognition"
+        "section_title": "Reid's Critique: Transitivity and Memory"
       }
     ],
-    "unit": "Unit 3: Visual Recognition: The Ventral Stream ('What' Pathway)",
+    "unit": "Locke's Psychology and Reid's Critique",
     "unit_quiz": [
       {
         "choices": [
-          "Ventral stream ('What')",
-          "Dorsal stream ('Where'/'How')",
-          "Tectopulvinar pathway",
-          "Geniculostriate pathway (as a whole)"
+          "Physical continuity",
+          "Continuity of consciousness",
+          "Shared memories",
+          "Genetic similarity"
         ],
-        "correct_answer": "Ventral stream ('What')",
-        "question": "Identifying an object, like recognizing a specific type of flower, primarily relies on which visual processing stream?"
+        "correct_answer": "Continuity of consciousness",
+        "question": "According to Locke, what is essential for personal identity?"
       },
       {
         "choices": [
-          "Ventral stream to parietal lobe; Dorsal stream to temporal lobe.",
-          "Ventral stream to temporal lobe; Dorsal stream to parietal lobe.",
-          "Both streams project only to the occipital lobe.",
-          "Both streams project primarily to the frontal lobe."
+          "The prince's soul now resides in the cobbler's body, making him the prince.",
+          "The cobbler has simply inherited the prince's memories, but remains the cobbler.",
+          "The prince's body is still what makes him the same person.",
+          "The situation is impossible."
         ],
-        "correct_answer": "Ventral stream to temporal lobe; Dorsal stream to parietal lobe.",
-        "question": "Where do the Ventral and Dorsal visual streams primarily project to?"
+        "correct_answer": "The prince's soul now resides in the cobbler's body, making him the prince.",
+        "question": "How would Locke describe the Prince and the Cobbler thought experiment?"
       },
       {
         "choices": [
-          "Akinetopsia",
-          "Achromatopsia",
-          "Visual Agnosia",
-          "Optic Ataxia"
+          "A critique of substance theory.",
+          "An argument for the importance of brain size.",
+          "A demonstration that a split-brain patient is two persons.",
+          "Evidence that material objects do not persist."
         ],
-        "correct_answer": "Visual Agnosia",
-        "question": "A general failure to recognize objects despite intact basic vision, often due to ventral stream damage, is called:"
+        "correct_answer": "A critique of substance theory.",
+        "question": "Locke's prince and the cobbler argument serves as what?"
       },
       {
         "choices": [
-          "Patient DF (Apperceptive Agnosia)",
-          "Patient LM (Akinetopsia)",
-          "Patient RV (Optic Ataxia)",
-          "The Color-Blind Painter (Achromatopsia)"
+          "Memory is the most important indicator of identity, but not the basis for it.",
+          "Memory is what creates personal identity.",
+          "We must dismiss what Reid says.",
+          "The self is always what is most important."
         ],
-        "correct_answer": "Patient LM (Akinetopsia)",
-        "question": "Which patient case specifically illustrated a deficit in motion perception (Area V5/MT)?"
+        "correct_answer": "Memory is the most important indicator of identity, but not the basis for it.",
+        "question": "What is Reid's stance on memory and personal identity?"
       },
       {
         "choices": [
-          "Receptive fields get smaller.",
-          "Neurons respond to simpler stimuli.",
-          "Processing becomes less abstract.",
-          "Neurons integrate inputs from earlier areas to respond to more complex features."
+          "A person should not be punished for acts they don't remember committing.",
+          "A person always deserves to be punished.",
+          "Punishment is justified because of the unchanging nature of the soul.",
+          "The circumstances are irrelevant."
         ],
-        "correct_answer": "Neurons integrate inputs from earlier areas to respond to more complex features.",
-        "question": "Which statement accurately describes hierarchical processing in the ventral stream?"
+        "correct_answer": "A person should not be punished for acts they don't remember committing.",
+        "question": "What best describes Locke's theory about justice and identity?"
       },
       {
         "choices": [
-          "Reduced invariance, increased spatial precision.",
-          "Increased invariance, reduced spatial precision.",
-          "Increased invariance, increased spatial precision.",
-          "Reduced invariance, reduced spatial precision."
+          "Personal identity can survive a night of dreamless sleep.",
+          "It demonstrates that personal identity has been lost.",
+          "Personal identity is not based on psychological connectedness.",
+          "It demonstrates that souls die."
         ],
-        "correct_answer": "Increased invariance, reduced spatial precision.",
-        "question": "What is the trade-off associated with increasing receptive field size along the ventral pathway?"
+        "correct_answer": "Personal identity can survive a night of dreamless sleep.",
+        "question": "What does Locke argue that a night of dreamless sleep implies about our souls?"
       },
       {
         "choices": [
-          "Apperceptive Agnosia",
-          "Associative Agnosia",
-          "Prosopagnosia",
-          "Achromatopsia"
+          "The same soul, but a different person.",
+          "It is the same person, but with an inessential quality altered.",
+          "Neither, the person is merely similar.",
+          "All of the above."
         ],
-        "correct_answer": "Prosopagnosia",
-        "question": "Which specific type of visual agnosia involves the inability to recognize faces?"
+        "correct_answer": "The same soul, but a different person.",
+        "question": "In the amnesia case described, what does Locke say about the amnesiac ('Pete') and his prior self ('John')?"
       },
       {
         "choices": [
-          "Feedforward processing only",
-          "Feedback processing only",
-          "Both feedforward and feedback processing",
-          "Neither feedforward nor feedback processing"
+          "There is one unchanging self",
+          "There is a fixed soul",
+          "There is something that is still me, but there's not a psychological connection",
+          "There is always direct psychological connectedness"
         ],
-        "correct_answer": "Both feedforward and feedback processing",
-        "question": "Modern understanding suggests that visual recognition relies on:"
+        "correct_answer": "There is one unchanging self",
+        "question": "Locke argues against which view in making his case that psychology matters for identity?"
       },
       {
         "choices": [
-          "Make perception slower and less efficient.",
-          "Incorporate prior knowledge and context to refine perception.",
-          "Only process information about color.",
-          "Prevent hierarchical processing."
+          "That it is always a clear and distinct view",
+          "It's transitive",
+          "It accounts for responsibility",
+          "All of the above."
         ],
-        "correct_answer": "Incorporate prior knowledge and context to refine perception.",
-        "question": "Feedback pathways in the ventral stream are thought to:"
+        "correct_answer": "There is one unchanging self",
+        "question": "What is NOT true of Locke's theory of memory?"
       },
       {
         "choices": [
-          "Simple lines (V1) -> Intersections/Angles (V2) -> Complex Shapes (V4) -> Objects (IT)",
-          "Objects (IT) -> Complex Shapes (V4) -> Intersections/Angles (V2) -> Simple lines (V1)",
-          "Simple lines (V1) -> Objects (IT) -> Complex Shapes (V4) -> Intersections/Angles (V2)",
-          "Intersections/Angles (V2) -> Simple lines (V1) -> Objects (IT) -> Complex Shapes (V4)"
+          "Psychology is the key to personal identity",
+          "Substance is the key to personal identity",
+          "It could be either, we do not know",
+          "It is an unsolvable question"
         ],
-        "correct_answer": "Simple lines (V1) -> Intersections/Angles (V2) -> Complex Shapes (V4) -> Objects (IT)",
-        "question": "Which sequence best represents the increasing complexity of feature detection along the ventral stream?"
+        "correct_answer": "Psychology is the key to personal identity",
+        "question": "What best sums up Locke's view about what accounts for personal identity?"
       }
     ]
   },
   {
-    "overview": "This unit focuses on the Dorsal visual processing stream ('Where'/'How' pathway) and its role in spatial cognition and guiding action. It contrasts with the Ventral stream by emphasizing action-oriented representations, the use of different reference frames, and the integration of visual information with motor control. Deficits like Optic Ataxia are examined as evidence for this stream's function.",
+    "overview": "This unit explores the Bundle Theory, an alternative view of personal identity that rejects the existence of a single, enduring self. It introduces Hume's version of this theory, as well as related ideas on what it means to be a good person. The unit includes a look at Buddhist perspectives as well.",
     "sections": [
       {
         "key_points": [
-          "The Dorsal Stream projects to the parietal cortex.",
-          "It processes spatial information ('Where') and guides actions ('How').",
-          "It uses action-oriented representations, coding information relevant for interaction.",
-          "Perception, particularly via the dorsal stream, is geared towards guiding action (Clark).",
-          "Patient DF (ventral damage) had poor recognition but could perform actions like posting a letter correctly.",
-          "Patient RV (dorsal damage) had Optic Ataxia, impairing visually guided reaching despite good recognition.",
-          "The Ebbinghaus illusion affects perceived size (ventral) but not grip aperture (dorsal)."
+          "Hume maintains that the self is 'nothing but a bundle or collection of different perceptions'.",
+          "There is no single, unified self, only a collection of experiences.",
+          "The bundle theory aligns with certain Buddhist philosophies that deny a permanent self."
         ],
-        "narrative": "The Dorsal Visual Stream runs from V1 upwards into the parietal lobe. Initially termed the 'Where' pathway for its role in spatial localization, it's now often called the 'How' pathway, emphasizing its crucial function in guiding actions based on spatial information. This stream doesn't just represent space abstractly; it creates 'action-oriented representations' – coding visual information in ways directly relevant for interacting with objects (e.g., coding an object's orientation for grasping). Andy Clark argued that the primary goal of perception is guiding action. Evidence for this distinct pathway comes from patients with specific lesions. Patient DF, with ventral stream damage causing apperceptive agnosia, couldn't recognize objects or judge line orientations, but could accurately orient her hand to 'post' a card through a slot, suggesting her dorsal stream was intact. Conversely, patients with dorsal stream damage (e.g., Patient RV) exhibit Optic Ataxia – a profound difficulty in using visual information to accurately reach for and grasp objects, even though they can often recognize the objects perfectly well. The Ebbinghaus illusion provides further evidence: while people perceive the central circle as larger when surrounded by small circles (ventral stream processing), their hand forms the same grip aperture when asked to pick it up, suggesting the dorsal stream uses accurate size information for action.",
+        "narrative": "The psychological branch is explored with Hume's Bundle Theory.  Hume denies that there is such a thing as the self; instead, there's just a bundle or a collection of different perceptions that are in perpetual flux. According to the bundle theory, the self is the collection of psychological traits. This helps to explain why the self can be moved from soul A to soul B. This view has implications for how we think about ethics.  This thinking is related to certain views about Buddhism, as well, who deny there is a self.",
         "quizzes": [
           {
             "choices": [
-              "Identifying objects",
-              "Recognizing faces",
-              "Guiding actions and spatial localization",
-              "Processing color information"
+              "A single, indivisible entity.",
+              "A soul.",
+              "A body.",
+              "A collection of perceptions and experiences."
             ],
-            "correct_answer": "Guiding actions and spatial localization",
-            "question": "What are the primary functions associated with the Dorsal Visual Processing Stream ('Where'/'How')?"
+            "correct_answer": "A collection of perceptions and experiences.",
+            "question": "According to Hume's bundle theory, what is the self?"
           },
           {
             "choices": [
-              "She had good recognition but poor visually guided action.",
-              "She had poor recognition but relatively intact visually guided action.",
-              "She had both poor recognition and poor action.",
-              "She had akinetopsia (motion blindness)."
+              "It makes one's existence more meaningful.",
+              "It undermines our concern for the future.",
+              "It strengthens our sense of self-importance.",
+              "It is irrelevant to ethical considerations."
             ],
-            "correct_answer": "She had poor recognition but relatively intact visually guided action.",
-            "question": "What did the case of Patient DF (ventral stream damage) demonstrate about the two visual streams?"
+            "correct_answer": "It undermines our concern for the future.",
+            "question": "What does the course say is a consequence of accepting the bundle theory?"
           },
           {
             "choices": [
-              "Apperceptive Agnosia",
-              "Associative Agnosia",
-              "Optic Ataxia",
-              "Achromatopsia"
+              "They focus on the unchanging nature of the self.",
+              "They are in opposition to all forms of individualism.",
+              "They emphasize the impermanence of the self.",
+              "It rejects all forms of morality."
             ],
-            "correct_answer": "Optic Ataxia",
-            "question": "Damage to the dorsal stream, particularly the parietal cortex, is associated with which condition?"
+            "correct_answer": "They emphasize the impermanence of the self.",
+            "question": "In what way do certain Buddhist philosophies coincide with bundle theory?"
           }
         ],
-        "section_title": "The Dorsal Stream: Perception for Action"
+        "section_title": "Hume and the Bundle Theory"
       },
       {
         "key_points": [
-          "Action requires representing the self (body position, movement capabilities).",
-          "Action requires representing spatial location (direction, distance, near/far).",
-          "Spatial information must be related to the self (reference frames).",
-          "The parietal cortex integrates multiple sensory modalities (vision, somatosensation, audition) and motor information.",
-          "Areas like PPC (Posterior Parietal Cortex), MST (Medial Superior Temporal), and MT (Middle Temporal) are involved.",
-          "Different reference frames (e.g., eye-centered, head-centered, body-centered) are used depending on the task."
+          "In such a view, one can realize that a new advantage for oneself is not more important than someone else.",
+          "There is no inherent difference between you and other people.",
+          "A good person has compassion for others."
         ],
-        "narrative": "Guiding action effectively requires more than just seeing an object's location. The brain must integrate visual information with a representation of the self – knowing where the body parts are, how they can move, and their current state. It also needs detailed spatial information about the target: its direction, distance (near vs. far), and crucially, its location *relative to the self*. This involves using different reference frames. For example, initial visual input is eye-centered, but to reach for an object, this information might need transformation into head-centered or body-centered coordinates. The parietal cortex is a major hub for this integration. It receives input from visual (especially dorsal stream areas like MT/MST involved in motion), somatosensory (touch, body position), and auditory systems, converging in areas like the Posterior Parietal Cortex (PPC). This convergence allows the brain to construct a dynamic representation of the body within its spatial environment, relating the external world to the self to plan and execute actions.",
+        "narrative": "The course suggests that the Buddhist concept of *anatta* ('no self') gives rise to compassion, because all motivations for ethical decisions would be aimed at increasing overall happiness, and it is not justified to privilege your own happiness over the happiness of anyone else. According to the Buddhist perspective, there is no thing that has the memories. This view stands opposed to the Reid stance that 'I am not my thoughts'.",
         "quizzes": [
           {
             "choices": [
-              "Object identity",
-              "Object color",
-              "Self-representation (body position, movement)",
-              "Object texture"
+              "A focus on increasing one's own wealth and power.",
+              "A sense of detachment from the material world.",
+              "A belief in a permanent and unchanging self.",
+              "A motivation to help others as much as oneself."
             ],
-            "correct_answer": "Self-representation (body position, movement)",
-            "question": "Besides external spatial location, what other type of information is crucial for guiding action, according to the lecture?"
+            "correct_answer": "A motivation to help others as much as oneself.",
+            "question": "According to the course, the denial of the self gives rise to what ethical stance?"
           },
           {
             "choices": [
-              "Occipital lobe",
-              "Temporal lobe",
-              "Parietal cortex",
-              "Frontal lobe"
+              "Prioritizing personal happiness.",
+              "Acknowledging and addressing the suffering of others.",
+              "Pursuing material wealth.",
+              "Seeking fame and recognition."
             ],
-            "correct_answer": "Parietal cortex",
-            "question": "Which cortical region is considered a major convergence zone for integrating sensory information (visual, somatosensory) to guide action?"
+            "correct_answer": "Acknowledging and addressing the suffering of others.",
+            "question": "What is a consequence of recognizing the basic confusion at the heart of the bundle theory?"
           },
           {
             "choices": [
-              "Eye-centered (retinocentric)",
-              "Head-centered",
-              "Body-centered (egocentric)",
-              "All of the above are likely used depending on the context"
+              "The desire for more material goods.",
+              "The pursuit of individual achievements.",
+              "The desire for individual success.",
+              "The motivation to minimize suffering."
             ],
-            "correct_answer": "All of the above are likely used depending on the context",
-            "question": "What are 'reference frames' in the context of spatial cognition for action?"
+            "correct_answer": "The motivation to minimize suffering.",
+            "question": "According to course materials, a Buddhist perspective promotes what type of motivation?"
           }
         ],
-        "section_title": "Integrating Self, Space, and Action in Parietal Cortex"
+        "section_title": "Ethics and The Buddhist Perspective"
       },
       {
         "key_points": [
-          "The dorsal stream supports perceptually guided actions (e.g., reaching for a visible cup).",
-          "It involves interactions between posterior parietal cortex, premotor cortex, and potentially prefrontal cortex.",
-          "Navigation involves the dorsal stream interacting with other areas like the medial temporal lobe (MTL).",
-          "MTL structures (like hippocampus) are crucial for spatial memory and map-based navigation.",
-          "The dorsal stream provides real-time spatial awareness needed for movement through an environment."
+          "Reid and Parfit are different views of psychological traits.",
+          "Parfit allows that we naturally accept something like the soul view about the self.",
+          "Parfit claims that bundle theory is a much better theory."
         ],
-        "narrative": "The dorsal stream pathway from perception to action involves a network of brain regions. Visual spatial information processed in the posterior parietal cortex (PPC) is relayed to premotor areas, which plan the specific movements, and potentially prefrontal cortex for higher-level goals. This enables 'perceptually guided actions,' like adjusting your grasp to pick up a coffee cup you are currently looking at. Beyond immediate actions, the dorsal stream also contributes to navigation – moving through larger environments. This involves interaction with other brain systems, particularly the Medial Temporal Lobe (MTL), which includes the hippocampus. While the dorsal stream provides moment-to-moment spatial awareness and guides movement relative to the immediate surroundings, the MTL is critical for forming and using cognitive maps and spatial memory, allowing for navigation towards unseen goals or along familiar routes. Therefore, navigating complex environments relies on the coordinated activity of both the parietal cortex (dorsal stream) and the medial temporal lobe.",
+        "narrative": "The course materials touch upon Parfit's Fission Argument for the bundle theory. The materials present this as different from Reid, who would insist that psychology is secondary to the basic fact of identity. However, Parfit embraces the counterintuitive consequences of this stance: if the person in the future will really be me, there is a justification to give one's future self an advantage over other people. Otherwise, what is the justification? The course materials suggest that the shift away from self-centered view is, in effect, a 'philosophy as therapy'.",
         "quizzes": [
           {
             "choices": [
-              "Remembering a past event",
-              "Recognizing a familiar face",
-              "Reaching out to grab a visible object",
-              "Understanding language"
+              "It provides a basis for special concern for one's own future.",
+              "It strengthens individual motivations.",
+              "It creates a deeper sense of meaning.",
+              "It aligns with a long history of prior claims about personal identity."
             ],
-            "correct_answer": "Reaching out to grab a visible object",
-            "question": "Which of the following is the best example of a 'perceptually guided action' primarily involving the dorsal stream?"
+            "correct_answer": "It provides a basis for special concern for one's own future.",
+            "question": "According to course material, what does a belief in a soul theory give rise to?"
           },
           {
             "choices": [
-              "Posterior Parietal Cortex -> Premotor Cortex",
-              "Premotor Cortex -> Posterior Parietal Cortex",
-              "Inferotemporal Cortex -> Premotor Cortex",
-              "Posterior Parietal Cortex -> Inferotemporal Cortex"
+              "The belief that our lives are precious.",
+              "A sense of attachment to material possessions.",
+              "The view that others are more important than our selves",
+              "That what matters is just chains of connections"
             ],
-            "correct_answer": "Posterior Parietal Cortex -> Premotor Cortex",
-            "question": "What is a likely flow of information for planning and executing a visually guided reach?"
+            "correct_answer": "That what matters is just chains of connections",
+            "question": "Parfit's views are associated with what?"
           },
           {
             "choices": [
-              "Basal Ganglia",
-              "Cerebellum",
-              "Medial Temporal Lobe (including hippocampus)",
-              "Amygdala"
+              "It always undermines one's concern about the future",
+              "It is a method of mental training",
+              "It is an outdated concept",
+              "It reinforces an ego-centric view"
             ],
-            "correct_answer": "Medial Temporal Lobe (including hippocampus)",
-            "question": "For navigation involving spatial memory and cognitive maps, the dorsal stream interacts significantly with which brain region?"
+            "correct_answer": "It is a method of mental training",
+            "question": "What is the course saying in that philosophy can be a form of 'therapy'?"
           }
         ],
-        "section_title": "From Perception to Action: Networks and Navigation"
+        "section_title": "Parfit and The Fission Argument"
       }
     ],
-    "unit": "Unit 4: Perception for Action and Spatial Cognition",
+    "unit": "The Bundle Theory",
     "unit_quiz": [
       {
         "choices": [
-          "Recognizing 'what' an object is.",
-          "Processing facial expressions.",
-          "Processing spatial location ('where') and guiding interaction ('how').",
-          "Storing long-term visual memories."
+          "Emphasis on an enduring soul.",
+          "The concept of a unified and permanent self.",
+          "A collection of psychological events.",
+          "Physical continuity."
         ],
-        "correct_answer": "Processing spatial location ('where') and guiding interaction ('how').",
-        "question": "The Dorsal visual stream is primarily associated with:"
+        "correct_answer": "A collection of psychological events.",
+        "question": "What does the bundle theory say about what constitutes a person?"
       },
       {
         "choices": [
-          "Temporal Lobe",
-          "Parietal Lobe",
-          "Occipital Lobe",
-          "Frontal Lobe"
+          "There are no actions, only results.",
+          "There is no single self that acts, only actions and their consequences.",
+          "Everything is predetermined.",
+          "Actions are determined by the stars."
         ],
-        "correct_answer": "Parietal Lobe",
-        "question": "The Dorsal stream primarily projects to which lobe of the brain?"
+        "correct_answer": "There is no single self that acts, only actions and their consequences.",
+        "question": "What best represents the Buddhist perspective on actions and the self, as given in the course materials?"
       },
       {
         "choices": [
-          "Abstract, viewpoint-invariant object codes.",
-          "Representations coding information relevant for interacting with objects.",
-          "Codes for object color and texture.",
-          "Memories of past visual experiences."
+          "To gain a sense of control.",
+          "To reduce suffering for oneself and others.",
+          "To maximize individual pleasure.",
+          "To find meaning in life."
         ],
-        "correct_answer": "Representations coding information relevant for interacting with objects.",
-        "question": "What are 'action-oriented representations' associated with the dorsal stream?"
+        "correct_answer": "To reduce suffering for oneself and others.",
+        "question": "Why should one do something according to Santideva?"
       },
       {
         "choices": [
-          "Achromatopsia",
-          "Akinetopsia",
-          "Apperceptive Agnosia",
-          "Optic Ataxia"
+          "The individual's soul.",
+          "The individual's body.",
+          "The relationships one has with others.",
+          "The mental state."
         ],
-        "correct_answer": "Optic Ataxia",
-        "question": "Difficulty using visual information to accurately reach for objects, despite being able to recognize them, is known as:"
+        "correct_answer": "The mental state.",
+        "question": "If one says that my mental state 'belongs' to me, which theory are they arguing for?"
       },
       {
         "choices": [
-          "Patient DF (Ventral damage) could orient her hand correctly for the posting task, but not explicitly report the orientation.",
-          "Patient DF performed poorly on both reporting orientation and the posting task.",
-          "Patient RV (Dorsal damage) performed well on the posting task.",
-          "Both patients performed identically on all tasks."
+          "The importance of individuality",
+          "Compassion and ethical behavior",
+          "The importance of memory",
+          "The continuity of life"
         ],
-        "correct_answer": "Patient DF (Ventral damage) could orient her hand correctly for the posting task, but not explicitly report the orientation.",
-        "question": "What did the 'posting task' reveal about the difference between ventral and dorsal stream functions?"
+        "correct_answer": "Compassion and ethical behavior",
+        "question": "What does Santideva's work highlight that connects to the bundle theory?"
       },
       {
         "choices": [
-          "It affects perceived size but not grip aperture during grasping.",
-          "It affects grip aperture but not perceived size.",
-          "It affects both perceived size and grip aperture equally.",
-          "It affects neither perceived size nor grip aperture."
+          "It is a source of strength and resilience.",
+          "It causes undue attachment.",
+          "It promotes compassion.",
+          "It is harmless."
         ],
-        "correct_answer": "It affects perceived size but not grip aperture during grasping.",
-        "question": "How does the Ebbinghaus illusion demonstrate dissociation between the ventral and dorsal streams?"
+        "correct_answer": "It causes undue attachment.",
+        "question": "According to Buddhist thinkers, what is the fundamental ethical problem with belief in the self?"
       },
       {
         "choices": [
-          "Only visual input",
-          "Only somatosensory input",
-          "Integration of visual, somatosensory, auditory, and motor information",
-          "Only motor commands"
+          "Ordinary survival is not worth it",
+          "Teletransportation is no worse than ordinary survival",
+          "There is always a soul",
+          "Teletransportation is what matters"
         ],
-        "correct_answer": "Integration of visual, somatosensory, auditory, and motor information",
-        "question": "The Posterior Parietal Cortex (PPC) is crucial for guiding action because it handles:"
+        "correct_answer": "Teletransportation is no worse than ordinary survival",
+        "question": "Parfit's argument leads him to what surprising conclusion?"
       },
       {
         "choices": [
-          "Eye-centered coordinates only",
-          "Object-centered coordinates only",
-          "Transformation between different reference frames (e.g., eye-centered to body-centered)",
-          "A single, fixed reference frame"
+          "Reid's theory of psychology",
+          "Locke's theory of psychology",
+          "Hume's bundle theory",
+          "The soul theory"
         ],
-        "correct_answer": "Transformation between different reference frames (e.g., eye-centered to body-centered)",
-        "question": "Effective visually guided action often requires the brain to perform what kind of spatial computation?"
+        "correct_answer": "Hume's bundle theory",
+        "question": "Which theory does Parfit support?"
       },
       {
         "choices": [
-          "Inferotemporal Cortex",
-          "Premotor Cortex",
-          "Primary Visual Cortex (V1)",
-          "Hippocampus"
+          "The soul has special, magical powers",
+          "The fact that the soul is an unchanging substance",
+          "The power of the soul to generate new life",
+          "The relationship between mental states."
         ],
-        "correct_answer": "Premotor Cortex",
-        "question": "Information from the posterior parietal cortex is relayed to which area for planning specific movements?"
+        "correct_answer": "The relationship between mental states.",
+        "question": "According to course material, the bundle theory places what at its center?"
       },
       {
         "choices": [
-          "Amygdala",
-          "Basal Ganglia",
-          "Thalamus",
-          "Medial Temporal Lobe (MTL)"
+          "They don't have a real existence",
+          "They have a kind of 'nominal' existence",
+          "It is the same person",
+          "These are completely different ideas"
         ],
-        "correct_answer": "Medial Temporal Lobe (MTL)",
-        "question": "Besides the dorsal stream, which brain region is critical for map-based navigation and spatial memory?"
+        "correct_answer": "They have a kind of 'nominal' existence",
+        "question": "What does the course say about the Buddhist view and claims of persons?"
+      }
+    ]
+  },
+  {
+    "overview": "This unit discusses problems that arise for the bundle theory. These stem from strict identity and from problems of multiplication. Furthermore, it presents the Indivisibility Condition of Souls as a rejoinder.",
+    "sections": [
+      {
+        "key_points": [
+          "Bundle theory does not account for strict identity. A bundle can always be tweaked.",
+          "Reid criticizes bundle theory for not being able to secure strict identity across time.",
+          "Theorists like Buddha, Hume, and Parfit just accept that strict identity does not exist."
+        ],
+        "narrative": "The course says that, if the bundle theory is correct, then strictly speaking, I'm not the same person I was yesterday. This is because of the course's insistence that there is some sense of 'strict' identity, which is all or nothing. Reid criticized bundle theory for not being able to secure strict identity across time. Also, there is a difficulty when there is a 'multiplication' of bundles; the example given in the course materials is the teletransporter paradox, because technically, there can be multiple copies of my exact bundle! How is it that there is still only ME?",
+        "quizzes": [
+          {
+            "choices": [
+              "It aligns with the idea of constant change and impermanence.",
+              "It provides a clear and distinct basis for moral responsibility.",
+              "They are interchangeable.",
+              "It reinforces strict identity."
+            ],
+            "correct_answer": "It aligns with the idea of constant change and impermanence.",
+            "question": "In what way does bundle theory align with reality?"
+          },
+          {
+            "choices": [
+              "It is the same as before",
+              "It has a strict identity",
+              "I'm always myself",
+              "It cannot secure strict identity"
+            ],
+            "correct_answer": "It cannot secure strict identity",
+            "question": "What does the course say about why Reed rejects bundle theory?"
+          },
+          {
+            "choices": [
+              "The bundle has special forces",
+              "There can be duplicate or replicate of your particular bundle",
+              "Everything is the soul",
+              "It doesn't matter"
+            ],
+            "correct_answer": "There can be duplicate or replicate of your particular bundle",
+            "question": "What is the problem of duplication?"
+          }
+        ],
+        "section_title": "Problems and Strict Identity"
+      },
+      {
+        "key_points": [
+          "The soul is indivisible, according to ego theorists.",
+          "In cases of multiple people in the same body, the ego theory is wrong.",
+          "The unified subject is important to defend."
+        ],
+        "narrative": "Reid defends the ego theory, and he thinks the following has to be true: Self is indivisible – A person is a unified subject of experiences. I am the subject of my experiences. I am the thing that has all the experiences. (Recall Descartes' argument from divisibility). As the course materials present the case: Joe has two experiences, but there is no single subject which is aware of both of them.  Since the soul theory is wrong, perhaps bundle theory can help account for these findings.",
+        "quizzes": [
+          {
+            "choices": [
+              "It is possible",
+              "It is always the case",
+              "It is impossible",
+              "It violates what it means to be a person."
+            ],
+            "correct_answer": "It is impossible",
+            "question": "Can a soul be divided, according to Reid?"
+          },
+          {
+            "choices": [
+              "Is there",
+              "Can there be",
+              "Must there be",
+              "Always is there"
+            ],
+            "correct_answer": "Must there be",
+            "question": "What does the ego theory tell us must be true about experiences, according to the course materials?"
+          },
+          {
+            "choices": [
+              "They have split personalities",
+              "One subject shares many experiences",
+              "It is impossible to know.",
+              "Their souls are no longer distinct."
+            ],
+            "correct_answer": "Their souls are no longer distinct.",
+            "question": "Why are patients with a severed corpus collosum a challenge to ego theory?"
+          }
+        ],
+        "section_title": "Against Indivisibility"
+      }
+    ],
+    "unit": "Issues and rejoinders to the bundle theory",
+    "unit_quiz": [
+      {
+        "choices": [
+          "Strict identity is not necessary for the preservation of personal identity.",
+          "Strict identity cannot account for moral responsibility.",
+          "Locke's theory does not account for Reid's examples.",
+          "Strict identity is impossible"
+        ],
+        "correct_answer": "Strict identity is not necessary for the preservation of personal identity.",
+        "question": "Which of these best accounts for the bundle theorist's view about strict identity?"
+      },
+      {
+        "choices": [
+          "If you enter a transporter but survive, what's the ethical difference?",
+          "If you die in the transporter, so what?",
+          "People are bundles",
+          "Ethics has nothing to do with it"
+        ],
+        "correct_answer": "If you enter a transporter but survive, what's the ethical difference?",
+        "question": "What is a takeaway from the trolley problems we covered that relates to Parfit's argument?"
+      },
+      {
+        "choices": [
+          "There's a third alternative",
+          "I don't exist",
+          "Joe's self exists",
+          "Nothing was destroyed"
+        ],
+        "correct_answer": "Nothing was destroyed",
+        "question": "When Joe's brain is split, his 'unified subject' ceases to exist. But what is the correct answer?"
+      },
+      {
+        "choices": [
+          "One, so one may not be punished for misdeeds",
+          "One, that it helps people live in the present.",
+          "Another, to see how we ought to behave toward others.",
+          "All of the above."
+        ],
+        "correct_answer": "All of the above.",
+        "question": "Why does personal identity matter? How does a psychological theory of personal identity affect our emotions?"
+      },
+      {
+        "choices": [
+          "They may have special protections under the law",
+          "They did some of the actions, but it was not done by anyone",
+          "They are one person",
+          "They are many people"
+        ],
+        "correct_answer": "They are many people",
+        "question": "What is the standard reading of 'split personality' cases?"
+      },
+      {
+        "choices": [
+          "This supports the soul theory",
+          "The opposite.",
+          "There is no difference",
+          "The soul is destroyed"
+        ],
+        "correct_answer": "The opposite.",
+        "question": "Given his arguments, where does the weight of the evidence fall for Parfit's thought experiments: is it that (1) persons are real things or (2) they are not?"
+      },
+      {
+        "choices": [
+          "That is too easy to secure such a state",
+          "They are just mental states",
+          "They are too hard to describe",
+          "The problem is insoluble"
+        ],
+        "correct_answer": "They are too hard to describe",
+        "question": "What is NOT a claim that Reid would make of the bundle theory?"
+      },
+      {
+        "choices": [
+          "The relation between mental states.",
+          "A spiritual force.",
+          "An unchanging soul",
+          "An illusion"
+        ],
+        "correct_answer": "An illusion",
+        "question": "What does the course material say about why bundle theory is hard to accept?"
+      },
+      {
+        "choices": [
+          "Yes",
+          "Sometimes",
+          "No",
+          "Can't be answered"
+        ],
+        "correct_answer": "No",
+        "question": "Does the brain survive the teletransporter in the course materials?"
+      },
+      {
+        "choices": [
+          "Hume and Parfit",
+          "Locke and Reid",
+          "Buddha and Kant",
+          "Reid and the authors of the course materials"
+        ],
+        "correct_answer": "Hume and Parfit",
+        "question": "Which philosophers support the bundle theory?"
       }
     ]
   }

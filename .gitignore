@@ -33,8 +33,6 @@ Icon
 
 # Uploaded files (except for examples)
 uploads/*
-!uploads/*.pdf
-!uploads/*.docx
 
 # Logs
 *.log

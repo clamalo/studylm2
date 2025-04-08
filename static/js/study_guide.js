@@ -28,18 +28,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 fc.classList.remove('selected-answer');
             });
             
-            // Add highlight to the selected answer
+            // Add highlight to the selected answer with animation
             formCheck.classList.add('selected-answer');
+            formCheck.style.animation = 'pulse 0.5s';
             
             // Enable the submit button if at least one answer is selected
             const submitButton = document.getElementById(`submit-${quizGroup}`);
             if (submitButton && Object.keys(quizSelections[quizGroup]).length > 0) {
                 submitButton.disabled = false;
+                submitButton.classList.add('animate__animated', 'animate__pulse');
             }
         });
     });
     
-    // Handle unit quiz radio button selection
+    // Handle unit quiz radio button selection (same functionality with section quizzes)
     const unitQuizOptions = document.querySelectorAll('.unit-quiz-option');
     unitQuizOptions.forEach(option => {
         option.addEventListener('change', function() {
@@ -65,13 +67,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 fc.classList.remove('selected-answer');
             });
             
-            // Add highlight to the selected answer
+            // Add highlight to the selected answer with animation
             formCheck.classList.add('selected-answer');
+            formCheck.style.animation = 'pulse 0.5s';
             
             // Enable the submit button if at least one answer is selected
             const submitButton = document.getElementById(`submit-${quizGroup}`);
             if (submitButton && Object.keys(quizSelections[quizGroup]).length > 0) {
                 submitButton.disabled = false;
+                submitButton.classList.add('animate__animated', 'animate__pulse');
             }
         });
     });
@@ -98,6 +102,7 @@ document.addEventListener('DOMContentLoaded', function() {
         
         let correctCount = 0;
         let totalQuestions = 0;
+        let animationDelay = 0;
         
         // Process each answer in the quiz group
         for (const questionName in quizSelections[quizGroup]) {
@@ -108,59 +113,82 @@ document.addEventListener('DOMContentLoaded', function() {
             const radioInput = document.querySelector(`input[name="${questionName}"][value="${question.selected}"]`);
             if (!radioInput) continue;
             
+            const formCheck = radioInput.closest('.form-check');
             const cardBody = radioInput.closest('.card-body');
+            const quizCard = radioInput.closest('.quiz-card');
             const feedbackDiv = cardBody.querySelector('.answer-feedback');
             const correctFeedback = feedbackDiv.querySelector('.correct-answer');
             const wrongFeedback = feedbackDiv.querySelector('.wrong-answer');
             
-            // Show the feedback div
-            feedbackDiv.classList.remove('d-none');
-            
-            if (question.selected === question.correct) {
-                // Show correct feedback
-                correctFeedback.classList.remove('d-none');
-                wrongFeedback.classList.add('d-none');
+            // Show the feedback div with slight delay for visual effect
+            setTimeout(() => {
+                // Show the feedback div
+                feedbackDiv.classList.remove('d-none');
+                feedbackDiv.style.animation = 'fadeIn 0.5s';
                 
-                // Clear existing classes and highlight only the correct answer
-                cardBody.querySelectorAll('.form-check').forEach(fc => {
-                    fc.classList.remove('correct-answer', 'wrong-answer');
-                });
-                
-                // Highlight the correct answer in green
-                radioInput.closest('.form-check').classList.add('correct-answer');
-                
-                correctCount++;
-                
-                // Play a success sound
-                playSound('success');
-            } else {
-                // Show wrong feedback
-                correctFeedback.classList.add('d-none');
-                wrongFeedback.classList.remove('d-none');
-                
-                // Clear existing classes
-                cardBody.querySelectorAll('.form-check').forEach(fc => {
-                    fc.classList.remove('correct-answer', 'wrong-answer');
-                });
-                
-                // Highlight the wrong answer in red
-                radioInput.closest('.form-check').classList.add('wrong-answer');
-                
-                // Find and highlight the correct answer option ONLY
-                const correctOption = cardBody.querySelector(`input[value="${question.correct}"]`);
-                if (correctOption) {
-                    correctOption.closest('.form-check').classList.add('correct-answer');
+                if (question.selected === question.correct) {
+                    // Show correct feedback
+                    correctFeedback.classList.remove('d-none');
+                    wrongFeedback.classList.add('d-none');
+                    
+                    // Clear existing classes and highlight only the correct answer
+                    cardBody.querySelectorAll('.form-check').forEach(fc => {
+                        fc.classList.remove('correct-answer', 'wrong-answer');
+                    });
+                    
+                    // Highlight the correct answer in green
+                    formCheck.classList.add('correct-answer');
+                    formCheck.style.animation = 'pulse 0.8s';
+                    
+                    correctCount++;
+                    
+                    // Play a success sound
+                    playSound('success');
+                    
+                    // Add green border to card
+                    quizCard.style.borderLeft = '4px solid var(--success)';
+                } else {
+                    // Show wrong feedback
+                    correctFeedback.classList.add('d-none');
+                    wrongFeedback.classList.remove('d-none');
+                    
+                    // Clear existing classes
+                    cardBody.querySelectorAll('.form-check').forEach(fc => {
+                        fc.classList.remove('correct-answer', 'wrong-answer');
+                    });
+                    
+                    // Highlight the wrong answer in red
+                    formCheck.classList.add('wrong-answer');
+                    formCheck.style.animation = 'shake 0.8s';
+                    
+                    // Find and highlight the correct answer option
+                    const correctOption = cardBody.querySelector(`input[value="${question.correct}"]`);
+                    if (correctOption) {
+                        const correctFormCheck = correctOption.closest('.form-check');
+                        correctFormCheck.classList.add('correct-answer');
+                        setTimeout(() => {
+                            correctFormCheck.style.animation = 'pulse 0.8s';
+                        }, 400); // Slight delay to highlight the correct answer
+                    }
+                    
+                    // Play an error sound
+                    playSound('error');
+                    
+                    // Add red border to card
+                    quizCard.style.borderLeft = '4px solid var(--danger)';
                 }
                 
-                // Play an error sound
-                playSound('error');
-            }
+                // Disable all options in this question
+                const relatedOptions = document.querySelectorAll(`input[name="${questionName}"]`);
+                relatedOptions.forEach(opt => {
+                    opt.disabled = true;
+                });
+                
+                // Scroll to make the feedback visible if needed
+                feedbackDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, animationDelay);
             
-            // Disable all options in this question
-            const relatedOptions = document.querySelectorAll(`input[name="${questionName}"]`);
-            relatedOptions.forEach(opt => {
-                opt.disabled = true;
-            });
+            animationDelay += 200; // Stagger the animations
         }
         
         // Add score summary at the bottom near the submit button
@@ -169,35 +197,54 @@ document.addEventListener('DOMContentLoaded', function() {
         
         if (scoreContainer) {
             // Disable submit button
-            document.getElementById(`submit-${quizGroup}`).disabled = true;
+            const submitButton = document.getElementById(`submit-${quizGroup}`);
+            submitButton.disabled = true;
+            submitButton.innerHTML = '<i class="bi bi-check2-all"></i> Completed';
             
-            // Add score to the score container
-            scoreContainer.innerHTML = '';
-            const scoreElement = document.createElement('div');
-            scoreElement.className = 'alert alert-info mt-3';
-            const percentage = Math.round(correctCount/totalQuestions*100);
-            let feedbackClass = 'alert-info';
-            let feedbackIcon = 'info-circle-fill';
-            
-            if (percentage >= 80) {
-                feedbackClass = 'alert-success';
-                feedbackIcon = 'trophy-fill';
-            } else if (percentage < 60) {
-                feedbackClass = 'alert-warning';
-                feedbackIcon = 'exclamation-triangle-fill';
-            }
-            
-            scoreElement.className = `alert ${feedbackClass}`;
-            scoreElement.innerHTML = `
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-${feedbackIcon} fs-4 me-3"></i>
-                    <div>
-                        <h5 class="mb-1">Quiz Results</h5>
-                        <p class="mb-0">Your score: <strong>${correctCount}/${totalQuestions}</strong> (${percentage}%)</p>
+            // Delay the score display for visual effect
+            setTimeout(() => {
+                // Add score to the score container
+                scoreContainer.innerHTML = '';
+                const scoreElement = document.createElement('div');
+                scoreElement.className = 'alert mt-3';
+                const percentage = Math.round(correctCount/totalQuestions*100);
+                let feedbackClass = 'alert-info';
+                let feedbackIcon = 'info-circle-fill';
+                let feedbackMessage = 'Keep practicing to improve!';
+                
+                if (percentage >= 80) {
+                    feedbackClass = 'alert-success';
+                    feedbackIcon = 'trophy-fill';
+                    feedbackMessage = 'Excellent work! You\'ve mastered this content.';
+                } else if (percentage >= 60) {
+                    feedbackClass = 'alert-info';
+                    feedbackIcon = 'patch-check-fill';
+                    feedbackMessage = 'Good job! Review the incorrect answers to strengthen your knowledge.';
+                } else {
+                    feedbackClass = 'alert-warning';
+                    feedbackIcon = 'exclamation-triangle-fill';
+                    feedbackMessage = 'Review this section again to improve your understanding.';
+                }
+                
+                scoreElement.className = `alert ${feedbackClass}`;
+                scoreElement.innerHTML = `
+                    <div class="d-flex align-items-center">
+                        <i class="bi bi-${feedbackIcon} fs-3 me-3"></i>
+                        <div>
+                            <h5 class="mb-1">Quiz Results</h5>
+                            <p class="mb-1">Your score: <strong>${correctCount}/${totalQuestions}</strong> (${percentage}%)</p>
+                            <p class="mb-0 small">${feedbackMessage}</p>
+                        </div>
                     </div>
-                </div>
-            `;
-            scoreContainer.appendChild(scoreElement);
+                `;
+                scoreContainer.appendChild(scoreElement);
+                scoreElement.style.animation = 'fadeIn 0.8s';
+                
+                // If score is perfect, add confetti effect
+                if (percentage === 100) {
+                    triggerConfetti();
+                }
+            }, animationDelay + 300);
         }
     }
     
@@ -247,150 +294,114 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Add styles for quiz elements
+    // Confetti effect for perfect scores
+    function triggerConfetti() {
+        // Simple confetti effect using canvas (simplified version)
+        const canvas = document.createElement('canvas');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        canvas.style.position = 'fixed';
+        canvas.style.top = '0';
+        canvas.style.left = '0';
+        canvas.style.pointerEvents = 'none';
+        canvas.style.zIndex = '9999';
+        document.body.appendChild(canvas);
+        
+        const ctx = canvas.getContext('2d');
+        const confettiCount = 200;
+        const confetti = [];
+        
+        // Create confetti particles
+        for (let i = 0; i < confettiCount; i++) {
+            confetti.push({
+                x: Math.random() * canvas.width,
+                y: Math.random() * canvas.height - canvas.height,
+                size: Math.random() * 10 + 5,
+                color: `hsl(${Math.random() * 360}, 70%, 60%)`,
+                speed: Math.random() * 3 + 2
+            });
+        }
+        
+        // Animation loop
+        let animationFrame;
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            let stillFalling = false;
+            confetti.forEach(c => {
+                c.y += c.speed;
+                ctx.fillStyle = c.color;
+                ctx.fillRect(c.x, c.y, c.size, c.size);
+                
+                if (c.y < canvas.height) {
+                    stillFalling = true;
+                }
+            });
+            
+            if (stillFalling) {
+                animationFrame = requestAnimationFrame(animate);
+            } else {
+                cancelAnimationFrame(animationFrame);
+                document.body.removeChild(canvas);
+            }
+        }
+        
+        animate();
+        
+        // Clean up after a few seconds
+        setTimeout(() => {
+            if (document.body.contains(canvas)) {
+                cancelAnimationFrame(animationFrame);
+                document.body.removeChild(canvas);
+            }
+        }, 5000);
+    }
+    
+    // Add styles for quiz elements and animations
     const quizStyle = document.createElement('style');
     quizStyle.innerHTML = `
+        /* Answer selection styling */
         .selected-answer {
-            background-color: rgba(13, 110, 253, 0.15);
-            border-left: 3px solid var(--primary);
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            background-color: rgba(13, 110, 253, 0.08);
+            border-color: rgba(13, 110, 253, 0.3);
             transform: translateX(5px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
         }
         
-        .form-check {
-            cursor: pointer;
-            transition: all 0.2s ease-in-out;
-            border-radius: 6px;
-            padding: 12px 15px;
-            margin-bottom: 8px;
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         
-        .form-check:hover {
-            background-color: rgba(0, 123, 255, 0.08);
-            transform: translateX(3px);
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.03); }
+            100% { transform: scale(1); }
         }
         
-        .form-check-input {
-            cursor: pointer;
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
         }
         
-        .form-check-label {
-            cursor: pointer;
-            display: block;
-            width: 100%;
-            padding-left: 8px;
-        }
-        
-        .correct-answer {
-            background-color: rgba(25, 135, 84, 0.12);
-            border-left: 4px solid var(--success);
-        }
-        
-        .wrong-answer {
-            background-color: rgba(220, 53, 69, 0.12);
-            border-left: 4px solid var(--danger);
-        }
-        
-        .quiz-container {
-            border-radius: 10px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
-            margin-bottom: 2rem;
-            padding: 1.5rem;
-            background-color: #f8f9fa;
-            border: 1px solid #dee2e6;
+        .quiz-score-container {
+            transition: all 0.3s ease;
         }
         
         .quiz-card {
-            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        /* Improved focus state for accessibility */
+        .form-check-input:focus {
+            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
         }
     `;
     document.head.appendChild(quizStyle);
     
-    // Handle smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            
-            if (targetElement) {
-                // Smooth scroll to the element
-                targetElement.scrollIntoView({ behavior: 'smooth' });
-                
-                // Highlight the element briefly
-                setTimeout(() => {
-                    targetElement.classList.add('highlight-section');
-                    setTimeout(() => {
-                        targetElement.classList.remove('highlight-section');
-                    }, 2000);
-                }, 500);
-            }
-        });
-    });
-    
-    // Make section headers sticky on scroll for better navigation
-    const sectionHeaders = document.querySelectorAll('.section-title');
-    
-    sectionHeaders.forEach(header => {
-        const observer = new IntersectionObserver(
-            ([entry]) => {
-                if (entry.isIntersecting) {
-                    // When the header comes into view
-                    header.classList.remove('sticky-header');
-                } else {
-                    // When the header scrolls out of view
-                    const rect = header.getBoundingClientRect();
-                    if (rect.top < 0) {
-                        header.classList.add('sticky-header');
-                    }
-                }
-            },
-            { threshold: 1.0 }
-        );
-        
-        observer.observe(header);
-    });
-    
-    // Add styles for section highlight and sticky headers
-    const styleElement = document.createElement('style');
-    styleElement.innerHTML = `
-        .highlight-section {
-            animation: highlight 2s ease;
-        }
-        
-        @keyframes highlight {
-            0%, 100% { background-color: transparent; }
-            50% { background-color: var(--highlight); }
-        }
-        
-        .sticky-header {
-            position: sticky;
-            top: 60px;
-            z-index: 100;
-            background-color: var(--white);
-            padding: 10px;
-            margin: -10px;
-            box-shadow: var(--shadow-md);
-            border-radius: var(--radius-md);
-        }
-        
-        /* Quiz styles */
-        .correct-answer {
-            background-color: rgba(25, 135, 84, 0.1);
-            border-left: 3px solid var(--success);
-            padding-left: 10px;
-        }
-        
-        .wrong-answer {
-            background-color: rgba(220, 53, 69, 0.1);
-            border-left: 3px solid var(--danger);
-            padding-left: 10px;
-        }
-    `;
-    document.head.appendChild(styleElement);
-    
-    // Initialize reading time estimates
+    // Initialize reading time estimates and other features
     updateReadingTimeEstimates();
     
     function updateReadingTimeEstimates() {
@@ -419,7 +430,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Add settings menu
+    // Add settings menu and other existing functionality
     addSettingsMenu();
     
     function addSettingsMenu() {
