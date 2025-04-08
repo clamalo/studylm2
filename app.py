@@ -89,7 +89,7 @@ def generate_study_guide(file_refs):
     """Generate a structured study guide from the files"""
     # Create new model configured for JSON response
     json_response_model = genai.GenerativeModel(
-        # model_name='gemini-2.0-flash',
+        # model_name='gemini-2.0-pro-exp-02-05',
         model_name = 'gemini-2.5-pro-exp-03-25',
         # system_instruction="Always respond in English and format responses as valid JSON. "
     )
@@ -161,13 +161,24 @@ def generate_study_guide(file_refs):
         }
     )
     
-    # Save JSON response to file
+    # Extract the JSON content from the response
+    response_text = structured_response.text
+    
+    # Check if the response contains Markdown JSON code blocks
+    if "```json" in response_text:
+        # Extract the content between ```json and ```
+        start_idx = response_text.find("```json") + 7  # Move past "```json"
+        end_idx = response_text.find("```", start_idx)
+        if end_idx != -1:
+            response_text = response_text[start_idx:end_idx].strip()
+    
+    # Save clean JSON response to file
     output_file_path = os.path.join('static', 'output.json')
     with open(output_file_path, 'w') as f:
-        f.write(structured_response.text)
+        f.write(response_text)
     
     # Return the parsed JSON data
-    return json.loads(structured_response.text)
+    return json.loads(response_text)
 
 # Flask routes
 @app.route('/')

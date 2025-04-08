@@ -1,761 +1,679 @@
 [
   {
-    "overview": "This unit introduces the problem of personal identity, exploring various perspectives and thought experiments that challenge our understanding of what makes us the same person over time. It contrasts substance and psychological approaches to personal identity, setting the stage for a deeper dive into these theories.",
+    "overview": "This unit introduces the concept that memory is not a single, unified system but is composed of multiple systems. It uses the pivotal case study of patient H.M., whose surgery revealed dissociations between different types of memory abilities, highlighting the crucial role of the medial temporal lobe (MTL) in forming new long-term declarative memories while sparing other forms like procedural memory and priming.",
     "sections": [
       {
         "key_points": [
-          "Personal identity is a philosophical problem concerning what makes a person the same person over time.",
-          "There are different approaches to understanding personal identity, including substance-based and psychology-based theories.",
-          "Thought experiments and real-life cases like amnesia and split-brain patients challenge our intuitive notions of personal identity."
+          "Patient H.M. underwent bilateral removal of the medial temporal lobe (MTL), including the hippocampus, at age 27 to treat severe epilepsy.",
+          "The surgery resulted in profound anterograde amnesia: the inability to form new lasting memories after the surgery.",
+          "H.M. also experienced temporally graded retrograde amnesia: impaired memory for events occurring just before the surgery, but relatively intact memory for remote events (Ribot's Law).",
+          "Despite severe impairments in forming new long-term memories, H.M.'s working memory (short-term retention and manipulation of information) remained intact.",
+          "H.M.'s case provides crucial evidence for the role of the MTL in converting immediate experiences into long-term memories."
         ],
-        "narrative": "The problem of personal identity centers on determining what makes a person the same person over time, despite physical and psychological changes. We start to address the basic question, 'What am I?'  Several views are presented, including that we are collections of cells, brains, or sets of psychological states.  Thought experiments involving scenarios like total recall, where memories can be implanted, or real-life conditions like amnesia, where memories are lost, or the existence of split-brain patients (where the communication between hemispheres of the brain is severed) help to highlight the complexities involved in this philosophical area.",
+        "narrative": "The study of memory systems was revolutionized by the case of H.M. Suffering from debilitating epilepsy, H.M. underwent a surgical procedure at age 27 involving the removal of large portions of his medial temporal lobes (MTL) on both sides. While the surgery successfully reduced his seizures, it had a devastating and unexpected side effect on his memory. H.M. developed severe anterograde amnesia, meaning he could no longer form new, lasting memories for events or facts encountered after the surgery. He lived perpetually in the present, unable to retain experiences for more than a few moments. He also exhibited retrograde amnesia, losing memories from the period leading up to his surgery, though his memories from the distant past (childhood, early adulthood) were largely preserved. This pattern, where recent memories are more affected than remote ones, is known as a temporal gradient or Ribot's Law. Crucially, his short-term or working memory was unaffected; he could hold conversations and perform tasks as long as his attention was maintained. This dissociation clearly indicated that the MTL is vital for the consolidation of long-term memories but not for short-term retention or remote memories.",
         "quizzes": [
           {
             "choices": [
-              "The study of physical objects and their properties.",
-              "The investigation into the fundamental nature of reality, existence, and our relationship to them.",
-              "The analysis of social structures and human behavior.",
-              "The branch of mathematics dealing with abstract structures."
+              "Inability to recall childhood memories",
+              "Inability to form new long-term memories",
+              "Inability to understand spoken language",
+              "Inability to hold information in mind for short periods"
             ],
-            "correct_answer": "The investigation into the fundamental nature of reality, existence, and our relationship to them.",
-            "question": "What is philosophy?"
+            "correct_answer": "Inability to form new long-term memories",
+            "question": "What is the defining characteristic of anterograde amnesia, as experienced by H.M.?"
           },
           {
             "choices": [
-              "A condition in which a person only remembers events from their childhood.",
-              "A medical condition that can be treated with medication.",
-              "A loss of memory, often due to brain injury, illness, or psychological trauma.",
-              "The state of being fully conscious and aware of one's surroundings."
+              "His working memory was severely impaired.",
+              "He lost all memories from before the surgery.",
+              "His memories from the distant past were more intact than recent pre-surgery memories.",
+              "He could form new procedural memories but not semantic ones."
             ],
-            "correct_answer": "A loss of memory, often due to brain injury, illness, or psychological trauma.",
-            "question": "What is amnesia?"
+            "correct_answer": "His memories from the distant past were more intact than recent pre-surgery memories.",
+            "question": "Which statement accurately describes H.M.'s retrograde amnesia?"
           },
           {
             "choices": [
-              "Severing all neural connections in the brain.",
-              "Surgically dividing the corpus callosum, the structure connecting the two hemispheres of the brain.",
-              "Implanting false memories into the brain.",
-              "Removing the outer layer of the brain."
+              "Frontal lobes",
+              "Parietal lobes",
+              "Medial temporal lobes (MTL)",
+              "Cerebellum"
             ],
-            "correct_answer": "Surgically dividing the corpus callosum, the structure connecting the two hemispheres of the brain.",
-            "question": "What is a split-brain procedure?"
+            "correct_answer": "Medial temporal lobes (MTL)",
+            "question": "Which brain region was surgically removed in H.M., leading to his memory impairments?"
           }
         ],
-        "section_title": "Introduction to Personal Identity"
+        "section_title": "The Case of H.M.: Amnesia Following MTL Removal"
+      },
+      {
+        "key_points": [
+          "Despite profound declarative memory loss, H.M. showed preservation in several other memory domains.",
+          "H.M. had normal verbal IQ and could demonstrate semantic priming (faster processing of a word related to a previously seen word).",
+          "He exhibited perceptual learning, improving on tasks like the Picture Fragment Task (identifying fragmented images) with repetition (repetition priming), without remembering having done the task before.",
+          "H.M. demonstrated motor skill learning, improving on tasks like mirror tracing and the rotary pursuit task over successive trials, despite having no conscious recollection of previous attempts.",
+          "Classical conditioning, such as eyeblink conditioning, was also preserved in H.M.",
+          "These preserved abilities suggest memory processes independent of the MTL.",
+          "Contrastingly, semantic dementia involves damage typically to the anterior temporal lobe, leading to loss of semantic knowledge (meaning of words, object identity) while episodic memory might be initially spared."
+        ],
+        "narrative": "While H.M.'s inability to form new declarative memories (memories for facts and events) was striking, researchers discovered that not all aspects of his memory were disrupted. His intelligence (verbal IQ) remained normal, and he showed intact semantic priming, indicating that his existing knowledge base was largely accessible. More surprisingly, H.M. could learn new skills and demonstrate forms of non-declarative (or implicit) memory. For instance, he showed perceptual learning through repetition priming; his ability to identify fragmented pictures improved across sessions, even though he never remembered seeing the pictures before. Similarly, he mastered motor skills like mirror tracing (drawing by looking in a mirror) and the rotary pursuit task (keeping a stylus on a moving target), showing clear learning curves over days, yet always claiming he was doing the task for the first time. Simple forms of classical conditioning, like learning to blink in response to a tone paired with an air puff, were also preserved. These findings were crucial because they demonstrated that the MTL is not necessary for all types of learning and memory. Specific types of memory, particularly those related to skills, habits, and priming, rely on different brain structures (e.g., cerebellum for eyeblink conditioning and some motor tasks, basal ganglia for other motor tasks). This contrasts with conditions like semantic dementia, where damage to other temporal lobe areas leads to a loss of conceptual knowledge, further supporting the idea of distinct memory systems.",
+        "quizzes": [
+          {
+            "choices": [
+              "Learning the name of a new acquaintance",
+              "Remembering what he ate for breakfast",
+              "Improving performance on the mirror tracing task",
+              "Recalling a significant event from the previous week"
+            ],
+            "correct_answer": "Improving performance on the mirror tracing task",
+            "question": "Which of the following tasks could H.M. successfully learn and demonstrate improvement on, despite his amnesia?"
+          },
+          {
+            "choices": [
+              "Episodic memory",
+              "Semantic memory",
+              "Working memory",
+              "Non-declarative (implicit) memory"
+            ],
+            "correct_answer": "Non-declarative (implicit) memory",
+            "question": "H.M.'s preserved ability to learn motor skills and show priming effects falls under which broad category of memory?"
+          },
+          {
+            "choices": [
+              "Anterograde amnesia",
+              "Retrograde amnesia",
+              "Semantic dementia",
+              "Aphasia"
+            ],
+            "correct_answer": "Semantic dementia",
+            "question": "Which neurological condition is characterized by progressive loss of conceptual knowledge (word meanings, object identity) often due to anterior temporal lobe damage?"
+          }
+        ],
+        "section_title": "Preserved Memory Abilities in H.M."
+      },
+      {
+        "key_points": [
+          "H.M.'s case demonstrated that damage to the MTL severely impacts the ability to form new long-term declarative memories.",
+          "It provided strong evidence for the existence of multiple, dissociable memory systems within the brain.",
+          "Different types of memory (e.g., declarative vs. procedural, short-term vs. long-term) rely on distinct neural structures.",
+          "Skills (motor, perceptual) and priming effects depend on brain regions outside the MTL, such as the basal ganglia, neocortex, and cerebellum.",
+          "The study of H.M. fundamentally shaped our understanding of the organization of memory in the brain."
+        ],
+        "narrative": "The extensive study of H.M. over several decades yielded profound insights into the nature of human memory. Firstly, it unequivocally established the critical role of the medial temporal lobe (MTL), particularly the hippocampus and surrounding structures, in the formation of new long-term memories for facts and events (declarative memory). Damage to this region leads to severe anterograde amnesia. Secondly, H.M.'s pattern of deficits and preserved abilities provided compelling evidence that memory is not a single entity. Instead, there appear to be multiple memory systems, each supported by different brain regions and operating according to different principles. The distinction between declarative memory (impaired in H.M.) and various forms of non-declarative memory like skill learning, priming, and conditioning (preserved in H.M.) became a cornerstone of memory research. This dissociation implies that structures outside the MTL, including the basal ganglia, cerebellum, and various cortical areas, are responsible for these other forms of learning and memory. Thus, H.M.'s case was instrumental in shifting the focus from a unitary view of memory to a more complex, systems-based understanding of how we learn and remember.",
+        "quizzes": [
+          {
+            "choices": [
+              "Memory is a single system located entirely within the MTL.",
+              "The MTL is only involved in short-term memory.",
+              "Damage to the MTL primarily affects motor skill learning.",
+              "There are multiple memory systems supported by distinct brain structures."
+            ],
+            "correct_answer": "There are multiple memory systems supported by distinct brain structures.",
+            "question": "What was a major conclusion drawn from studying H.M.'s preserved and impaired abilities?"
+          },
+          {
+            "choices": [
+              "Retrieval of remote memories",
+              "Formation of new long-term declarative memories",
+              "Execution of learned motor skills",
+              "Short-term retention of information"
+            ],
+            "correct_answer": "Formation of new long-term declarative memories",
+            "question": "H.M.'s case strongly indicated that the MTL is essential for which memory function?"
+          },
+          {
+            "choices": [
+              "Basal ganglia and cerebellum",
+              "Medial temporal lobe",
+              "Prefrontal cortex only",
+              "Occipital lobe"
+            ],
+            "correct_answer": "Basal ganglia and cerebellum",
+            "question": "Based on H.M.'s preserved abilities, which brain structures are implicated in skill learning and conditioning?"
+          }
+        ],
+        "section_title": "Implications of H.M.'s Case for Memory Theory"
       }
     ],
-    "unit": "The Problem of Personal Identity",
+    "unit": "Unit 1: Introduction to Memory Systems and the Case of H.M.",
     "unit_quiz": [
       {
         "choices": [
-          "What makes a thing the same thing over time.",
-          "The moral status of animals.",
-          "The existence of God.",
-          "The relationship between mind and body."
+          "Frontal lobe resection",
+          "Cerebellar lesion",
+          "Bilateral medial temporal lobectomy",
+          "Corpus callosotomy"
         ],
-        "correct_answer": "What makes a thing the same thing over time.",
-        "question": "What is the central question of personal identity?"
+        "correct_answer": "Bilateral medial temporal lobectomy",
+        "question": "What surgical procedure did patient H.M. undergo?"
       },
       {
         "choices": [
-          "Total Recall",
-          "The Matrix",
-          "Inception",
-          "Blade Runner"
+          "Profound retrograde amnesia for all past events",
+          "Severe anterograde amnesia",
+          "Complete loss of working memory",
+          "Inability to learn any new skills"
         ],
-        "correct_answer": "Total Recall",
-        "question": "Which movie is used as an example of questions on personal identity in the course materials?"
+        "correct_answer": "Severe anterograde amnesia",
+        "question": "What was the most striking memory impairment H.M. experienced after his surgery?"
       },
       {
         "choices": [
-          "A soul",
-          "A bundle of perceptions",
-          "A stream of consciousness",
+          "Semantic memory (general knowledge)",
+          "Episodic memory (personal events)",
+          "Procedural memory (skills)",
+          "Working memory (short-term retention)"
+        ],
+        "correct_answer": "Procedural memory (skills)",
+        "question": "Which type of memory remained largely intact in H.M., allowing him to learn tasks like mirror tracing?"
+      },
+      {
+        "choices": [
+          "All memories were equally lost.",
+          "Remote memories were more impaired than recent memories.",
+          "Recent memories just before surgery were more impaired than remote memories.",
+          "Only memories from childhood were affected."
+        ],
+        "correct_answer": "Recent memories just before surgery were more impaired than remote memories.",
+        "question": "What does the term 'temporal gradient' (Ribot's Law) refer to in the context of H.M.'s retrograde amnesia?"
+      },
+      {
+        "choices": [
+          "The Picture Fragment Task",
+          "The Mirror Tracing Task",
+          "The Rotary Pursuit Task",
+          "Recalling a list of words after a delay"
+        ],
+        "correct_answer": "Recalling a list of words after a delay",
+        "question": "Which task would H.M. have shown significant difficulty with due to his anterograde amnesia?"
+      },
+      {
+        "choices": [
+          "That memory is solely dependent on the prefrontal cortex.",
+          "That the MTL is crucial for consolidating long-term declarative memories.",
+          "That short-term and long-term memory are the same process.",
+          "That skill learning is impossible without conscious recollection."
+        ],
+        "correct_answer": "That the MTL is crucial for consolidating long-term declarative memories.",
+        "question": "What key role of the Medial Temporal Lobe (MTL) was highlighted by H.M.'s case?"
+      },
+      {
+        "choices": [
+          "Declarative memory",
+          "Explicit memory",
+          "Implicit memory",
+          "Episodic memory"
+        ],
+        "correct_answer": "Implicit memory",
+        "question": "Perceptual priming and skill learning, which were preserved in H.M., are types of:"
+      },
+      {
+        "choices": [
+          "Improved ability to recall past events",
+          "Faster identification of previously seen fragmented pictures",
+          "Enhanced semantic knowledge",
+          "Better performance on working memory tasks"
+        ],
+        "correct_answer": "Faster identification of previously seen fragmented pictures",
+        "question": "Repetition priming, demonstrated by H.M. in the Picture Fragment Task, refers to:"
+      },
+      {
+        "choices": [
+          "His intelligence quotient (IQ) significantly dropped.",
+          "His personality underwent a drastic change.",
+          "His ability to hold a conversation (working memory) was largely intact.",
+          "He lost the ability to speak fluently."
+        ],
+        "correct_answer": "His ability to hold a conversation (working memory) was largely intact.",
+        "question": "Besides long-term memory formation, what cognitive function was notably preserved in H.M.?"
+      },
+      {
+        "choices": [
+          "It showed that all memory relies on the hippocampus.",
+          "It disproved the existence of short-term memory.",
+          "It provided strong evidence for multiple, dissociable memory systems.",
+          "It demonstrated that amnesia only affects verbal memories."
+        ],
+        "correct_answer": "It provided strong evidence for multiple, dissociable memory systems.",
+        "question": "What is the most significant contribution of H.M.'s case to the understanding of memory?"
+      }
+    ]
+  },
+  {
+    "overview": "Building on the evidence from H.M., this unit formally categorizes different types of memory. It contrasts the traditional distinction between declarative (explicit) and non-declarative (implicit) memory systems with a newer perspective focusing on the different computational problems solved by distinct neural structures. This includes differentiating systems based on speed of encoding, flexibility of representations, and whether they handle associations or single items.",
+    "sections": [
+      {
+        "key_points": [
+          "Memory can be broadly divided into Declarative (explicit) and Non-declarative (implicit) systems.",
+          "Declarative memory involves conscious recollection and includes Episodic memory (memory for personal events) and Semantic memory (memory for facts and general knowledge).",
+          "Non-declarative memory operates without conscious awareness and includes Procedural memory (skills and habits), Priming (changes in processing due to prior exposure), and Conditioning (learned associations).",
+          "This classification (often associated with Larry Squire) aligns well with the dissociations observed in H.M. (impaired declarative, preserved non-declarative).",
+          "Declarative memory is typically dependent on the MTL, while non-declarative forms rely on other structures (basal ganglia, cerebellum, neocortex)."
+        ],
+        "narrative": "Based on neuropsychological evidence like the H.M. case, memory researchers proposed taxonomies to organize different memory types. A widely influential model distinguishes between two major memory systems: declarative and non-declarative. Declarative memory, also known as explicit memory, refers to memories that can be consciously recalled and 'declared' or described. It encompasses memory for personal experiences tied to a specific time and place (Episodic memory) and memory for general world knowledge, concepts, and facts (Semantic memory). H.M.'s primary deficit was in forming new declarative memories. In contrast, non-declarative memory, or implicit memory, influences behavior without necessarily entering conscious awareness. This category includes Procedural memory (learning motor and cognitive skills, like riding a bike or mirror tracing), Priming (facilitated processing of a stimulus due to prior exposure, like H.M.'s improvement on the picture fragment task), and classical Conditioning (learning associations between stimuli, like H.M.'s eyeblink conditioning). This framework helps explain why H.M. could learn new skills (procedural) and show priming effects despite being unable to consciously remember the learning episodes (episodic). Generally, declarative memory relies heavily on the integrity of the medial temporal lobe (MTL), whereas non-declarative memory depends on various other brain regions like the basal ganglia (procedural), neocortex (priming), and cerebellum (conditioning).",
+        "quizzes": [
+          {
+            "choices": [
+              "Recalling your last birthday party.",
+              "Knowing that Paris is the capital of France.",
+              "Remembering how to ride a bicycle.",
+              "Recognizing a familiar face."
+            ],
+            "correct_answer": "Recalling your last birthday party.",
+            "question": "Which of the following is the best example of episodic memory?"
+          },
+          {
+            "choices": [
+              "Declarative and Non-declarative",
+              "Short-term and Long-term",
+              "Verbal and Non-verbal",
+              "Conscious and Subconscious"
+            ],
+            "correct_answer": "Declarative and Non-declarative",
+            "question": "What are the two main branches in the traditional classification of long-term memory systems, as adapted from Squire?"
+          },
+          {
+            "choices": [
+              "Episodic Memory",
+              "Semantic Memory",
+              "Procedural Memory",
+              "Working Memory"
+            ],
+            "correct_answer": "Procedural Memory",
+            "question": "Learning how to type on a keyboard is primarily an example of which type of memory?"
+          }
+        ],
+        "section_title": "Classifying Memory Systems: Declarative vs. Non-declarative"
+      },
+      {
+        "key_points": [
+          "Newer models propose that different memory systems evolved to solve distinct computational problems.",
+          "This perspective emphasizes processing characteristics rather than just conscious awareness or content.",
+          "Key distinctions include: Rapid vs. Slow encoding, Flexible vs. Rigid associations, and Associative vs. Single-item/Unitized representations.",
+          "The Hippocampus (within the MTL) is specialized for rapid encoding of flexible, associative relationships (critical for episodic memory).",
+          "The Basal Ganglia and Cerebellum are involved in slow encoding of more rigid associations (important for procedural skills and habits).",
+          "Neocortical areas, including the Parahippocampal Gyrus, are involved in familiarity and priming, potentially representing single items or unitized information, sometimes rapidly.",
+          "This view integrates different memory types (episodic, semantic, procedural, priming, familiarity) based on the underlying neural systems and their computational roles (e.g., Henke, 2010)."
+        ],
+        "narrative": "While the declarative/non-declarative distinction is useful, newer perspectives (e.g., Henke, 2010) categorize memory systems based on the different *computational problems* they are specialized to solve, linking these functions more directly to specific neural substrates and their processing characteristics. This approach moves beyond simple dichotomies like conscious vs. unconscious. It highlights dimensions such as the speed and flexibility of learning. For instance, the hippocampus is crucial for the *rapid encoding of flexible associations* – binding together multiple elements (what, where, when) that constitute an episode. This allows for one-trial learning of unique events. In contrast, systems involving the basal ganglia and cerebellum are better suited for *slow, incremental learning of rigid associations*, typical of skill acquisition and habit formation, where performance improves gradually with practice. Other systems, involving areas like the parahippocampal gyrus and other neocortical regions, might be specialized for *rapid encoding of single items or unitized information*, contributing to feelings of familiarity and priming effects. This computational approach views episodic memory, procedural memory, classical conditioning, semantic memory, familiarity, and priming not just as distinct categories, but as outcomes of different neural systems optimized for different kinds of information processing (e.g., rapid flexible associations vs. slow rigid associations vs. rapid single-item processing).",
+        "quizzes": [
+          {
+            "choices": [
+              "Slow encoding of rigid associations",
+              "Rapid encoding of flexible associations",
+              "Rapid encoding of single items",
+              "Slow encoding of single items"
+            ],
+            "correct_answer": "Rapid encoding of flexible associations",
+            "question": "According to Henke's computational model, the hippocampus is primarily specialized for which type of processing, crucial for episodic memory?"
+          },
+          {
+            "choices": [
+              "Hippocampus",
+              "Amygdala",
+              "Basal ganglia and Cerebellum",
+              "Prefrontal cortex"
+            ],
+            "correct_answer": "Basal ganglia and Cerebellum",
+            "question": "Which brain structures are typically associated with the slow, incremental learning of rigid associations involved in procedural skills?"
+          },
+          {
+            "choices": [
+              "Conscious awareness vs. lack of awareness",
+              "Verbal vs. non-verbal content",
+              "The computational problems solved by different neural systems",
+              "Memory duration (short-term vs. long-term)"
+            ],
+            "correct_answer": "The computational problems solved by different neural systems",
+            "question": "What is the primary basis for classifying memory systems in newer models like Henke's (2010)?"
+          }
+        ],
+        "section_title": "Classifying Memory Systems: A Computational Perspective"
+      }
+    ],
+    "unit": "Unit 2: Types of Memory and Neural Substrates",
+    "unit_quiz": [
+      {
+        "choices": [
+          "Memory for personal events",
+          "Memory for facts and general knowledge",
+          "Memory for skills and habits",
+          "Memory based on prior exposure (priming)"
+        ],
+        "correct_answer": "Memory for personal events",
+        "question": "Episodic memory is best defined as:"
+      },
+      {
+        "choices": [
+          "Priming",
+          "Conditioning",
+          "Semantic Memory",
+          "Procedural Memory"
+        ],
+        "correct_answer": "Semantic Memory",
+        "question": "Knowing the chemical formula for water (H2O) is an example of:"
+      },
+      {
+        "choices": [
+          "Declarative (Explicit) Memory",
+          "Non-declarative (Implicit) Memory",
+          "Short-Term Memory",
+          "Sensory Memory"
+        ],
+        "correct_answer": "Non-declarative (Implicit) Memory",
+        "question": "Procedural memory, priming, and conditioning fall under the umbrella of:"
+      },
+      {
+        "choices": [
+          "Medial Temporal Lobe (MTL)",
+          "Basal Ganglia",
+          "Cerebellum",
+          "Neocortex"
+        ],
+        "correct_answer": "Medial Temporal Lobe (MTL)",
+        "question": "Which brain region is most critically involved in the formation and retrieval of declarative (explicit) memories?"
+      },
+      {
+        "choices": [
+          "Hippocampus",
+          "Basal Ganglia",
+          "Cerebellum",
+          "Amygdala"
+        ],
+        "correct_answer": "Basal Ganglia",
+        "question": "Which brain structure is heavily implicated in learning habits and motor skills (procedural memory)?"
+      },
+      {
+        "choices": [
+          "Rapid vs. Slow encoding",
+          "Flexible vs. Rigid associations",
+          "Associative vs. Single-item processing",
           "All of the above"
         ],
         "correct_answer": "All of the above",
-        "question": "What are some of the proposed answers to 'What am I?'"
+        "question": "Henke's (2010) computational model distinguishes memory systems based on which processing characteristics?"
       },
       {
         "choices": [
-          "The continuity of consciousness.",
-          "The survival of the physical body.",
-          "The ability to perform actions.",
-          "The preservation of social status."
+          "Slow, flexible associations",
+          "Rapid, rigid associations",
+          "Rapid, flexible associations",
+          "Slow, single-item processing"
         ],
-        "correct_answer": "The continuity of consciousness.",
-        "question": "Which of the following is most important in a 'psychological' view of personal identity?"
+        "correct_answer": "Rapid, flexible associations",
+        "question": "Episodic memory, supported by the hippocampus, is characterized by what type of encoding according to the computational view?"
       },
       {
         "choices": [
-          "Reincarnation with memories",
-          "Reincarnation without memories",
-          "Amnesia",
-          "Jekyll and Hyde"
+          "Familiarity and Priming",
+          "Episodic Memory",
+          "Procedural Memory",
+          "Classical Conditioning"
         ],
-        "correct_answer": "Reincarnation without memories",
-        "question": "What are some thought experiments that relate to personal identity?"
+        "correct_answer": "Familiarity and Priming",
+        "question": "Rapid encoding of single or unitized items, potentially involving the parahippocampal gyrus and neocortex, is thought to underlie:"
       },
       {
         "choices": [
-          "A neurological disorder",
-          "A psychological defense mechanism",
-          "An irreversible loss of memory",
-          "A state of heightened awareness"
+          "Explicit awareness",
+          "Verbalizability",
+          "Contextual detail",
+          "Influence on behavior without conscious recollection"
         ],
-        "correct_answer": "An irreversible loss of memory",
-        "question": "What is the best characterization of the term amnesia?"
+        "correct_answer": "Influence on behavior without conscious recollection",
+        "question": "A key feature of non-declarative (implicit) memory is its:"
       },
       {
         "choices": [
-          "Severing the connection between the mind and the body",
-          "Transferring memories from one brain to another",
-          "Dividing the connection between the cerebral hemispheres",
-          "Removing the frontal lobe"
+          "Larry Squire",
+          "Patient H.M.",
+          "Katharina Henke",
+          "Brenda Milner"
         ],
-        "correct_answer": "Dividing the connection between the cerebral hemispheres",
-        "question": "A split brain patient has had what procedure?"
-      },
-      {
-        "choices": [
-          "The study of the soul",
-          "The study of memory",
-          "The study of consciousness",
-          "The study of the brain"
-        ],
-        "correct_answer": "The study of the soul",
-        "question": "If personal identity depends on 'substance', which one of these is most likely what is meant by substance?"
-      },
-      {
-        "choices": [
-          "Biological properties",
-          "Physical properties",
-          "Psychological properties",
-          "Social roles"
-        ],
-        "correct_answer": "Psychological properties",
-        "question": "In what does a psychological theory of personal identity place the most emphasis?"
-      },
-      {
-        "choices": [
-          "Lindsay Lohan",
-          "Duncan Proctor",
-          "Jonathan Coryell",
-          "All of the above"
-        ],
-        "correct_answer": "All of the above",
-        "question": "Who was mentioned in the course materials in connection with questions of personal identity?"
+        "correct_answer": "Katharina Henke",
+        "question": "Which researcher proposed a model classifying memory based on computational problems like rapid/slow encoding and flexible/rigid associations?"
       }
     ]
   },
   {
-    "overview": "This unit focuses on Locke's theory of personal identity. It looks at his claim that personal identity depends on 'psychology', and not substance.  It covers Locke's arguments against the soul theory, including dreamless sleep and the prince and the cobbler, and introduces Reid's critique of Locke based on transitivity.",
+    "overview": "This unit focuses on episodic memory, the system responsible for remembering personal experiences. It explores the specific contributions of the Medial Temporal Lobe (MTL), particularly the hippocampus, and its interaction with the cortex. Key concepts covered include relational memory (binding items in context), pattern separation (distinguishing similar events), reactivation/replay (reinstating neural patterns during retrieval), and systems consolidation (the gradual shift of memory dependence from the hippocampus to the cortex over time).",
     "sections": [
       {
         "key_points": [
-          "Locke rejects the idea that personal identity depends on having the same soul or the same body.",
-          "Locke argues that personal identity is based on continuity of consciousness and memory.",
-          "Locke uses thought experiments, like the Prince and the Cobbler, to illustrate his points."
+          "The MTL, especially the hippocampus, is crucial for episodic memory.",
+          "Episodic memory involves binding multiple elements (items, context, time) together; this is known as relational memory.",
+          "The MTL supports relational memory by encoding the relationships between items within an event.",
+          "Pattern separation, a process attributed primarily to the hippocampus (specifically the dentate gyrus), distinguishes similar events or inputs, creating distinct memory traces.",
+          "Different MTL subregions contribute differently: Perirhinal cortex may process item information ('what'), Parahippocampal cortex may process context information ('where'), and the Hippocampus binds them together.",
+          "The 'Butcher on the Bus' phenomenon illustrates the distinction between familiarity (knowing you've seen someone, perhaps supported by perirhinal cortex) and recollection (remembering the specific context, requiring the hippocampus).",
+          "Episodic memory is essential not only for remembering the past but also for imagining future events."
         ],
-        "narrative": "Locke rejects the soul theory (the idea that personal identity depends on the sameness of a soul) and considers thought experiments and real life cases for support. The thought experiment of the Prince and the Cobbler (switching bodies) and the phenomenon of dreamless sleep both point towards what matters being psychological. To explain the concept of identity, Locke distinguishes between physical particles (continuous space-time), inanimate objects (same particles), and animate objects (same life). Locke's memory link theory: A is the same person as B if and only if B remembers having an experience as A.",
+        "narrative": "Episodic memory allows us to mentally travel back in time and re-experience past events. The Medial Temporal Lobe (MTL) plays a central role in this ability. One key function is supporting *relational memory*, which involves encoding and retrieving the associations between different elements of an experience – the 'what', 'where', and 'when'. For example, remembering not just that you saw a particular person (the item), but where you saw them and what else was happening (the context). The hippocampus is thought to be critical for binding these elements together. Another crucial function, particularly associated with the hippocampus, is *pattern separation*. This mechanism ensures that memories for similar events are stored as distinct representations, preventing interference and confusion. For instance, it allows you to distinguish memories of parking your car in a similar spot on different days. Different subregions within the MTL may have specialized roles: the perirhinal cortex is often linked to processing information about specific items (contributing to familiarity), the parahippocampal cortex to processing contextual or spatial information, and the hippocampus itself acting as the convergence zone to bind items within their context (supporting recollection). The common experience of recognizing someone out of context ('Butcher on the Bus' or 'Librarian at the Gorge') highlights this difference: familiarity might be present, but retrieving the specific episodic context requires hippocampal function. This ability to bind elements and distinguish patterns is also vital for constructing and imagining possible future scenarios.",
         "quizzes": [
           {
             "choices": [
-              "Substance, specifically the soul.",
-              "Biological functions and the body.",
-              "Social relationships and roles.",
-              "Consciousness and memory."
+              "Binding items to their context",
+              "Recognizing items based on familiarity",
+              "Learning motor skills",
+              "Understanding factual knowledge"
             ],
-            "correct_answer": "Consciousness and memory.",
-            "question": "According to Locke, on what does personal identity primarily depend?"
+            "correct_answer": "Binding items to their context",
+            "question": "What is the core function of relational memory, heavily supported by the hippocampus?"
           },
           {
             "choices": [
-              "A person with amnesia is no longer the same person.",
-              "A person is the same as long as their body remains intact.",
-              "Souls are transferred, but the person remains the same.",
-              "The prince is now the cobbler and vice-versa."
+              "Pattern completion",
+              "Pattern separation",
+              "Systems consolidation",
+              "Semantic priming"
             ],
-            "correct_answer": "The prince is now the cobbler and vice-versa.",
-            "question": "In the Prince and the Cobbler example, what does Locke mean by it?"
+            "correct_answer": "Pattern separation",
+            "question": "Which hippocampal process allows us to form distinct memories for similar events, preventing interference?"
           },
           {
             "choices": [
-              "That we stop existing when we sleep",
-              "The soul exists, and the person persists.",
-              "We are the same person regardless of whether we dream",
-              "Our souls get replaced every night."
+              "Perirhinal cortex for context, Parahippocampal cortex for items",
+              "Hippocampus for items, Perirhinal cortex for context",
+              "Perirhinal cortex for items, Parahippocampal cortex for context, Hippocampus for binding",
+              "All regions perform identical functions"
             ],
-            "correct_answer": "The soul exists, and the person persists.",
-            "question": "In respect to dreamless sleep, what is Locke's view?"
+            "correct_answer": "Perirhinal cortex for items, Parahippocampal cortex for context, Hippocampus for binding",
+            "question": "According to some models, how might different MTL subregions contribute to episodic memory?"
           }
         ],
-        "section_title": "Locke's Theory: Psychology over Substance"
+        "section_title": "The Role of the MTL in Episodic Memory: Relational Memory and Pattern Separation"
       },
       {
         "key_points": [
-          "Reid's critique targets the transitivity of identity in Locke's memory-based theory.",
-          "The brave officer is the whipped child, but Locke's theory says he can't be due to lack of memory.",
-          "Reid argues that memory is evidence of identity, not what constitutes identity itself."
+          "Memory retrieval often involves the reactivation of brain regions initially involved during encoding.",
+          "Sensory areas (e.g., visual, auditory cortex) active when experiencing an event can become active again during recall.",
+          "The hippocampus and cortex engage in 'replay', where sequences of neural activity representing an experience are reinstated, often during rest or sleep (e.g., slow-wave sleep).",
+          "Replay is thought to contribute to memory consolidation.",
+          "Pattern completion is the process where a partial cue can trigger the retrieval of a whole memory trace, likely involving hippocampal mechanisms.",
+          "Reactivation and replay demonstrate the dynamic interaction between the hippocampus and cortex during memory processes."
         ],
-        "narrative": "Thomas Reid attacks Locke's positive theory, arguing that it violates our firm notions of transitivity (that is, if A=B and B=C, then A=C). Reid has several arguments for the same soul, different person (sleep, different psychologies), and makes his case with his story of the brave officer and the general that does not remember his childhood whipping.  Therefore, O=B; G=O; G≠B.",
+        "narrative": "Remembering an event isn't just accessing a static file; it's a reconstructive process often involving the reinstatement of neural activity patterns that occurred during the original experience. This phenomenon is known as *reactivation*. Studies show that sensory cortical areas (like visual cortex for pictures or auditory cortex for sounds) that were active during encoding become active again when that specific memory is retrieved. Furthermore, the hippocampus and cortex seem to actively *replay* experienced sequences. Research in rodents has shown that hippocampal place cells that fire in a specific sequence as the animal navigates a maze will fire again in the same sequence during subsequent rest periods or slow-wave sleep. This replay is thought to be a mechanism contributing to the strengthening and stabilization (consolidation) of the memory trace. Relatedly, *pattern completion* describes the ability of the hippocampus to retrieve a complete memory representation even when given only a partial or degraded cue. For example, a particular smell might trigger a vivid recollection of an entire past event. Both reactivation and replay highlight the coordinated activity between the hippocampus, which may act as an index, and various cortical regions, which represent the content of the memory, during retrieval and consolidation.",
         "quizzes": [
           {
             "choices": [
-              "It supports the idea that memory is the sole criterion for personal identity.",
-              "It says the relations are not transitive, so who cares.",
-              "It highlights a contradiction in Locke's theory regarding memory and identity.",
-              "It provides an example of how one person can be multiple people at the same time."
+              "Initial encoding of sensory information",
+              "Reinstatement of neural activity patterns from encoding during retrieval",
+              "Forgetting irrelevant details over time",
+              "Storing memories permanently in the hippocampus"
             ],
-            "correct_answer": "It highlights a contradiction in Locke's theory regarding memory and identity.",
-            "question": "What is the purpose of Reid's case of the boy, officer, and general?"
+            "correct_answer": "Reinstatement of neural activity patterns from encoding during retrieval",
+            "question": "What is 'reactivation' in the context of memory retrieval?"
           },
           {
             "choices": [
-              "Identity is absolute, all or nothing",
-              "Identity can be a matter of degree",
-              "Identity is relative to perspective",
-              "The term cannot be defined"
+              "Separating similar memory traces",
+              "Retrieving a complete memory from a partial cue",
+              "Gradually shifting memories to the cortex",
+              "Learning new motor skills"
             ],
-            "correct_answer": "Identity is absolute, all or nothing",
-            "question": "What does the course say about identity and strictness?"
+            "correct_answer": "Retrieving a complete memory from a partial cue",
+            "question": "What is 'pattern completion'?"
           },
           {
             "choices": [
-              "There is no problem; it's a feature",
-              "Perhaps Locke is speaking of a 'wide' identity, rather than strict identity",
-              "Therefore, psychology is wrong",
-              "The conclusion can't be helped"
+              "REM sleep",
+              "Slow-wave sleep",
+              "Waking rest",
+              "Both B and C"
             ],
-            "correct_answer": "Perhaps Locke is speaking of a 'wide' identity, rather than strict identity",
-            "question": "What is a solution to Reid's problem?"
+            "correct_answer": "Both B and C",
+            "question": "During which state(s) has hippocampal replay of event sequences been observed?"
           }
         ],
-        "section_title": "Reid's Critique: Transitivity and Memory"
+        "section_title": "Reactivation, Replay, and Pattern Completion"
+      },
+      {
+        "key_points": [
+          "Consolidation is the process by which memories become stabilized over time.",
+          "Systems consolidation refers to the gradual reorganization of memory traces across brain networks.",
+          "Initially, episodic memories are highly dependent on the hippocampus for retrieval.",
+          "Over time (days, weeks, years), memories are thought to become increasingly independent of the hippocampus and rely more on cortical networks.",
+          "This shift explains the temporal gradient in retrograde amnesia (like H.M.'s), where recent memories (hippocampus-dependent) are more vulnerable to MTL damage than remote memories (cortex-dependent).",
+          "Reactivation and replay during sleep/rest are believed to drive systems consolidation.",
+          "An alternative view suggests that as memories consolidate, they may become more schematic or semantic-like, losing specific episodic detail while retaining the gist.",
+          "Context changes can reveal the ongoing importance of the hippocampus even for older memories, especially when fine-grained relational details are needed."
+        ],
+        "narrative": "Memories are not formed and solidified instantly. They undergo a process of *consolidation* to become stable and long-lasting. *Systems consolidation* specifically describes the gradual process by which the brain circuits supporting a memory are reorganized over time. According to standard models, newly formed episodic memories heavily rely on the hippocampus, which links together the various cortical areas representing the different aspects of the experience. Through processes like reactivation and replay (potentially occurring during sleep and quiet wakefulness), connections *within* the cortex representing the memory are gradually strengthened. As these cortico-cortical connections become stronger, the memory becomes less dependent on the hippocampus for retrieval. This proposed shift from hippocampus-dependence to cortex-dependence explains why damage to the MTL often results in temporally graded retrograde amnesia: recent memories, still reliant on the hippocampus, are lost, while remote memories, having undergone consolidation and become represented in cortical networks, are spared. This explains why H.M. could remember his childhood but not the years immediately preceding his surgery. An alternative perspective suggests that perhaps not all memories fully transfer, or that the nature of the memory changes as it consolidates, becoming more like general knowledge (semantic) or a schema, losing some specific episodic richness. Tests of relational memory over time show that the hippocampus may remain important for retrieving contextually rich details, especially when context changes between learning and test, suggesting its role might persist longer than initially thought for detailed episodic recall.",
+        "quizzes": [
+          {
+            "choices": [
+              "The process of initially encoding sensory information.",
+              "The stabilization and reorganization of memory traces over time.",
+              "The ability to distinguish between similar memories.",
+              "The retrieval of a memory based on a partial cue."
+            ],
+            "correct_answer": "The stabilization and reorganization of memory traces over time.",
+            "question": "What is memory consolidation?"
+          },
+          {
+            "choices": [
+              "It makes remote memories more vulnerable to MTL damage.",
+              "It explains why recent memories are often spared after MTL damage.",
+              "It suggests memories become increasingly cortex-dependent over time.",
+              "It indicates memories always remain solely in the hippocampus."
+            ],
+            "correct_answer": "It suggests memories become increasingly cortex-dependent over time.",
+            "question": "According to systems consolidation theory, what happens to the neural basis of episodic memories over time?"
+          },
+          {
+            "choices": [
+              "Pattern separation",
+              "Working memory capacity",
+              "Temporal gradient in retrograde amnesia",
+              "Anterograde amnesia severity"
+            ],
+            "correct_answer": "Temporal gradient in retrograde amnesia",
+            "question": "Which clinical observation provides key evidence for systems consolidation?"
+          }
+        ],
+        "section_title": "Memory Consolidation: The Shift from Hippocampus to Cortex"
       }
     ],
-    "unit": "Locke's Psychology and Reid's Critique",
+    "unit": "Unit 3: Episodic Memory, MTL, and Cortex",
     "unit_quiz": [
       {
         "choices": [
-          "Physical continuity",
-          "Continuity of consciousness",
-          "Shared memories",
-          "Genetic similarity"
+          "Episodic memory",
+          "Semantic memory",
+          "Procedural memory",
+          "Priming"
         ],
-        "correct_answer": "Continuity of consciousness",
-        "question": "According to Locke, what is essential for personal identity?"
+        "correct_answer": "Episodic memory",
+        "question": "Remembering the specific details of your high school graduation ceremony relies primarily on:"
       },
       {
         "choices": [
-          "The prince's soul now resides in the cobbler's body, making him the prince.",
-          "The cobbler has simply inherited the prince's memories, but remains the cobbler.",
-          "The prince's body is still what makes him the same person.",
-          "The situation is impossible."
+          "Encoding relationships between items and their context",
+          "Distinguishing similar memories from each other",
+          "Gradually stabilizing memories over time",
+          "Retrieving complete memories from partial cues"
         ],
-        "correct_answer": "The prince's soul now resides in the cobbler's body, making him the prince.",
-        "question": "How would Locke describe the Prince and the Cobbler thought experiment?"
+        "correct_answer": "Encoding relationships between items and their context",
+        "question": "Relational memory, supported by the MTL, refers to the ability to:"
       },
       {
         "choices": [
-          "A critique of substance theory.",
-          "An argument for the importance of brain size.",
-          "A demonstration that a split-brain patient is two persons.",
-          "Evidence that material objects do not persist."
+          "Pattern separation",
+          "Pattern completion",
+          "Reactivation",
+          "Consolidation"
         ],
-        "correct_answer": "A critique of substance theory.",
-        "question": "Locke's prince and the cobbler argument serves as what?"
+        "correct_answer": "Pattern separation",
+        "question": "The hippocampal function responsible for creating distinct representations for similar inputs is called:"
       },
       {
         "choices": [
-          "Memory is the most important indicator of identity, but not the basis for it.",
-          "Memory is what creates personal identity.",
-          "We must dismiss what Reid says.",
-          "The self is always what is most important."
+          "Reactivation",
+          "Replay",
+          "Consolidation",
+          "Priming"
         ],
-        "correct_answer": "Memory is the most important indicator of identity, but not the basis for it.",
-        "question": "What is Reid's stance on memory and personal identity?"
+        "correct_answer": "Reactivation",
+        "question": "The phenomenon where sensory cortices active during encoding become active again during recall is known as:"
       },
       {
         "choices": [
-          "A person should not be punished for acts they don't remember committing.",
-          "A person always deserves to be punished.",
-          "Punishment is justified because of the unchanging nature of the soul.",
-          "The circumstances are irrelevant."
+          "Amygdala",
+          "Basal Ganglia",
+          "Hippocampus",
+          "Cerebellum"
         ],
-        "correct_answer": "A person should not be punished for acts they don't remember committing.",
-        "question": "What best describes Locke's theory about justice and identity?"
+        "correct_answer": "Hippocampus",
+        "question": "Which MTL structure is considered central for binding together the different elements of an episodic memory?"
       },
       {
         "choices": [
-          "Personal identity can survive a night of dreamless sleep.",
-          "It demonstrates that personal identity has been lost.",
-          "Personal identity is not based on psychological connectedness.",
-          "It demonstrates that souls die."
+          "It explains anterograde amnesia.",
+          "It explains the temporal gradient in retrograde amnesia.",
+          "It explains priming effects.",
+          "It explains procedural skill learning."
         ],
-        "correct_answer": "Personal identity can survive a night of dreamless sleep.",
-        "question": "What does Locke argue that a night of dreamless sleep implies about our souls?"
+        "correct_answer": "It explains the temporal gradient in retrograde amnesia.",
+        "question": "Systems consolidation theory provides an account for which memory phenomenon observed in patients like H.M.?"
       },
       {
         "choices": [
-          "The same soul, but a different person.",
-          "It is the same person, but with an inessential quality altered.",
-          "Neither, the person is merely similar.",
-          "All of the above."
+          "Memories become entirely forgotten.",
+          "Memories become more dependent on the hippocampus.",
+          "Memories become increasingly reliant on cortical networks.",
+          "Memories transform exclusively into procedural skills."
         ],
-        "correct_answer": "The same soul, but a different person.",
-        "question": "In the amnesia case described, what does Locke say about the amnesiac ('Pete') and his prior self ('John')?"
+        "correct_answer": "Memories become increasingly reliant on cortical networks.",
+        "question": "What is the proposed outcome of systems consolidation for episodic memories?"
       },
       {
         "choices": [
-          "There is one unchanging self",
-          "There is a fixed soul",
-          "There is something that is still me, but there's not a psychological connection",
-          "There is always direct psychological connectedness"
+          "Pattern completion",
+          "Pattern separation",
+          "Relational memory",
+          "Semantic memory"
         ],
-        "correct_answer": "There is one unchanging self",
-        "question": "Locke argues against which view in making his case that psychology matters for identity?"
+        "correct_answer": "Pattern completion",
+        "question": "Recalling an entire memory based on smelling a familiar scent is an example of:"
       },
       {
         "choices": [
-          "That it is always a clear and distinct view",
-          "It's transitive",
-          "It accounts for responsibility",
-          "All of the above."
+          "During initial encoding only",
+          "During retrieval only",
+          "During sleep and quiet rest",
+          "Only when learning motor skills"
         ],
-        "correct_answer": "There is one unchanging self",
-        "question": "What is NOT true of Locke's theory of memory?"
+        "correct_answer": "During sleep and quiet rest",
+        "question": "Hippocampal replay, thought to contribute to consolidation, primarily occurs when?"
       },
       {
         "choices": [
-          "Psychology is the key to personal identity",
-          "Substance is the key to personal identity",
-          "It could be either, we do not know",
-          "It is an unsolvable question"
+          "Remembering past events",
+          "Learning facts",
+          "Imagining future events",
+          "Both A and C"
         ],
-        "correct_answer": "Psychology is the key to personal identity",
-        "question": "What best sums up Locke's view about what accounts for personal identity?"
-      }
-    ]
-  },
-  {
-    "overview": "This unit explores the Bundle Theory, an alternative view of personal identity that rejects the existence of a single, enduring self. It introduces Hume's version of this theory, as well as related ideas on what it means to be a good person. The unit includes a look at Buddhist perspectives as well.",
-    "sections": [
-      {
-        "key_points": [
-          "Hume maintains that the self is 'nothing but a bundle or collection of different perceptions'.",
-          "There is no single, unified self, only a collection of experiences.",
-          "The bundle theory aligns with certain Buddhist philosophies that deny a permanent self."
-        ],
-        "narrative": "The psychological branch is explored with Hume's Bundle Theory.  Hume denies that there is such a thing as the self; instead, there's just a bundle or a collection of different perceptions that are in perpetual flux. According to the bundle theory, the self is the collection of psychological traits. This helps to explain why the self can be moved from soul A to soul B. This view has implications for how we think about ethics.  This thinking is related to certain views about Buddhism, as well, who deny there is a self.",
-        "quizzes": [
-          {
-            "choices": [
-              "A single, indivisible entity.",
-              "A soul.",
-              "A body.",
-              "A collection of perceptions and experiences."
-            ],
-            "correct_answer": "A collection of perceptions and experiences.",
-            "question": "According to Hume's bundle theory, what is the self?"
-          },
-          {
-            "choices": [
-              "It makes one's existence more meaningful.",
-              "It undermines our concern for the future.",
-              "It strengthens our sense of self-importance.",
-              "It is irrelevant to ethical considerations."
-            ],
-            "correct_answer": "It undermines our concern for the future.",
-            "question": "What does the course say is a consequence of accepting the bundle theory?"
-          },
-          {
-            "choices": [
-              "They focus on the unchanging nature of the self.",
-              "They are in opposition to all forms of individualism.",
-              "They emphasize the impermanence of the self.",
-              "It rejects all forms of morality."
-            ],
-            "correct_answer": "They emphasize the impermanence of the self.",
-            "question": "In what way do certain Buddhist philosophies coincide with bundle theory?"
-          }
-        ],
-        "section_title": "Hume and the Bundle Theory"
-      },
-      {
-        "key_points": [
-          "In such a view, one can realize that a new advantage for oneself is not more important than someone else.",
-          "There is no inherent difference between you and other people.",
-          "A good person has compassion for others."
-        ],
-        "narrative": "The course suggests that the Buddhist concept of *anatta* ('no self') gives rise to compassion, because all motivations for ethical decisions would be aimed at increasing overall happiness, and it is not justified to privilege your own happiness over the happiness of anyone else. According to the Buddhist perspective, there is no thing that has the memories. This view stands opposed to the Reid stance that 'I am not my thoughts'.",
-        "quizzes": [
-          {
-            "choices": [
-              "A focus on increasing one's own wealth and power.",
-              "A sense of detachment from the material world.",
-              "A belief in a permanent and unchanging self.",
-              "A motivation to help others as much as oneself."
-            ],
-            "correct_answer": "A motivation to help others as much as oneself.",
-            "question": "According to the course, the denial of the self gives rise to what ethical stance?"
-          },
-          {
-            "choices": [
-              "Prioritizing personal happiness.",
-              "Acknowledging and addressing the suffering of others.",
-              "Pursuing material wealth.",
-              "Seeking fame and recognition."
-            ],
-            "correct_answer": "Acknowledging and addressing the suffering of others.",
-            "question": "What is a consequence of recognizing the basic confusion at the heart of the bundle theory?"
-          },
-          {
-            "choices": [
-              "The desire for more material goods.",
-              "The pursuit of individual achievements.",
-              "The desire for individual success.",
-              "The motivation to minimize suffering."
-            ],
-            "correct_answer": "The motivation to minimize suffering.",
-            "question": "According to course materials, a Buddhist perspective promotes what type of motivation?"
-          }
-        ],
-        "section_title": "Ethics and The Buddhist Perspective"
-      },
-      {
-        "key_points": [
-          "Reid and Parfit are different views of psychological traits.",
-          "Parfit allows that we naturally accept something like the soul view about the self.",
-          "Parfit claims that bundle theory is a much better theory."
-        ],
-        "narrative": "The course materials touch upon Parfit's Fission Argument for the bundle theory. The materials present this as different from Reid, who would insist that psychology is secondary to the basic fact of identity. However, Parfit embraces the counterintuitive consequences of this stance: if the person in the future will really be me, there is a justification to give one's future self an advantage over other people. Otherwise, what is the justification? The course materials suggest that the shift away from self-centered view is, in effect, a 'philosophy as therapy'.",
-        "quizzes": [
-          {
-            "choices": [
-              "It provides a basis for special concern for one's own future.",
-              "It strengthens individual motivations.",
-              "It creates a deeper sense of meaning.",
-              "It aligns with a long history of prior claims about personal identity."
-            ],
-            "correct_answer": "It provides a basis for special concern for one's own future.",
-            "question": "According to course material, what does a belief in a soul theory give rise to?"
-          },
-          {
-            "choices": [
-              "The belief that our lives are precious.",
-              "A sense of attachment to material possessions.",
-              "The view that others are more important than our selves",
-              "That what matters is just chains of connections"
-            ],
-            "correct_answer": "That what matters is just chains of connections",
-            "question": "Parfit's views are associated with what?"
-          },
-          {
-            "choices": [
-              "It always undermines one's concern about the future",
-              "It is a method of mental training",
-              "It is an outdated concept",
-              "It reinforces an ego-centric view"
-            ],
-            "correct_answer": "It is a method of mental training",
-            "question": "What is the course saying in that philosophy can be a form of 'therapy'?"
-          }
-        ],
-        "section_title": "Parfit and The Fission Argument"
-      }
-    ],
-    "unit": "The Bundle Theory",
-    "unit_quiz": [
-      {
-        "choices": [
-          "Emphasis on an enduring soul.",
-          "The concept of a unified and permanent self.",
-          "A collection of psychological events.",
-          "Physical continuity."
-        ],
-        "correct_answer": "A collection of psychological events.",
-        "question": "What does the bundle theory say about what constitutes a person?"
-      },
-      {
-        "choices": [
-          "There are no actions, only results.",
-          "There is no single self that acts, only actions and their consequences.",
-          "Everything is predetermined.",
-          "Actions are determined by the stars."
-        ],
-        "correct_answer": "There is no single self that acts, only actions and their consequences.",
-        "question": "What best represents the Buddhist perspective on actions and the self, as given in the course materials?"
-      },
-      {
-        "choices": [
-          "To gain a sense of control.",
-          "To reduce suffering for oneself and others.",
-          "To maximize individual pleasure.",
-          "To find meaning in life."
-        ],
-        "correct_answer": "To reduce suffering for oneself and others.",
-        "question": "Why should one do something according to Santideva?"
-      },
-      {
-        "choices": [
-          "The individual's soul.",
-          "The individual's body.",
-          "The relationships one has with others.",
-          "The mental state."
-        ],
-        "correct_answer": "The mental state.",
-        "question": "If one says that my mental state 'belongs' to me, which theory are they arguing for?"
-      },
-      {
-        "choices": [
-          "The importance of individuality",
-          "Compassion and ethical behavior",
-          "The importance of memory",
-          "The continuity of life"
-        ],
-        "correct_answer": "Compassion and ethical behavior",
-        "question": "What does Santideva's work highlight that connects to the bundle theory?"
-      },
-      {
-        "choices": [
-          "It is a source of strength and resilience.",
-          "It causes undue attachment.",
-          "It promotes compassion.",
-          "It is harmless."
-        ],
-        "correct_answer": "It causes undue attachment.",
-        "question": "According to Buddhist thinkers, what is the fundamental ethical problem with belief in the self?"
-      },
-      {
-        "choices": [
-          "Ordinary survival is not worth it",
-          "Teletransportation is no worse than ordinary survival",
-          "There is always a soul",
-          "Teletransportation is what matters"
-        ],
-        "correct_answer": "Teletransportation is no worse than ordinary survival",
-        "question": "Parfit's argument leads him to what surprising conclusion?"
-      },
-      {
-        "choices": [
-          "Reid's theory of psychology",
-          "Locke's theory of psychology",
-          "Hume's bundle theory",
-          "The soul theory"
-        ],
-        "correct_answer": "Hume's bundle theory",
-        "question": "Which theory does Parfit support?"
-      },
-      {
-        "choices": [
-          "The soul has special, magical powers",
-          "The fact that the soul is an unchanging substance",
-          "The power of the soul to generate new life",
-          "The relationship between mental states."
-        ],
-        "correct_answer": "The relationship between mental states.",
-        "question": "According to course material, the bundle theory places what at its center?"
-      },
-      {
-        "choices": [
-          "They don't have a real existence",
-          "They have a kind of 'nominal' existence",
-          "It is the same person",
-          "These are completely different ideas"
-        ],
-        "correct_answer": "They have a kind of 'nominal' existence",
-        "question": "What does the course say about the Buddhist view and claims of persons?"
-      }
-    ]
-  },
-  {
-    "overview": "This unit discusses problems that arise for the bundle theory. These stem from strict identity and from problems of multiplication. Furthermore, it presents the Indivisibility Condition of Souls as a rejoinder.",
-    "sections": [
-      {
-        "key_points": [
-          "Bundle theory does not account for strict identity. A bundle can always be tweaked.",
-          "Reid criticizes bundle theory for not being able to secure strict identity across time.",
-          "Theorists like Buddha, Hume, and Parfit just accept that strict identity does not exist."
-        ],
-        "narrative": "The course says that, if the bundle theory is correct, then strictly speaking, I'm not the same person I was yesterday. This is because of the course's insistence that there is some sense of 'strict' identity, which is all or nothing. Reid criticized bundle theory for not being able to secure strict identity across time. Also, there is a difficulty when there is a 'multiplication' of bundles; the example given in the course materials is the teletransporter paradox, because technically, there can be multiple copies of my exact bundle! How is it that there is still only ME?",
-        "quizzes": [
-          {
-            "choices": [
-              "It aligns with the idea of constant change and impermanence.",
-              "It provides a clear and distinct basis for moral responsibility.",
-              "They are interchangeable.",
-              "It reinforces strict identity."
-            ],
-            "correct_answer": "It aligns with the idea of constant change and impermanence.",
-            "question": "In what way does bundle theory align with reality?"
-          },
-          {
-            "choices": [
-              "It is the same as before",
-              "It has a strict identity",
-              "I'm always myself",
-              "It cannot secure strict identity"
-            ],
-            "correct_answer": "It cannot secure strict identity",
-            "question": "What does the course say about why Reed rejects bundle theory?"
-          },
-          {
-            "choices": [
-              "The bundle has special forces",
-              "There can be duplicate or replicate of your particular bundle",
-              "Everything is the soul",
-              "It doesn't matter"
-            ],
-            "correct_answer": "There can be duplicate or replicate of your particular bundle",
-            "question": "What is the problem of duplication?"
-          }
-        ],
-        "section_title": "Problems and Strict Identity"
-      },
-      {
-        "key_points": [
-          "The soul is indivisible, according to ego theorists.",
-          "In cases of multiple people in the same body, the ego theory is wrong.",
-          "The unified subject is important to defend."
-        ],
-        "narrative": "Reid defends the ego theory, and he thinks the following has to be true: Self is indivisible – A person is a unified subject of experiences. I am the subject of my experiences. I am the thing that has all the experiences. (Recall Descartes' argument from divisibility). As the course materials present the case: Joe has two experiences, but there is no single subject which is aware of both of them.  Since the soul theory is wrong, perhaps bundle theory can help account for these findings.",
-        "quizzes": [
-          {
-            "choices": [
-              "It is possible",
-              "It is always the case",
-              "It is impossible",
-              "It violates what it means to be a person."
-            ],
-            "correct_answer": "It is impossible",
-            "question": "Can a soul be divided, according to Reid?"
-          },
-          {
-            "choices": [
-              "Is there",
-              "Can there be",
-              "Must there be",
-              "Always is there"
-            ],
-            "correct_answer": "Must there be",
-            "question": "What does the ego theory tell us must be true about experiences, according to the course materials?"
-          },
-          {
-            "choices": [
-              "They have split personalities",
-              "One subject shares many experiences",
-              "It is impossible to know.",
-              "Their souls are no longer distinct."
-            ],
-            "correct_answer": "Their souls are no longer distinct.",
-            "question": "Why are patients with a severed corpus collosum a challenge to ego theory?"
-          }
-        ],
-        "section_title": "Against Indivisibility"
-      }
-    ],
-    "unit": "Issues and rejoinders to the bundle theory",
-    "unit_quiz": [
-      {
-        "choices": [
-          "Strict identity is not necessary for the preservation of personal identity.",
-          "Strict identity cannot account for moral responsibility.",
-          "Locke's theory does not account for Reid's examples.",
-          "Strict identity is impossible"
-        ],
-        "correct_answer": "Strict identity is not necessary for the preservation of personal identity.",
-        "question": "Which of these best accounts for the bundle theorist's view about strict identity?"
-      },
-      {
-        "choices": [
-          "If you enter a transporter but survive, what's the ethical difference?",
-          "If you die in the transporter, so what?",
-          "People are bundles",
-          "Ethics has nothing to do with it"
-        ],
-        "correct_answer": "If you enter a transporter but survive, what's the ethical difference?",
-        "question": "What is a takeaway from the trolley problems we covered that relates to Parfit's argument?"
-      },
-      {
-        "choices": [
-          "There's a third alternative",
-          "I don't exist",
-          "Joe's self exists",
-          "Nothing was destroyed"
-        ],
-        "correct_answer": "Nothing was destroyed",
-        "question": "When Joe's brain is split, his 'unified subject' ceases to exist. But what is the correct answer?"
-      },
-      {
-        "choices": [
-          "One, so one may not be punished for misdeeds",
-          "One, that it helps people live in the present.",
-          "Another, to see how we ought to behave toward others.",
-          "All of the above."
-        ],
-        "correct_answer": "All of the above.",
-        "question": "Why does personal identity matter? How does a psychological theory of personal identity affect our emotions?"
-      },
-      {
-        "choices": [
-          "They may have special protections under the law",
-          "They did some of the actions, but it was not done by anyone",
-          "They are one person",
-          "They are many people"
-        ],
-        "correct_answer": "They are many people",
-        "question": "What is the standard reading of 'split personality' cases?"
-      },
-      {
-        "choices": [
-          "This supports the soul theory",
-          "The opposite.",
-          "There is no difference",
-          "The soul is destroyed"
-        ],
-        "correct_answer": "The opposite.",
-        "question": "Given his arguments, where does the weight of the evidence fall for Parfit's thought experiments: is it that (1) persons are real things or (2) they are not?"
-      },
-      {
-        "choices": [
-          "That is too easy to secure such a state",
-          "They are just mental states",
-          "They are too hard to describe",
-          "The problem is insoluble"
-        ],
-        "correct_answer": "They are too hard to describe",
-        "question": "What is NOT a claim that Reid would make of the bundle theory?"
-      },
-      {
-        "choices": [
-          "The relation between mental states.",
-          "A spiritual force.",
-          "An unchanging soul",
-          "An illusion"
-        ],
-        "correct_answer": "An illusion",
-        "question": "What does the course material say about why bundle theory is hard to accept?"
-      },
-      {
-        "choices": [
-          "Yes",
-          "Sometimes",
-          "No",
-          "Can't be answered"
-        ],
-        "correct_answer": "No",
-        "question": "Does the brain survive the teletransporter in the course materials?"
-      },
-      {
-        "choices": [
-          "Hume and Parfit",
-          "Locke and Reid",
-          "Buddha and Kant",
-          "Reid and the authors of the course materials"
-        ],
-        "correct_answer": "Hume and Parfit",
-        "question": "Which philosophers support the bundle theory?"
+        "correct_answer": "Both A and C",
+        "question": "The mechanisms supporting episodic memory, like relational binding and pattern separation, are also thought to be important for:"
       }
     ]
   }
