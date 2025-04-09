@@ -129,7 +129,7 @@ StudyLM uses Google's Gemini AI. To use it, you need a special code called an "A
 3.  **Create a New API Key:** Click on "Create API Key".
 4.  **Copy Your API Key:** After creation, your unique API key will be displayed. It will be a long string of letters and numbers. **Copy this key carefully.** You will need it in the next step.
 
-NOTE ABOUT RATE LIMITS: Your free account will give you access to 15 Google API calls per day, free of charge. An API call is used for generating a new study guide or practice exam (quiz mode). You have essentially unlimited chat mode. If you run out, you can wait until the next day, or you can investigate setting up a paid Google API plan by pressing "Set up Billing" next to your API key in AI Studio.
+**NOTE ABOUT RATE LIMITS**: Your free account will give you access to 15 Google API calls per day, free of charge. An API call is used for generating a new study guide or practice exam (quiz mode). You have essentially unlimited chat mode. If you run out, you can wait until the next day, or you can investigate setting up a paid Google API plan by pressing "Set up Billing" next to your API key in AI Studio.
 
 ### 7b. Set the API Key in Your Terminal
 
