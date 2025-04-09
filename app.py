@@ -9,6 +9,7 @@ from werkzeug.utils import secure_filename
 from queue import Queue
 import threading
 import time
+import re
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -89,8 +90,8 @@ def generate_study_guide(file_refs):
     """Generate a structured study guide from the files"""
     # Create new model configured for JSON response
     json_response_model = genai.GenerativeModel(
-        # model_name='gemini-2.0-pro-exp-02-05',
-        model_name = 'gemini-2.5-pro-exp-03-25',
+        model_name='gemini-2.0-pro-exp-02-05',
+        # model_name = 'gemini-2.5-pro-exp-03-25',
         # system_instruction="Always respond in English and format responses as valid JSON. "
     )
     
@@ -504,6 +505,191 @@ def send_chat():
 @app.route('/static/<path:filename>')
 def serve_static(filename):
     return send_from_directory('static', filename)
+
+# Quiz routes
+@app.route('/quiz')
+def quiz():
+    return render_template('quiz.html')
+
+@app.route('/generate-quiz', methods=['POST'])
+def generate_quiz():
+    try:
+        data = request.get_json()
+        # model = data.get('model', 'gemini-2.5-pro-exp-03-25')
+        model = data.get('model', 'gemini-2.0-flash')
+        question_count = data.get('question_count', 5)
+        
+        # Use the same file loading method as chat functionality
+        file_refs = load_files_from_uris()
+        if not file_refs:
+            return jsonify({
+                'status': 'error',
+                'error': 'No study materials found. Please upload documents first.'
+            }), 400
+        
+        # Generate a unique ID for this quiz generation
+        generation_id = str(uuid.uuid4())
+
+        print(question_count)
+        
+        # Start the quiz generation in a background thread
+        thread = threading.Thread(
+            target=generate_quiz_in_background,
+            args=(generation_id, model, question_count, file_refs)
+        )
+        thread.daemon = True
+        thread.start()
+        
+        return jsonify({
+            'status': 'generating',
+            'generation_id': generation_id
+        })
+    except Exception as e:
+        return jsonify({
+            'status': 'error',
+            'error': str(e)
+        }), 500
+
+@app.route('/cancel-quiz/<generation_id>', methods=['POST'])
+def cancel_quiz(generation_id):
+    if generation_id in quiz_results:
+        # Mark the quiz as canceled if it's still generating
+        if quiz_results[generation_id].get('status') == 'generating':
+            quiz_results[generation_id] = {
+                'status': 'canceled',
+                'message': 'Quiz generation was canceled by the user'
+            }
+        
+        # Clean up after a delay
+        def cleanup():
+            time.sleep(60)  # Keep for 1 minute
+            quiz_results.pop(generation_id, None)
+        
+        threading.Thread(target=cleanup, daemon=True).start()
+        
+        return jsonify({
+            'success': True,
+            'message': 'Quiz generation canceled'
+        })
+    
+    return jsonify({
+        'success': False,
+        'message': 'Quiz generation not found or already completed'
+    })
+
+# Store quiz generation results
+quiz_results = {}
+
+def generate_quiz_in_background(generation_id, model, question_count, file_refs):
+    try:
+        if not file_refs:
+            quiz_results[generation_id] = {
+                'status': 'error',
+                'message': 'No study materials found. Please upload documents first.'
+            }
+            return
+        
+        print(question_count)
+        
+        # Prepare the prompt for the AI
+        prompt = f"""
+        Create a comprehensive exam preparation quiz with {question_count} multiple-choice questions based on the provided study materials.
+        
+        Each question should:
+        1. Test important concepts that might appear on an exam
+        2. Have 4 answer choices (A, B, C, D)
+        3. Have only one correct answer
+        
+        Format the output as JSON with this structure:
+        {{
+            "questions": [
+                {{
+                    "question": "Question text here",
+                    "choices": ["Choice A", "Choice B", "Choice C", "Choice D"],
+                    "correct_answer": "The exact text of the correct choice"
+                }}
+            ]
+        }}
+        
+        Ensure the questions cover all important topics in the material and vary in difficulty.
+        """
+
+        print(prompt)
+        
+        # Create a new model for the quiz generation
+        quiz_model = genai.GenerativeModel(model_name=model)
+        
+        # Use the create_input_with_files function just like in chat functionality
+        input_prompt = create_input_with_files(file_refs, additional_text=prompt)
+        
+        # Generate content with the files
+        response = quiz_model.generate_content(input_prompt)
+        
+        # Extract the quiz JSON from the response
+        quiz_json = extract_json_from_response(response)
+        
+        # Store the quiz result
+        quiz_results[generation_id] = {
+            'status': 'complete',
+            'quiz': quiz_json
+        }
+    except Exception as e:
+        quiz_results[generation_id] = {
+            'status': 'error',
+            'message': str(e)
+        }
+
+@app.route('/quiz-status/<generation_id>')
+def quiz_status(generation_id):
+    if generation_id not in quiz_results:
+        return jsonify({
+            'status': 'generating'
+        })
+    
+    result = quiz_results[generation_id]
+    
+    # If complete, we can clean up the result from our storage after a delay
+    if result.get('status') in ['complete', 'error']:
+        result_copy = result.copy()
+        # Remove from storage after a short delay to allow for retries
+        def cleanup():
+            time.sleep(300)  # Keep for 5 minutes (increased from 1 minute)
+            quiz_results.pop(generation_id, None)
+        
+        threading.Thread(target=cleanup, daemon=True).start()
+        return jsonify(result_copy)
+    
+    return jsonify(result)
+
+def extract_json_from_response(response):
+    try:
+        text = response.text
+        # Look for JSON content between curly braces
+        json_match = re.search(r'({[\s\S]*})', text)
+        if json_match:
+            json_str = json_match.group(1)
+            return json.loads(json_str)
+        else:
+            # If no JSON pattern found, try to parse the whole response
+            return json.loads(text)
+    except Exception as e:
+        print(f"Error extracting JSON: {e}")
+        # As a fallback, return a simple error structure
+        return {'error': 'Failed to parse JSON response', 'questions': []}
+
+# We can remove this unused function or keep it for future use
+def get_document_uris():
+    # This would fetch the cached document URIs stored when files were uploaded
+    if 'document_uris' in session:
+        return session['document_uris']
+    # Try loading from file_uris.json as fallback
+    try:
+        if os.path.exists('file_uris.json'):
+            with open('file_uris.json', 'r') as f:
+                return json.load(f)
+    except:
+        pass
+    return []
 
 if __name__ == '__main__':
     # Create static directory if it doesn't exist
