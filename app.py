@@ -36,6 +36,7 @@ message_queues = {}
 
 # Configure Gemini API
 gemini_api_key = os.getenv("GEMINI_API_KEY")
+gemini_api_key = 'AIzaSyC4ddJdNRvRBXx9xfQ7T5IH1zvZPNb4Goc'
 if not gemini_api_key:
     print("Warning: GEMINI_API_KEY environment variable not found. Please refer to the documentation to see how to set it up.")
     # You might want to raise an error here if the key is essential

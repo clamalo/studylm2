@@ -126,11 +126,8 @@ StudyLM uses Google's Gemini AI. To use it, you need a special code called an "A
 
 1.  **Sign in to Google AI Studio:** Visit [Google AI Studio](https://aistudio.google.com/) and log in with your Google account.
 2.  **Access the API Key Section:** Once logged in, look for an option like "Get API key" or navigate to the API Key section (the interface might change slightly over time). You might find this in the top left menu or on the main dashboard.
-3.  **Create a New API Key:** Click on "Create API Key". You'll likely be prompted to select or create a Google Cloud project for this key:
-    * **New Project:** Choose this if you don't have an existing project you want to use. Give it a simple name (like "StudyLM Project").
-    * **Existing Project:** If you already use Google Cloud, you can select one of your existing projects.
+3.  **Create a New API Key:** Click on "Create API Key".
 4.  **Copy Your API Key:** After creation, your unique API key will be displayed. It will be a long string of letters and numbers. **Copy this key carefully.** You will need it in the next step.
-    * **Important:** Treat this key like a password! Keep it secure and do not share it publicly.
 
 ### 7b. Set the API Key in Your Terminal
 
