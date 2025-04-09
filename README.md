@@ -27,6 +27,7 @@ Before we start, make sure you have these things:
 2.  **Internet Connection:** The AI part of this tool needs the internet to work.
 3.  **Your Study Files:** The notes or documents you want to use (saved as PDF, DOCX, or TXT).
 4.  **A Web Browser:** Like Safari, Google Chrome, or Firefox.
+5.  **A Google Account:** Needed to get the free Gemini API key in the setup steps.
 
 ---
 
@@ -110,9 +111,42 @@ StudyLM needs a few extra software pieces (called "dependencies") to work. Pytho
 1.  Make sure you are still in the Terminal window, inside the StudyLM folder (from Step 5).
 2.  Type the following command *exactly* and press **Return**:
     ```bash
-    pip3 install Flask google-generativeai werkzeug
+    pip3 install Flask google-generativeai werkzeug python-dotenv
     ```
+    *(Note: We install `python-dotenv` even though we use `export` here, as the code still includes it for flexibility).*
 3.  You should see text appear in the window, showing that software is being downloaded and installed. Wait until it finishes and you see the Terminal prompt again. If you see any warnings (yellow text), you can usually ignore them for now. If you see errors (red text), something went wrong – double-check that Python was installed correctly (Step 3 & 4) and that you are in the correct folder (Step 5).
+
+---
+
+## Step 7: Set Up Your Gemini API Key
+
+StudyLM uses Google's Gemini AI. To use it, you need a special code called an "API Key". Getting one is free for basic use.
+
+### 7a. Get Your API Key from Google AI Studio
+
+1.  **Sign in to Google AI Studio:** Visit [Google AI Studio](https://aistudio.google.com/) and log in with your Google account.
+2.  **Access the API Key Section:** Once logged in, look for an option like "Get API key" or navigate to the API Key section (the interface might change slightly over time). You might find this in the top left menu or on the main dashboard.
+3.  **Create a New API Key:** Click on "Create API Key". You'll likely be prompted to select or create a Google Cloud project for this key:
+    * **New Project:** Choose this if you don't have an existing project you want to use. Give it a simple name (like "StudyLM Project").
+    * **Existing Project:** If you already use Google Cloud, you can select one of your existing projects.
+4.  **Copy Your API Key:** After creation, your unique API key will be displayed. It will be a long string of letters and numbers. **Copy this key carefully.** You will need it in the next step.
+    * **Important:** Treat this key like a password! Keep it secure and do not share it publicly.
+
+### 7b. Set the API Key in Your Terminal
+
+You need to tell the StudyLM application what your API key is *before* you run it. We will do this using the Terminal.
+
+1.  Make sure you are still in the **Terminal** window, and you are "inside" the StudyLM code folder (you should have done the `cd` command in Step 5).
+2.  Type the following command, but **replace `"YOUR_API_KEY_HERE"`** with the actual API key you copied from Google AI Studio. Make sure the key stays inside the quotation marks.
+    ```bash
+    export GEMINI_API_KEY="YOUR_API_KEY_HERE"
+    ```
+    *(Example: If your key was `ABC123XYZ`, you would type: `export GEMINI_API_KEY="ABC123XYZ"`)*
+3.  Press the **Return** key. It might look like nothing happened, but you have now set the key for this *specific* Terminal session.
+
+**VERY IMPORTANT:**
+* You need to run this `export` command **every time** you open a **new** Terminal window and want to run StudyLM. The key is only set for the current session.
+* Make sure you run the `export` command in the **same** Terminal window *before* you run the `python3 app.py` command in the next section.
 
 ---
 
@@ -120,8 +154,8 @@ StudyLM needs a few extra software pieces (called "dependencies") to work. Pytho
 
 You've done all the setup! Now let's start the StudyLM application.
 
-1.  Go back to the **Terminal** window. (If you closed it, open it again and use the `cd` command from Step 5 to get back into the StudyLM folder).
-2.  Make sure you are inside the StudyLM folder (your Terminal prompt might show the folder name).
+1.  Go back to the **Terminal** window. (If you closed it, open it again, use the `cd` command from Step 5 to get back into the StudyLM folder, and **repeat Step 7b** to set your API key using `export`).
+2.  Make sure you are inside the StudyLM folder and have just run the `export` command for your API key in this window.
 3.  Type the following command *exactly* and press **Return**:
     ```bash
     python3 app.py
@@ -130,6 +164,7 @@ You've done all the setup! Now let's start the StudyLM application.
     * `* Serving Flask app 'app'`
     * `* Debug mode: on` (or off)
     * `* Running on http://127.0.0.1:5000` (This address might be slightly different, but look for `http://...`)
+    * *You should NOT see a warning about the GEMINI_API_KEY being missing if you ran the `export` command correctly in this window.*
 5.  This means the application is running on your Mac! It hasn't opened anything automatically, though.
 6.  Open your **web browser** (Safari, Chrome, etc.).
 7.  In the address bar at the top, type the address shown in the Terminal (usually `http://127.0.0.1:5000` or `http://localhost:5000`).
@@ -144,7 +179,7 @@ You should now see the StudyLM home page in your browser!
 * Go back to the Terminal window that is running the app (it will have text output from the program).
 * Press and hold the `Control` key on your keyboard, and then press the `C` key (`Control + C`).
 * You might have to press it once or twice. The program should stop, and you'll see your normal Terminal prompt again.
-* The StudyLM website in your browser will no longer work until you run `python3 app.py` again.
+* The StudyLM website in your browser will no longer work until you run `python3 app.py` again (remembering to `export` the API key first if it's a new Terminal window).
 
 ---
 
@@ -173,12 +208,14 @@ Now that it's running in your browser:
 
 ## Important Notes & Simple Troubleshooting
 
+* **API Key Required:** The app needs the `GEMINI_API_KEY` set via the `export` command before running `python3 app.py`. If you forget, the AI features won't work, and you might see errors in the Terminal. Remember to set it in *every new* Terminal session you use to run the app.
 * **Internet Needed:** StudyLM needs an active internet connection for the AI parts (generating the guide, quizzes, and chat) to work.
 * **File Size:** There's a 50MB limit per file upload. Very large or complex files might take longer to process or cause errors.
 * **`uploads` folder:** When you upload files, they are temporarily saved in a folder named `uploads` inside your StudyLM code folder.
 * **`output.json` / `file_uris.json`:** These files are created inside the StudyLM folder to store the generated guide data and file references. You don't normally need to touch them. If you upload new files, `output.json` will be overwritten.
 * **Something Went Wrong?**
-    * Try stopping the application (`Control + C` in the Terminal) and running it again (`python3 app.py`).
+    * Did you remember to `export` your API key in the Terminal window *before* running `python3 app.py`? Stop the app (`Control + C`), run the `export` command again, then run `python3 app.py` again.
+    * Try stopping the application (`Control + C` in the Terminal) and running it again (`python3 app.py`, after exporting the key).
     * Refresh the page in your web browser (`Command + R`).
     * Look at the Terminal window for any messages, especially red text indicating an error. That might give a clue about the problem.
     * Ensure your internet connection is working.

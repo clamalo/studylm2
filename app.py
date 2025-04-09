@@ -3,6 +3,7 @@ import json
 import uuid
 import logging
 import traceback
+from dotenv import load_dotenv
 import google.generativeai as genai
 from flask import Flask, render_template, request, jsonify, send_from_directory, session, Response, stream_with_context
 from werkzeug.utils import secure_filename
@@ -10,6 +11,9 @@ from queue import Queue
 import threading
 import time
 import re
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Configure logging
 logging.basicConfig(level=logging.DEBUG)
@@ -31,7 +35,12 @@ active_chats = {}
 message_queues = {}
 
 # Configure Gemini API
-genai.configure(api_key="AIzaSyDCFi4E7uEaxZMks-aW7hZ6cX5-7yQXfu8")
+gemini_api_key = os.getenv("GEMINI_API_KEY")
+if not gemini_api_key:
+    print("Warning: GEMINI_API_KEY environment variable not found. Please refer to the documentation to see how to set it up.")
+    # You might want to raise an error here if the key is essential
+    # raise ValueError("GEMINI_API_KEY not found. Please set it in the .env file.")
+genai.configure(api_key=gemini_api_key)
 
 # Helper functions from multi_file.py
 def upload_files(file_paths):
