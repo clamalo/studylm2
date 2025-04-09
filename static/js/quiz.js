@@ -22,8 +22,7 @@ document.addEventListener('DOMContentLoaded', function() {
     let quizGenerationId = null;
     let quizGenerationStatus = 'idle'; // 'idle', 'generating', 'complete'
     let totalQuestions = 0; // Track total questions for validation
-    const defaultModel = 'gemini-2.5-pro-exp-03-25'; // Default model updated
-    // const defaultModel = 'gemini-2.0-flash"; // Default model updated
+    const defaultModel = 'gemini-2.5-pro-exp-03-25'; // Default model for quiz generation
     
     // Check for existing quiz in localStorage when page loads
     checkExistingQuiz();
