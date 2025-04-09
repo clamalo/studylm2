@@ -196,12 +196,13 @@ Now that it's running in your browser:
 4.  **Chat Mode:** Click the "Chat Mode" button at the top.
     * Type questions about the materials you uploaded into the chat box at the bottom.
     * The AI assistant will answer based on the content it read from your files.
-    * You can choose different AI models (Basic is fastest, Reasoning is slowest but might be better for complex questions). Changing the model during a chat will start a new conversation history with that model.
+    * You can choose different AI models ("Basic" is fastest, "Pro" is more intelligent but slower, and "Reasoning" is slowest but might be better for complex questions).
     * Click "New Chat" to clear the conversation and start fresh.
 5.  **Quiz Mode:** Click the "Quiz Mode" button at the top.
     * Select the number of questions you want.
     * Click "Generate Quiz". This uses the AI to create a longer quiz covering all your uploaded materials. It might take a minute.
     * Answer the questions and click "Check Answers" at the bottom when you're done to see your score.
+    * You can use the "New Chat" button along with the question quantity dropdown menu to re-generate practice exams.
 
 ---
 
