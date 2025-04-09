@@ -90,8 +90,8 @@ def generate_study_guide(file_refs):
     """Generate a structured study guide from the files"""
     # Create new model configured for JSON response
     json_response_model = genai.GenerativeModel(
-        model_name='gemini-2.0-pro-exp-02-05',
-        # model_name = 'gemini-2.5-pro-exp-03-25',
+        # model_name='gemini-2.0-pro-exp-02-05',
+        model_name = 'gemini-2.5-pro-exp-03-25',
         # system_instruction="Always respond in English and format responses as valid JSON. "
     )
     
@@ -515,9 +515,9 @@ def quiz():
 def generate_quiz():
     try:
         data = request.get_json()
-        # model = data.get('model', 'gemini-2.5-pro-exp-03-25')
-        model = data.get('model', 'gemini-2.0-flash')
-        question_count = data.get('question_count', 5)
+        model = data.get('model', 'gemini-2.5-pro-exp-03-25')
+        # model = data.get('model', 'gemini-2.0-flash')
+        question_count = data.get('question_count', 10)
         
         # Use the same file loading method as chat functionality
         file_refs = load_files_from_uris()

@@ -1,6 +1,6 @@
-# StudyLM: Your Personal AI Study Assistant
+# StudyLM: Your Personal AI Study Assistant (for Mac)
 
-Hello! Welcome to StudyLM. This is a simple tool designed to help you study more effectively.
+Hello! Welcome to StudyLM. This is a simple tool designed to help you study more effectively using your Mac.
 
 **What it does:**
 
@@ -15,7 +15,7 @@ Think of it as a smart helper that reads your notes and helps you prepare for te
 
 **Who is this guide for?**
 
-This guide is for **everyone**, especially if you're not very familiar with computers or code. We will walk you through *every single step* to get this working on your computer. No prior experience needed!
+This guide is for Mac users, especially if you're not very familiar with computers or code. We will walk you through *every single step* to get this working on your Mac. No prior experience needed!
 
 ---
 
@@ -23,10 +23,10 @@ This guide is for **everyone**, especially if you're not very familiar with comp
 
 Before we start, make sure you have these things:
 
-1.  **A Computer:** Running either Windows or macOS.
+1.  **A Mac Computer:** Running a relatively recent version of macOS.
 2.  **Internet Connection:** The AI part of this tool needs the internet to work.
 3.  **Your Study Files:** The notes or documents you want to use (saved as PDF, DOCX, or TXT).
-4.  **A Web Browser:** Like Google Chrome, Firefox, Microsoft Edge, or Safari.
+4.  **A Web Browser:** Like Safari, Google Chrome, or Firefox.
 
 ---
 
@@ -38,107 +38,81 @@ Please follow these steps carefully, one by one.
 
 The code for StudyLM lives on a website called GitHub. You need to download it as a ZIP file.
 
-1.  Go to the GitHub page for this project (the page you are likely reading this on right now!).
+1.  Go to the top of the GitHub page for this project (the page you are likely reading this on right now!).
 2.  Look for a green button that says **`< > Code`**. Click on it.
 3.  A small menu will appear. Click on **`Download ZIP`**.
-4.  Save the ZIP file somewhere you can easily find it, like your `Downloads` folder or your Desktop.
-
-![GitHub Download ZIP illustration](https://docs.github.com/assets/cb-13738/images/help/repository/download-zip.png)
-*(Image shows where to find the Download ZIP button)*
+4.  Save the ZIP file to your `Downloads` folder (or somewhere else you can easily find it).
 
 ### Step 2: Unzip the Files
 
-The downloaded file is a `.zip` file, which is like a compressed folder. You need to "unzip" or "extract" it.
+The downloaded file is a `.zip` file, which is like a compressed folder. You need to "unzip" it.
 
-* **On Windows:**
-    * Find the downloaded ZIP file (it probably ends with `-main.zip`).
-    * Right-click on the file.
-    * Choose **`Extract All...`**.
-    * A window will pop up asking where to put the extracted files. The suggested location is usually fine. Make sure the box "Show extracted files when complete" is checked.
-    * Click **`Extract`**. A new folder will open containing the code.
-* **On Mac:**
-    * Find the downloaded ZIP file (it probably ends with `-main.zip`).
-    * Double-click the file.
-    * It should automatically create a new folder with the same name (without the `.zip`) containing the code.
+1.  Go to your `Downloads` folder (or wherever you saved the file).
+2.  Find the downloaded ZIP file (it probably ends with `-main.zip`).
+3.  **Double-click** the file.
+4.  It should automatically create a new folder with the same name (without the `.zip`) containing the code.
+NOTE: If the "Download ZIP" automatically downloaded the project as a folder and not a zip file, no need to double-click the file.
 
 You should now have a regular folder (likely named `StudyLM-main` or similar) with files like `app.py` and folders like `static` and `templates` inside it. **Remember where this folder is!**
 
 ### Step 3: Install Python (If you don't have it)
 
-StudyLM is written in a computer language called Python. Your computer might already have it, but if not, you need to install it. It's free and safe.
+StudyLM is written in a computer language called Python. Your Mac might already have it, but we often need a newer version. Let's install the latest official version just in case. It's free and safe.
 
-1.  **Check if you have Python:** We'll do this in the next step using the "Terminal" or "Command Prompt".
-2.  **If you need to install it:**
+1.  **Check if you have a good version:** We'll do this in the next step using the "Terminal".
+2.  **Install the latest Python:**
     * Go to the official Python website: [python.org/downloads/](https://www.python.org/downloads/)
-    * The website should automatically detect if you're on Windows or Mac and show you the latest version.
-    * Click the button to download the installer (e.g., "Download Python 3.x.x").
-    * Once downloaded, run the installer:
-        * **On Windows:** Double-click the `.exe` file. **IMPORTANT:** On the very first screen of the installer, make sure to check the box that says **`Add Python 3.x to PATH`** or **`Add python.exe to Path`** at the bottom! Then click `Install Now`.
-        * **On Mac:** Double-click the `.pkg` file and follow the installation steps (usually just clicking `Continue`, `Agree`, and `Install`).
+    * The website should automatically detect you're on macOS and show you the latest version.
+    * Click the button to download the installer (e.g., "Download Python 3.x.x"). It will download a `.pkg` file.
+    * Once downloaded, go to your `Downloads` folder and double-click the `.pkg` file.
+    * Follow the installation steps (usually just clicking `Continue`, `Agree`, and `Install`). You might need to enter your Mac's password to allow the installation.
     * Follow the instructions in the installer until it's finished.
 
-### Step 4: Open the "Terminal" or "Command Prompt"
+### Step 4: Open the "Terminal" Application
 
-This might sound scary, but it's just a way to type commands directly to your computer.
+This might sound scary, but it's just a way to type commands directly to your Mac.
 
-* **On Windows:**
-    * Click the Start menu (or press the Windows key on your keyboard).
-    * Type `cmd` or `Command Prompt`.
-    * Click on the "Command Prompt" application that appears.
-* **On Mac:**
-    * Open the "Finder".
-    * Go to the "Applications" folder.
-    * Open the "Utilities" folder.
-    * Double-click on the "Terminal" application.
+1.  Open the **Finder** (the smiling face icon in your Dock).
+2.  Click on **Applications** in the sidebar.
+3.  Scroll down and open the **Utilities** folder.
+4.  Double-click on the **Terminal** application (it looks like a little black screen).
+NOTE: Alternatively, you can hit **command + space** to open spotlight search and search for **Terminal** directly.
 
-You should now see a window with a black or white background and some text, waiting for you to type. This is your command line interface.
+You should now see a window, probably with a white or black background and some text, waiting for you to type. This is your command line interface.
 
-*Now, let's check Python again using this window:*
+*Now, let's check Python again using this Terminal window:*
 
-1.  Type the following command exactly and press Enter:
-    ```bash
-    python --version
-    ```
-2.  If that gives an error or doesn't show a version number starting with "3" (like "Python 3.10.4"), try this command instead and press Enter:
+1.  Type the following command exactly and press the **Return** key (this is the Enter key on Mac):
     ```bash
     python3 --version
     ```
-3.  If one of those commands shows a version like `Python 3.x.x`, then Python is installed correctly! If neither command works, go back to Step 3 and make sure you installed Python, paying special attention to the "Add to PATH" option on Windows.
+2.  You should see a version number starting with "3" (like `Python 3.11.5`). If you see this, Python is installed correctly! If you get an error or it shows a version starting with "2", go back to Step 3 and make sure the installation finished correctly.
 
-### Step 5: Go to the Code Folder (Using the Terminal/Command Prompt)
+### Step 5: Go to the Code Folder (Using the Terminal)
 
-Now you need to tell the Terminal/Command Prompt to look inside the folder where you unzipped the StudyLM code.
+Now you need to tell the Terminal to look inside the folder where you put the StudyLM code. This uses a drag-and-drop trick!
 
-1.  You use the `cd` command (which stands for "Change Directory").
-2.  You need to type `cd` followed by a space, and then the path to the folder you unzipped in Step 2.
-    * *Finding the path:*
-        * **Windows:** Open File Explorer, navigate *into* the unzipped folder (e.g., `StudyLM-main`). Click in the address bar at the top – it should show the path (like `C:\Users\YourName\Downloads\StudyLM-main`). Right-click and copy this path.
-        * **Mac:** Open Finder, navigate *into* the unzipped folder (e.g., `StudyLM-main`). Right-click (or Ctrl+click) on the folder name in the path bar at the bottom of the Finder window (if you don't see it, go to Finder's "View" menu and select "Show Path Bar"). Choose "Copy 'StudyLM-main' as Pathname".
-3.  Go back to your Terminal or Command Prompt window.
-4.  Type `cd ` (make sure there's a space after `cd`).
-5.  Paste the path you copied.
-    * **Windows (Command Prompt):** Right-click in the window to paste.
-    * **Mac (Terminal):** Press `Cmd + V` to paste.
-6.  Press Enter.
+1.  Go to your **Terminal** window (that you opened in Step 4).
+2.  Type `cd ` (that's the letters 'c' and 'd' followed by **a single space**). **Do not press Return yet!**
+3.  Now, open **Finder** and navigate to where you have the unzipped StudyLM folder (the one likely named `StudyLM-main`, perhaps in your `Downloads` folder).
+4.  Click and **drag the folder icon** (the `StudyLM-main` folder itself) directly from the Finder window onto the **Terminal window**.
+5.  Let go of the mouse button (drop the folder onto the Terminal window). The correct path to the folder should automatically appear in the Terminal window right after the `cd ` you typed.
+6.  Now, click back into the Terminal window (make sure your cursor is at the end of the line) and press the **Return** key.
 
-Your command line prompt might change slightly to show the folder name. If you didn't get an error, you are now "inside" the code folder!
+Your Terminal prompt might change slightly to show the folder name. If you didn't get an error, you are now "inside" the code folder!
 
-*(Example: If your folder is in Downloads and named StudyLM-main, the command might look like `cd C:\Users\YourName\Downloads\StudyLM-main` on Windows or `cd /Users/yourname/Downloads/StudyLM-main` on Mac)*
+*(Example: After typing `cd ` and dragging the folder, your Terminal line might look something like `cd /Users/yourname/Downloads/StudyLM-main` before you press Return)*
 
 ### Step 6: Install Required Software Pieces
 
-StudyLM needs a few extra software pieces (called "dependencies") to work. Python comes with a tool called `pip` to install these easily.
+StudyLM needs a few extra software pieces (called "dependencies") to work. Python comes with a tool called `pip` (or `pip3`) to install these easily.
 
-1.  Make sure you are still in the Terminal/Command Prompt, inside the StudyLM folder (from Step 5).
-2.  Type the following command *exactly* and press Enter:
-    ```bash
-    pip install Flask google-generativeai werkzeug
-    ```
-3.  *If that command gives an error like "pip is not recognized" or similar, try this command instead:*
+1.  Make sure you are still in the Terminal window, inside the StudyLM folder (from Step 5).
+2.  Type the following command *exactly* and press **Return**:
     ```bash
     pip3 install Flask google-generativeai werkzeug
     ```
-4.  You should see text appear in the window, showing that software is being downloaded and installed. Wait until it finishes and you see the command prompt again. If you see any warnings (yellow text), you can usually ignore them for now. If you see errors (red text), something went wrong – double-check that Python was installed correctly (Step 3) and that you are in the correct folder (Step 5).
+3.  You should see text appear in the window, showing that software is being downloaded and installed. Wait until it finishes and you see the Terminal prompt again. If you see any warnings (yellow text), you can usually ignore them for now. If you see errors (red text), something went wrong – double-check that Python was installed correctly (Step 3 & 4) and that you are in the correct folder (Step 5).
 
 ---
 
@@ -146,32 +120,31 @@ StudyLM needs a few extra software pieces (called "dependencies") to work. Pytho
 
 You've done all the setup! Now let's start the StudyLM application.
 
-1.  Go back to the **Terminal** or **Command Prompt** window. (If you closed it, open it again and use the `cd` command from Step 5 to get back into the StudyLM folder).
-2.  Make sure you are inside the StudyLM folder (your command prompt might show the folder name).
-3.  Type the following command *exactly* and press Enter:
+1.  Go back to the **Terminal** window. (If you closed it, open it again and use the `cd` command from Step 5 to get back into the StudyLM folder).
+2.  Make sure you are inside the StudyLM folder (your Terminal prompt might show the folder name).
+3.  Type the following command *exactly* and press **Return**:
     ```bash
-    python app.py
+    python3 app.py
     ```
-    *(If that gives an error, try `python3 app.py` instead)*
 4.  You should see some text appear, including lines like:
     * `* Serving Flask app 'app'`
     * `* Debug mode: on` (or off)
     * `* Running on http://127.0.0.1:5000` (This address might be slightly different, but look for `http://...`)
-5.  This means the application is running on your computer! It hasn't opened anything automatically, though.
-6.  Open your **web browser** (Chrome, Firefox, etc.).
-7.  In the address bar at the top, type the address shown in the Terminal/Command Prompt (usually `http://127.0.0.1:5000` or `http://localhost:5000`).
-8.  Press Enter.
+5.  This means the application is running on your Mac! It hasn't opened anything automatically, though.
+6.  Open your **web browser** (Safari, Chrome, etc.).
+7.  In the address bar at the top, type the address shown in the Terminal (usually `http://127.0.0.1:5000` or `http://localhost:5000`).
+8.  Press **Return**.
 
 You should now see the StudyLM home page in your browser!
 
-**Important:** The StudyLM application only runs as long as the Terminal/Command Prompt window where you typed `python app.py` is **open** and running the command.
+**Important:** The StudyLM application only runs as long as the Terminal window where you typed `python3 app.py` is **open** and running the command.
 
 **How to Stop the Application:**
 
-* Go back to the Terminal/Command Prompt window that is running the app (it will have text output from the program).
-* Press and hold the `Ctrl` key on your keyboard, and then press the `C` key (`Ctrl + C`).
-* You might have to press it once or twice. The program should stop, and you'll see your normal command prompt again.
-* The StudyLM website in your browser will no longer work until you run `python app.py` again.
+* Go back to the Terminal window that is running the app (it will have text output from the program).
+* Press and hold the `Control` key on your keyboard, and then press the `C` key (`Control + C`).
+* You might have to press it once or twice. The program should stop, and you'll see your normal Terminal prompt again.
+* The StudyLM website in your browser will no longer work until you run `python3 app.py` again.
 
 ---
 
@@ -205,9 +178,9 @@ Now that it's running in your browser:
 * **`uploads` folder:** When you upload files, they are temporarily saved in a folder named `uploads` inside your StudyLM code folder.
 * **`output.json` / `file_uris.json`:** These files are created inside the StudyLM folder to store the generated guide data and file references. You don't normally need to touch them. If you upload new files, `output.json` will be overwritten.
 * **Something Went Wrong?**
-    * Try stopping the application (`Ctrl + C` in the Terminal/Command Prompt) and running it again (`python app.py`).
-    * Refresh the page in your web browser (`Ctrl+R` or `Cmd+R`).
-    * Look at the Terminal/Command Prompt window for any messages, especially red text indicating an error. That might give a clue about the problem.
+    * Try stopping the application (`Control + C` in the Terminal) and running it again (`python3 app.py`).
+    * Refresh the page in your web browser (`Command + R`).
+    * Look at the Terminal window for any messages, especially red text indicating an error. That might give a clue about the problem.
     * Ensure your internet connection is working.
 
 ---
