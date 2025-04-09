@@ -378,7 +378,7 @@ def send_chat():
             chat_model = genai.GenerativeModel(
                 model_name=model_name, 
                 system_instruction="""You are a helpful study assistant. 
-                Always respond in English, providing clear and concise explanations. 
+                Provide clear and concise explanations. 
                 Use markdown formatting for better readability.
                 Use **bold** for important terms, *italics* for emphasis, and lists when appropriate.
                 Format code with ```language code blocks``` when relevant.
@@ -406,7 +406,7 @@ def send_chat():
                 chat_model = genai.GenerativeModel(
                     model_name=model_name, 
                     system_instruction="""You are a helpful study assistant. 
-                    Always respond in English, providing clear and concise explanations. 
+                    Provide clear and concise explanations. 
                     Use markdown formatting for better readability.
                     Use **bold** for important terms, *italics* for emphasis, and lists when appropriate.
                     Format code with ```language code blocks``` when relevant.
