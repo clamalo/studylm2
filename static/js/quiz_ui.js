@@ -371,10 +371,7 @@ const QuizUI = {
                     feedbackIcon = 'trophy-fill';
                     feedbackMessage = 'Excellent work! You\'re well-prepared for the exam.';
                     
-                    // Trigger confetti for high scores
-                    if (percentage === 100) {
-                        this.triggerConfetti();
-                    }
+                    // Confetti code removed
                 } else if (percentage >= 60) {
                     feedbackClass = 'alert-info';
                     feedbackIcon = 'patch-check-fill';
@@ -428,71 +425,6 @@ const QuizUI = {
             audio.volume = 0.2;
             audio.play().catch(err => console.log('Error playing sound:', err));
         }
-    },
-    
-    /**
-     * Display a confetti effect for perfect scores
-     */
-    triggerConfetti: function() {
-        // Simple confetti effect using canvas
-        const canvas = document.createElement('canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        canvas.style.position = 'fixed';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.pointerEvents = 'none';
-        canvas.style.zIndex = '9999';
-        document.body.appendChild(canvas);
-        
-        const ctx = canvas.getContext('2d');
-        const confettiCount = 200;
-        const confetti = [];
-        
-        // Create confetti particles
-        for (let i = 0; i < confettiCount; i++) {
-            confetti.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height - canvas.height,
-                size: Math.random() * 10 + 5,
-                color: `hsl(${Math.random() * 360}, 70%, 60%)`,
-                speed: Math.random() * 3 + 2
-            });
-        }
-        
-        // Animation loop
-        let animationFrame;
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            let stillFalling = false;
-            confetti.forEach(c => {
-                c.y += c.speed;
-                ctx.fillStyle = c.color;
-                ctx.fillRect(c.x, c.y, c.size, c.size);
-                
-                if (c.y < canvas.height) {
-                    stillFalling = true;
-                }
-            });
-            
-            if (stillFalling) {
-                animationFrame = requestAnimationFrame(animate);
-            } else {
-                cancelAnimationFrame(animationFrame);
-                document.body.removeChild(canvas);
-            }
-        }
-        
-        animate();
-        
-        // Clean up after a few seconds
-        setTimeout(() => {
-            if (document.body.contains(canvas)) {
-                cancelAnimationFrame(animationFrame);
-                document.body.removeChild(canvas);
-            }
-        }, 5000);
     },
     
     /**

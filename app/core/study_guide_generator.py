@@ -70,16 +70,8 @@ class StudyGuideGenerator:
                 }
             }
             
-            # Prompt for structured study guide
-            structured_prompt = """
-            Organize all concepts extracted from the files into a structured study guide. 
-            The output should be a JSON array of units (the total number of units cannot exceed 3x (the number of provided files)). 
-            Each unit must contain a 'unit' (the title of the unit) and an 'overview' that summarizes the key ideas of that unit. 
-            Each unit should also have a 'sections' array. Every section within the unit must include a 'section_title', 
-            a 'narrative' explanation that details the concepts in that section, and a 'key_points' array that lists the essential takeaways. 
-            Ensure the units progressively build on each other to form a cohesive understanding of the course material. 
-            Use information primarily from the course materials, and supplement with additional details as needed.
-            """
+            # Get the structured study guide prompt from model_config
+            structured_prompt = model_config.STUDY_GUIDE_PROMPT
             
             # Create input with files and prompt
             log_progress("Preparing input with files...", progress=0)
@@ -136,7 +128,22 @@ class StudyGuideGenerator:
                     section_number = section_index + 1
                     log_progress(f"Processing section {section_number}/{total_sections} for unit {unit_number}: {section_title}...")
                     
-                    context_prompt = f"for section titled '{section_title}' in unit '{unit_title}'"
+                    # Create a structured context with section information for better quiz generation
+                    section_context = {
+                        "unit_title": unit_title,
+                        "section_title": section_title,
+                        "section_overview": section.get('narrative', ''),
+                        "key_points": section.get('key_points', [])
+                    }
+                    
+                    # Use the section quiz prompt template from model_config
+                    key_points_formatted = chr(10).join('- ' + point for point in section_context['key_points'])
+                    context_prompt = model_config.SECTION_QUIZ_PROMPT_TEMPLATE.format(
+                        section_title=section_title,
+                        unit_title=unit_title,
+                        section_overview=section_context['section_overview'],
+                        key_points=key_points_formatted
+                    )
                     
                     # Generate 3 questions for this section
                     log_progress(f"Generating 3 quiz questions for section '{section_title}'...")
@@ -164,7 +171,40 @@ class StudyGuideGenerator:
                 
                 # Generate 10 questions for the unit assessment
                 log_progress(f"Generating unit assessment quiz for '{unit_title}'...")
-                context_prompt = f"for the overall unit titled '{unit_title}'"
+                
+                # Create a comprehensive context with the unit overview and all sections
+                unit_context = {
+                    "unit_title": unit_title,
+                    "unit_overview": unit.get('overview', ''),
+                    "sections": []
+                }
+                
+                # Add all section information to the context
+                for section in unit['sections']:
+                    unit_context['sections'].append({
+                        "title": section['section_title'],
+                        "overview": section.get('narrative', ''),
+                        "key_points": section.get('key_points', [])
+                    })
+                
+                # Build sections content for the unit quiz prompt
+                sections_content = ""
+                for i, section in enumerate(unit_context['sections']):
+                    section_content = f"""
+                    Section {i+1}: {section['title']}
+                    Overview: {section['overview'][:300]}...
+                    Key Points:
+                    {chr(10).join('- ' + point for point in section['key_points'])}
+                    """
+                    sections_content += section_content
+                
+                # Use the unit quiz prompt template from model_config
+                context_prompt = model_config.UNIT_QUIZ_PROMPT_TEMPLATE.format(
+                    unit_title=unit_title,
+                    unit_overview=unit_context['unit_overview'],
+                    sections_content=sections_content
+                )
+                
                 unit_quiz_list = QuizGenerator.generate_quiz_questions(
                     file_refs, 
                     10, 

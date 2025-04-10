@@ -106,28 +106,11 @@ def generate_quiz_questions(file_refs, num_questions, context_prompt=""):
         # Prepare the context string if provided
         context_str = f" {context_prompt}" if context_prompt else ""
         
-        # Prepare the prompt for the AI
-        prompt = f"""
-        Create a comprehensive exam preparation quiz with {num_questions} multiple-choice questions based on the provided study materials{context_str}.
-        
-        Each question should:
-        1. Test important concepts that might appear on an exam
-        2. Have exactly 4 answer choices
-        3. Have only one correct answer
-        
-        Format your entire response as a valid JSON array of objects. Each object should have the following structure:
-        [
-            {{
-                "question": "Question text here",
-                "choices": ["Choice A", "Choice B", "Choice C", "Choice D"],
-                "correct_answer": "The exact text of the correct choice"
-            }}
-        ]
-        
-        Ensure all questions are directly related to the content in the provided materials. 
-        Ensure each question has EXACTLY 4 choices.
-        Ensure the correct_answer value exactly matches one of the choices.
-        """
+        # Use the quiz generation prompt from model_config
+        prompt = model_config.QUIZ_GENERATION_PROMPT.format(
+            num_questions=num_questions,
+            context_str=context_str
+        )
         
         # Create a new model for the quiz generation
         quiz_model = genai.GenerativeModel(
@@ -175,10 +158,10 @@ def generate_study_guide(file_refs):
         model_name=model_config.DEFAULT_STUDY_GUIDE_MODEL,
     )
     
-    # Prompt for structured study guide - without the quiz generation specifics
+    # Use the study guide prompt from model_config
     structured_prompt = create_input_with_files(
         file_refs, 
-        "\n\nOrganize all concepts extracted from the files into a structured study guide. The output should be a JSON array of units (the total number of units cannot exceed 3x (the number of provided files)). Each unit must contain a 'unit' (the title of the unit) and an 'overview' that summarizes the key ideas of that unit. Each unit should also have a 'sections' array. Every section within the unit must include a 'section_title', a 'narrative' explanation that details the concepts in that section, and a 'key_points' array that lists the essential takeaways. Ensure the units progressively build on each other to form a cohesive understanding of the course material. Use information primarily from the course materials, and supplement with additional details as needed."
+        model_config.STUDY_GUIDE_PROMPT
     )
     
     # Define schema for the response (without quiz-specific schema parts)
@@ -242,7 +225,19 @@ def generate_study_guide(file_refs):
         # Add quiz questions to each section
         for section_index, section in enumerate(unit['sections']):
             section_title = section['section_title']
-            context_prompt = f"for section titled '{section_title}' in unit '{unit_title}'"
+            section_overview = section.get('narrative', '')
+            key_points_list = section.get('key_points', [])
+            
+            # Format key points for the template
+            key_points_formatted = '\n'.join('- ' + point for point in key_points_list)
+            
+            # Use the section quiz prompt template from model_config
+            context_prompt = model_config.SECTION_QUIZ_PROMPT_TEMPLATE.format(
+                section_title=section_title,
+                unit_title=unit_title,
+                section_overview=section_overview,
+                key_points=key_points_formatted
+            )
             
             # Generate 3 questions for this section
             section_quizzes = generate_quiz_questions(file_refs, 3, context_prompt)
@@ -250,8 +245,25 @@ def generate_study_guide(file_refs):
             # Add the quizzes to the section data
             section['quizzes'] = section_quizzes
         
+        # Build sections content for unit quiz prompt
+        sections_content = ""
+        for i, section in enumerate(unit['sections']):
+            section_content = f"""
+            Section {i+1}: {section['section_title']}
+            Overview: {section.get('narrative', '')[:300]}...
+            Key Points:
+            {chr(10).join('- ' + point for point in section.get('key_points', []))}
+            """
+            sections_content += section_content
+        
+        # Use the unit quiz prompt template from model_config
+        context_prompt = model_config.UNIT_QUIZ_PROMPT_TEMPLATE.format(
+            unit_title=unit_title,
+            unit_overview=unit.get('overview', ''),
+            sections_content=sections_content
+        )
+        
         # Generate 10 questions for the unit assessment
-        context_prompt = f"for the overall unit titled '{unit_title}'"
         unit_quiz_list = generate_quiz_questions(file_refs, 10, context_prompt)
         
         # Add the unit quiz to the unit data

@@ -48,28 +48,11 @@ class QuizGenerator:
             # Prepare the context string if provided
             context_str = f" {context_prompt}" if context_prompt else ""
             
-            # Prepare the prompt for the AI
-            prompt = f"""
-            Create a comprehensive exam preparation quiz with {num_questions} multiple-choice questions based on the provided study materials{context_str}.
-            
-            Each question should:
-            1. Test important concepts that might appear on an exam
-            2. Have exactly 4 answer choices
-            3. Have only one correct answer
-            
-            Format your entire response as a valid JSON array of objects. Each object should have the following structure:
-            [
-                {{
-                    "question": "Question text here",
-                    "choices": ["Choice A", "Choice B", "Choice C", "Choice D"],
-                    "correct_answer": "The exact text of the correct choice"
-                }}
-            ]
-            
-            Ensure all questions are directly related to the content in the provided materials. 
-            Ensure each question has EXACTLY 4 choices.
-            Ensure the correct_answer value exactly matches one of the choices.
-            """
+            # Get the quiz generation prompt from model_config
+            prompt = model_config.QUIZ_GENERATION_PROMPT.format(
+                num_questions=num_questions,
+                context_str=context_str
+            )
             
             # Create a new model for the quiz generation
             quiz_model = GeminiService.create_json_model(model_name)

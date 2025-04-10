@@ -149,14 +149,8 @@ def send_chat():
             
             return jsonify({'error': error_msg}), 400
         
-        # The system instruction for the chat model
-        system_instruction = """You are a helpful study assistant. 
-        Provide clear and concise explanations. 
-        Use markdown formatting for better readability.
-        Use **bold** for important terms, *italics* for emphasis, and lists when appropriate.
-        Format code with ```language code blocks``` when relevant.
-        Use examples and analogies when helpful. 
-        Focus on answering questions about the content of the uploaded study materials."""
+        # Use the system instruction from model_config
+        system_instruction = model_config.CHAT_SYSTEM_PROMPT
         
         # Get or create a chat session
         if chat_id not in active_chats:
