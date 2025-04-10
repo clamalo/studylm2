@@ -154,6 +154,17 @@ document.addEventListener('DOMContentLoaded', function() {
                 
                 // If generation is complete, redirect
                 if (data.status === 'complete') {
+                    // Clear any existing quiz data when new study guide is generated
+                    localStorage.removeItem('studyLmQuiz');
+                    localStorage.removeItem('quizSelections');
+                    localStorage.removeItem('quizSubmitted');
+                    localStorage.removeItem('quizResult');
+                    localStorage.removeItem('quizGenerationStatus');
+                    localStorage.removeItem('quizGenerationId');
+                    
+                    // Clear chat history data when new study guide is generated
+                    localStorage.removeItem('chatHistory');
+                    
                     setTimeout(() => {
                         window.location.href = '/study-guide';
                     }, 1000);
