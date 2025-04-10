@@ -48,7 +48,8 @@ def generate_study_guide(file_refs):
     """Generate a structured study guide from the files"""
     # Create new model configured for JSON response
     json_response_model = genai.GenerativeModel(
-        model_name = 'gemini-2.0-flash',
+        # model_name = 'gemini-2.0-flash',
+        model_name = 'gemini-2.5-pro-exp-03-25',
     )
     
     # Prompt for structured study guide - without the quiz generation specifics

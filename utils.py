@@ -130,8 +130,8 @@ def generate_quiz_questions(file_refs, num_questions, context_prompt=""):
         
         # Create a new model for the quiz generation
         quiz_model = genai.GenerativeModel(
-            # model_name="gemini-2.5-pro-exp-03-25",
-            model_name = 'gemini-2.0-flash',
+            # model_name = 'gemini-2.0-flash',
+            model_name="gemini-2.5-pro-exp-03-25",
             generation_config={
                 'response_mime_type': 'application/json'
             }
