@@ -23,7 +23,6 @@ document.addEventListener('DOMContentLoaded', function() {
     let quizGenerationStatus = 'idle'; // 'idle', 'generating', 'complete'
     let totalQuestions = 0; // Track total questions for validation
     let quizSubmitted = false; // Track if quiz has been submitted
-    const defaultModel = 'gemini-2.5-pro-exp-03-25'; // Default model for quiz generation
     
     // Add the shared QuizUI styles
     QuizUI.addStyles();
@@ -326,7 +325,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                model: defaultModel,
                 question_count: questionCount
             })
         })

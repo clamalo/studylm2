@@ -52,9 +52,10 @@ The downloaded file is a `.zip` file, which is like a compressed folder. You nee
 2.  Find the downloaded ZIP file (it probably ends with `-main.zip`).
 3.  **Double-click** the file.
 4.  It should automatically create a new folder with the same name (without the `.zip`) containing the code.
+
 NOTE: If the "Download ZIP" automatically downloaded the project as a folder and not a zip file, no need to double-click the file.
 
-You should now have a regular folder (likely named `StudyLM-main` or similar) with files like `app.py` and folders like `static` and `templates` inside it. **Remember where this folder is!**
+You should now have a regular folder (likely named `StudyLM-main` or similar) with files like `run.py` and folders like `app`, `static`, and `templates` inside it. **Remember where this folder is!**
 
 ### Step 3: Install Python (If you don't have it)
 
@@ -160,7 +161,7 @@ You need to tell the StudyLM application what your API key is *before* you run i
 
 **VERY IMPORTANT:**
 * You need to run this `export` command **every time** you open a **new** Terminal window and want to run StudyLM. The key is only set for the current session.
-* Make sure you run the `export` command in the **same** Terminal window *before* you run the `python3 app.py` command in the next section.
+* Make sure you run the `export` command in the **same** Terminal window *before* you run the `python3 run.py` command in the next section.
 
 ---
 
@@ -172,10 +173,10 @@ You've done all the setup! Now let's start the StudyLM application.
 2.  Make sure you are inside the StudyLM folder and have just run the `export` command for your API key in this window.
 3.  Type the following command *exactly* and press **Return**:
     ```bash
-    python3 app.py
+    python3 run.py
     ```
 4.  You should see some text appear, including lines like:
-    * `* Serving Flask app 'app'`
+    * `* Serving Flask app 'app'` (or similar, referring to the app created by the factory)
     * `* Debug mode: on` (or off)
     * `* Running on http://127.0.0.1:5000` (This address might be slightly different, but look for `http://...`)
     * *You should NOT see a warning about the GEMINI_API_KEY being missing if you ran the `export` command correctly in this window.*
@@ -186,14 +187,14 @@ You've done all the setup! Now let's start the StudyLM application.
 
 You should now see the StudyLM home page in your browser!
 
-**Important:** The StudyLM application only runs as long as the Terminal window where you typed `python3 app.py` is **open** and running the command.
+**Important:** The StudyLM application only runs as long as the Terminal window where you typed `python3 run.py` is **open** and running the command.
 
 **How to Stop the Application:**
 
 * Go back to the Terminal window that is running the app (it will have text output from the program).
 * Press and hold the `Control` key on your keyboard, and then press the `C` key (`Control + C`).
 * You might have to press it once or twice. The program should stop, and you'll see your normal Terminal prompt again.
-* The StudyLM website in your browser will no longer work until you run `python3 app.py` again (remembering to `export` the API key first if it's a new Terminal window).
+* The StudyLM website in your browser will no longer work until you run `python3 run.py` again (remembering to `export` the API key first if it's a new Terminal window).
 
 ---
 
@@ -223,14 +224,14 @@ Now that it's running in your browser:
 
 ## Important Notes & Simple Troubleshooting
 
-* **API Key Required:** The app needs the `GEMINI_API_KEY` set via the `export` command before running `python3 app.py`. If you forget, the AI features won't work, and you might see errors in the Terminal. Remember to set it in *every new* Terminal session you use to run the app.
+* **API Key Required:** The app needs the `GEMINI_API_KEY` set via the `export` command before running `python3 run.py`. If you forget, the AI features won't work, and you might see errors in the Terminal. Remember to set it in *every new* Terminal session you use to run the app.
 * **Internet Needed:** StudyLM needs an active internet connection for the AI parts (generating the guide, quizzes, and chat) to work.
 * **File Size:** There's a 50MB limit per file upload. Very large or complex files might take longer to process or cause errors.
 * **`uploads` folder:** When you upload files, they are temporarily saved in a folder named `uploads` inside your StudyLM code folder.
-* **`output.json` / `file_uris.json`:** These files are created inside the StudyLM folder to store the generated guide data and file references. You don't normally need to touch them. If you upload new files, `output.json` will be overwritten.
+* **`output.json` / `file_uris.json`:** These files are created inside the StudyLM folder (`static/output.json` and `file_uris.json` at the root) to store the generated guide data and file references. You don't normally need to touch them. If you upload new files, `output.json` will be overwritten.
 * **Something Went Wrong?**
-    * Did you remember to `export` your API key in the Terminal window *before* running `python3 app.py`? Stop the app (`Control + C`), run the `export` command again, then run `python3 app.py` again.
-    * Try stopping the application (`Control + C` in the Terminal) and running it again (`python3 app.py`, after exporting the key).
+    * Did you remember to `export` your API key in the Terminal window *before* running `python3 run.py`? Stop the app (`Control + C`), run the `export` command again, then run `python3 run.py` again.
+    * Try stopping the application (`Control + C` in the Terminal) and running it again (`python3 run.py`, after exporting the key).
     * Refresh the page in your web browser (`Command + R`).
     * Look at the Terminal window for any messages, especially red text indicating an error. That might give a clue about the problem.
     * Ensure your internet connection is working.

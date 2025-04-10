@@ -2,6 +2,7 @@ import os
 import json
 import re
 import google.generativeai as genai
+import model_config
 
 def upload_files(file_paths):
     """
@@ -130,8 +131,7 @@ def generate_quiz_questions(file_refs, num_questions, context_prompt=""):
         
         # Create a new model for the quiz generation
         quiz_model = genai.GenerativeModel(
-            # model_name = 'gemini-2.0-flash',
-            model_name="gemini-2.5-pro-exp-03-25",
+            model_name=model_config.DEFAULT_QUIZ_MODEL,
             generation_config={
                 'response_mime_type': 'application/json'
             }
@@ -167,3 +167,100 @@ def generate_quiz_questions(file_refs, num_questions, context_prompt=""):
     except Exception as e:
         print(f"Error generating quiz questions: {e}")
         return []
+
+def generate_study_guide(file_refs):
+    """Generate a structured study guide from the files"""
+    # Create new model configured for JSON response
+    json_response_model = genai.GenerativeModel(
+        model_name=model_config.DEFAULT_STUDY_GUIDE_MODEL,
+    )
+    
+    # Prompt for structured study guide - without the quiz generation specifics
+    structured_prompt = create_input_with_files(
+        file_refs, 
+        "\n\nOrganize all concepts extracted from the files into a structured study guide. The output should be a JSON array of units (the total number of units cannot exceed 3x (the number of provided files)). Each unit must contain a 'unit' (the title of the unit) and an 'overview' that summarizes the key ideas of that unit. Each unit should also have a 'sections' array. Every section within the unit must include a 'section_title', a 'narrative' explanation that details the concepts in that section, and a 'key_points' array that lists the essential takeaways. Ensure the units progressively build on each other to form a cohesive understanding of the course material. Use information primarily from the course materials, and supplement with additional details as needed."
+    )
+    
+    # Define schema for the response (without quiz-specific schema parts)
+    section_schema = {
+        "type": "object",
+        "properties": {
+            "section_title": {"type": "string"},
+            "narrative": {"type": "string"},
+            "key_points": {
+                "type": "array",
+                "items": {"type": "string"}
+            }
+        },
+        "required": ["section_title", "narrative", "key_points"]
+    }
+    
+    tokens = json_response_model.count_tokens(structured_prompt)
+    print(f"Token count for structured prompt: {tokens}")
+    
+    # Generate structured response with the schema
+    structured_response = json_response_model.generate_content(
+        structured_prompt,
+        generation_config={
+            'response_mime_type': 'application/json',
+            'response_schema': {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "unit": {"type": "string"},
+                        "overview": {"type": "string"},
+                        "sections": {
+                            "type": "array",
+                            "items": section_schema
+                        }
+                    },
+                    "required": ["unit", "overview", "sections"]
+                }
+            }
+        }
+    )
+    
+    # Extract the JSON content from the response
+    response_text = structured_response.text
+    
+    # Check if the response contains Markdown JSON code blocks
+    if "```json" in response_text:
+        # Extract the content between ```json and ```
+        start_idx = response_text.find("```json") + 7  # Move past "```json"
+        end_idx = response_text.find("```", start_idx)
+        if end_idx != -1:
+            response_text = response_text[start_idx:end_idx].strip()
+    
+    # Parse the JSON data
+    study_guide_data = json.loads(response_text)
+    
+    # Now add the quizzes to each section and unit using our consolidated quiz function
+    for unit_index, unit in enumerate(study_guide_data):
+        unit_title = unit['unit']
+        
+        # Add quiz questions to each section
+        for section_index, section in enumerate(unit['sections']):
+            section_title = section['section_title']
+            context_prompt = f"for section titled '{section_title}' in unit '{unit_title}'"
+            
+            # Generate 3 questions for this section
+            section_quizzes = generate_quiz_questions(file_refs, 3, context_prompt)
+            
+            # Add the quizzes to the section data
+            section['quizzes'] = section_quizzes
+        
+        # Generate 10 questions for the unit assessment
+        context_prompt = f"for the overall unit titled '{unit_title}'"
+        unit_quiz_list = generate_quiz_questions(file_refs, 10, context_prompt)
+        
+        # Add the unit quiz to the unit data
+        unit['unit_quiz'] = unit_quiz_list
+    
+    # Save clean JSON response to file
+    output_file_path = os.path.join('static', 'output.json')
+    with open(output_file_path, 'w') as f:
+        json.dump(study_guide_data, f, indent=2)
+    
+    # Return the parsed JSON data
+    return study_guide_data
