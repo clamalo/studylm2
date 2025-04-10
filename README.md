@@ -114,7 +114,22 @@ StudyLM needs a few extra software pieces (called "dependencies") to work. Pytho
     pip3 install Flask google-generativeai werkzeug python-dotenv
     ```
     *(Note: We install `python-dotenv` even though we use `export` here, as the code still includes it for flexibility).*
-3.  You should see text appear in the window, showing that software is being downloaded and installed. Wait until it finishes and you see the Terminal prompt again. If you see any warnings (yellow text), you can usually ignore them for now. If you see errors (red text), something went wrong – double-check that Python was installed correctly (Step 3 & 4) and that you are in the correct folder (Step 5).
+3.  You should see text appear in the window, showing that software is being downloaded and installed. Wait until it finishes and you see the Terminal prompt again. If you see any warnings (yellow text), you can usually ignore them for now.
+
+**IMPORTANT: If you see errors** when trying to install these packages, you might need to install Apple's command line developer tools first:
+
+1. If you see an error, type the following command in Terminal and press **Return**:
+   ```bash
+   xcode-select --install
+   ```
+2. A popup window will appear asking if you want to install the developer tools. Click **Install**.
+3. Wait for the installation to complete (it may take several minutes).
+4. Once finished, try running the original pip install command again:
+   ```bash
+   pip3 install Flask google-generativeai werkzeug python-dotenv
+   ```
+
+This should resolve most common installation errors on Mac. If you're still having issues after installing the developer tools, double-check that Python was installed correctly (Step 3 & 4) and that you are in the correct folder (Step 5).
 
 ---
 
