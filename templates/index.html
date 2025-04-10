@@ -154,10 +154,25 @@
                 <span class="visually-hidden">Loading...</span>
             </div>
             <h3 class="mb-3">Creating your study guide</h3>
-            <p class="mb-1">Analyzing your materials...</p>
+            <p id="generationStatus" class="mb-1">Analyzing your materials...</p>
             <p class="text-muted small">This may take a few minutes depending on file size and complexity.</p>
+            
             <div class="progress mt-4" style="height: 10px;">
-                <div class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 100%"></div>
+                <div id="generationProgress" class="progress-bar progress-bar-striped progress-bar-animated bg-primary" role="progressbar" style="width: 10%"></div>
+            </div>
+            
+            <div class="mt-4 text-start">
+                <div class="card bg-light">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <span><i class="bi bi-info-circle"></i> Progress Updates</span>
+                        <span id="progressCounter" class="badge bg-primary">0 steps</span>
+                    </div>
+                    <div class="card-body p-0" style="max-height: 200px; overflow-y: auto;">
+                        <ul id="progressUpdates" class="list-group list-group-flush">
+                            <!-- Progress updates will be added here -->
+                        </ul>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -179,6 +194,22 @@
         .feature-icon {
             font-size: 2rem;
             color: var(--primary);
+        }
+        
+        /* Loading overlay animation */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .progress-update-item {
+            border-left: 3px solid var(--primary);
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .progress-update-item:first-child {
+            border-left-color: var(--secondary);
+            font-weight: 500;
         }
     </style>
     

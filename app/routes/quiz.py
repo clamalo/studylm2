@@ -4,8 +4,9 @@ import uuid
 import threading
 import time
 from flask import Blueprint, render_template, request, jsonify, current_app
-from utils import load_files_from_uris, generate_quiz_questions
 import model_config
+from app.services.file_service import FileService
+from app.core.quiz_generator import QuizGenerator
 
 # Create the blueprint
 quiz_bp = Blueprint('quiz', __name__)
@@ -24,8 +25,8 @@ def generate_quiz():
         model = data.get('model', model_config.DEFAULT_QUIZ_MODEL)
         question_count = data.get('question_count', 10)
         
-        # Use the same file loading method as chat functionality
-        file_refs = load_files_from_uris()
+        # Use our file service to load files
+        file_refs = FileService.load_files_from_gemini()
         if not file_refs:
             return jsonify({
                 'status': 'error',
@@ -35,12 +36,12 @@ def generate_quiz():
         # Generate a unique ID for this quiz generation
         generation_id = str(uuid.uuid4())
 
-        current_app.logger.info(f"Generating quiz with {question_count} questions")
+        current_app.logger.info(f"Generating quiz with {question_count} questions using {model}")
         
         # Start the quiz generation in a background thread
         thread = threading.Thread(
             target=generate_quiz_in_background,
-            args=(generation_id, question_count, file_refs)
+            args=(generation_id, question_count, file_refs, model)
         )
         thread.daemon = True
         thread.start()
@@ -50,6 +51,7 @@ def generate_quiz():
             'generation_id': generation_id
         })
     except Exception as e:
+        current_app.logger.error(f"Error generating quiz: {e}")
         return jsonify({
             'status': 'error',
             'error': str(e)
@@ -104,7 +106,7 @@ def quiz_status(generation_id):
     
     return jsonify(result)
 
-def generate_quiz_in_background(generation_id, question_count, file_refs):
+def generate_quiz_in_background(generation_id, question_count, file_refs, model_name=None):
     """Helper function to generate quiz in a background thread"""
     try:
         if not file_refs:
@@ -114,8 +116,12 @@ def generate_quiz_in_background(generation_id, question_count, file_refs):
             }
             return
         
-        # Use our consolidated quiz generation function
-        questions_list = generate_quiz_questions(file_refs, question_count)
+        # Use our new QuizGenerator class
+        questions_list = QuizGenerator.generate_quiz_questions(
+            file_refs, 
+            question_count,
+            model_name=model_name
+        )
         
         if not questions_list:
             quiz_results[generation_id] = {
@@ -133,6 +139,7 @@ def generate_quiz_in_background(generation_id, question_count, file_refs):
             'quiz': quiz_json
         }
     except Exception as e:
+        current_app.logger.error(f"Error in background quiz generation: {e}")
         quiz_results[generation_id] = {
             'status': 'error',
             'message': str(e)

@@ -6,9 +6,9 @@ import time
 import traceback
 from queue import Queue
 from flask import Blueprint, render_template, request, jsonify, session, Response, stream_with_context, current_app
-import google.generativeai as genai
-from utils import load_files_from_uris, create_input_with_files
 import model_config
+from app.services.gemini_service import GeminiService
+from app.services.file_service import FileService
 
 # Create the blueprint
 chat_bp = Blueprint('chat', __name__)
@@ -136,9 +136,9 @@ def send_chat():
                     pass
             logger.debug(f"Cleared existing message queue for chat_id: {chat_id}")
         
-        # Load file references
+        # Load file references using our FileService
         logger.debug("Loading file references")
-        file_refs = load_files_from_uris()
+        file_refs = FileService.load_files_from_gemini()
         if not file_refs:
             logger.error("No study materials found")
             error_msg = 'No study materials found. Please upload files first.'
@@ -149,24 +149,21 @@ def send_chat():
             
             return jsonify({'error': error_msg}), 400
         
+        # The system instruction for the chat model
+        system_instruction = """You are a helpful study assistant. 
+        Provide clear and concise explanations. 
+        Use markdown formatting for better readability.
+        Use **bold** for important terms, *italics* for emphasis, and lists when appropriate.
+        Format code with ```language code blocks``` when relevant.
+        Use examples and analogies when helpful. 
+        Focus on answering questions about the content of the uploaded study materials."""
+        
         # Get or create a chat session
         if chat_id not in active_chats:
             logger.debug(f"Creating new chat session for ID: {chat_id}")
             
-            # Create a new chat model with the selected model
-            chat_model = genai.GenerativeModel(
-                model_name=model_name, 
-                system_instruction="""You are a helpful study assistant. 
-                Provide clear and concise explanations. 
-                Use markdown formatting for better readability.
-                Use **bold** for important terms, *italics* for emphasis, and lists when appropriate.
-                Format code with ```language code blocks``` when relevant.
-                Use examples and analogies when helpful. 
-                Focus on answering questions about the content of the uploaded study materials."""
-            )
-            
-            # Start a new chat session (no initial message)
-            chat = chat_model.start_chat(history=[])
+            # Use our GeminiService to create a chat session
+            chat = GeminiService.start_chat_session(model_name, system_instruction)
             
             # Store the chat and the model choice in our dictionary
             active_chats[chat_id] = {
@@ -181,20 +178,9 @@ def send_chat():
             
             if current_model != model_name:
                 logger.debug(f"Model changed from {current_model} to {model_name}")
-                # Model has changed, create a new chat with the new model
-                chat_model = genai.GenerativeModel(
-                    model_name=model_name, 
-                    system_instruction="""You are a helpful study assistant. 
-                    Provide clear and concise explanations. 
-                    Use markdown formatting for better readability.
-                    Use **bold** for important terms, *italics* for emphasis, and lists when appropriate.
-                    Format code with ```language code blocks``` when relevant.
-                    Use examples and analogies when helpful. 
-                    Focus on answering questions about the content of the uploaded study materials."""
-                )
                 
-                # Start a new chat session
-                chat = chat_model.start_chat(history=[])
+                # Use our GeminiService to create a new chat session with the new model
+                chat = GeminiService.start_chat_session(model_name, system_instruction)
                 
                 # Get history from the old chat and apply it to the new chat
                 logger.debug("Transferring chat history to new model")
@@ -207,7 +193,7 @@ def send_chat():
                     if message.role == "user":
                         if needs_context:
                             logger.debug("Adding file context with first user message in history")
-                            combined_message = create_input_with_files(file_refs, additional_text=message.parts[0].text)
+                            combined_message = FileService.create_input_with_files(file_refs, additional_text=message.parts[0].text)
                             chat.send_message(combined_message)
                             needs_context = False
                         else:
@@ -238,7 +224,7 @@ def send_chat():
                 if is_first_message:
                     # Attach files to the user's message for the first message
                     logger.debug("First message: attaching files to user's message")
-                    combined_message = create_input_with_files(file_refs, additional_text=user_message)
+                    combined_message = FileService.create_input_with_files(file_refs, additional_text=user_message)
                     response_stream = chat.send_message(combined_message, stream=True)
                     active_chats[chat_id]["first_message"] = False
                 else:

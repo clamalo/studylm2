@@ -6,6 +6,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const fileList = document.getElementById('fileList');
     const generateBtn = document.getElementById('generateBtn');
     const loadingOverlay = document.getElementById('loadingOverlay');
+    const generationProgress = document.getElementById('generationProgress');
+    const generationStatus = document.getElementById('generationStatus');
+    const progressUpdates = document.getElementById('progressUpdates');
+    const progressCounter = document.getElementById('progressCounter');
+
+    // Progress tracking variables
+    let operationId = null;
+    let progressCheckInterval = null;
+    let updateCount = 0;
+    let lastMessageId = -1;
 
     // Click the hidden file input when the browse button is clicked
     browseBtn.addEventListener('click', function() {
@@ -92,6 +102,101 @@ document.addEventListener('DOMContentLoaded', function() {
         return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
     }
 
+    // Function to check processing status
+    function checkGenerationStatus() {
+        if (!operationId) {
+            return;
+        }
+        
+        fetch(`/generation-status/${operationId}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => {
+                // Update progress display
+                if (data.progress) {
+                    generationProgress.style.width = `${data.progress}%`;
+                }
+                
+                // Update status text based on current status
+                if (data.status) {
+                    switch (data.status) {
+                        case 'uploading':
+                            generationStatus.textContent = 'Uploading files...';
+                            break;
+                        case 'preparing':
+                            generationStatus.textContent = 'Preparing input for analysis...';
+                            break;
+                        case 'generating':
+                            generationStatus.textContent = 'Generating study guide...';
+                            break;
+                        case 'complete':
+                            generationStatus.textContent = 'Study guide created!';
+                            window.location.href = '/study-guide';
+                            clearInterval(progressCheckInterval);
+                            break;
+                        case 'error':
+                            generationStatus.textContent = 'Error generating study guide';
+                            clearInterval(progressCheckInterval);
+                            alert('Error generating study guide. Please try again.');
+                            loadingOverlay.classList.add('d-none');
+                            break;
+                    }
+                }
+                
+                // Add new messages to the progress updates list
+                if (data.messages && data.messages.length > 0) {
+                    updateProgressMessages(data.messages);
+                }
+                
+                // If generation is complete, redirect
+                if (data.status === 'complete') {
+                    setTimeout(() => {
+                        window.location.href = '/study-guide';
+                    }, 1000);
+                }
+            })
+            .catch(err => {
+                console.error('Error checking generation status:', err);
+                // If there's an error, keep checking but less frequently
+                clearInterval(progressCheckInterval);
+                progressCheckInterval = setInterval(checkGenerationStatus, 5000);
+            });
+    }
+    
+    // Function to update progress messages in the UI
+    function updateProgressMessages(messages) {
+        // Find any new messages (those we haven't shown yet)
+        const newMessages = messages.slice(lastMessageId + 1);
+        lastMessageId = messages.length - 1;
+        
+        if (newMessages.length === 0) {
+            return;
+        }
+        
+        // Update the counter
+        updateCount += newMessages.length;
+        progressCounter.textContent = `${updateCount} steps`;
+        
+        // Add new messages to the list
+        newMessages.forEach(msg => {
+            const listItem = document.createElement('li');
+            listItem.className = 'list-group-item progress-update-item py-2';
+            listItem.textContent = msg.text;
+            
+            // Add to the beginning for newest-first ordering
+            progressUpdates.insertBefore(listItem, progressUpdates.firstChild);
+            
+            // Limit the number of visible messages to prevent UI clutter
+            if (progressUpdates.children.length > 25) {
+                progressUpdates.removeChild(progressUpdates.lastChild);
+            }
+        });
+    }
+
     // Handle form submission
     uploadForm.addEventListener('submit', function(e) {
         e.preventDefault();
@@ -102,6 +207,18 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
         
+        // Reset progress tracking
+        operationId = null;
+        lastMessageId = -1;
+        updateCount = 0;
+        if (progressCheckInterval) {
+            clearInterval(progressCheckInterval);
+        }
+        progressUpdates.innerHTML = '';
+        progressCounter.textContent = '0 steps';
+        generationProgress.style.width = '0%';
+        generationStatus.textContent = 'Analyzing your materials...';
+        
         // Show loading overlay
         loadingOverlay.classList.remove('d-none');
         
@@ -111,25 +228,28 @@ document.addEventListener('DOMContentLoaded', function() {
             formData.append('files[]', fileUpload.files[i]);
         }
         
-        // Send AJAX request to upload files and generate study guide
+        // Send AJAX request to upload files and start background processing
         fetch('/upload', {
             method: 'POST',
             body: formData
         })
         .then(response => response.json())
         .then(data => {
-            // Hide loading overlay
-            loadingOverlay.classList.add('d-none');
-            
             if (data.error) {
                 alert('Error: ' + data.error);
+                loadingOverlay.classList.add('d-none');
             } else {
-                // Redirect to the study guide page
-                window.location.href = '/study-guide';
+                // Get operation ID and start checking progress
+                operationId = data.operation_id;
+                
+                // Start checking status periodically
+                progressCheckInterval = setInterval(checkGenerationStatus, 1500);
+                
+                // Do an immediate check
+                checkGenerationStatus();
             }
         })
         .catch(error => {
-            // Hide loading overlay
             loadingOverlay.classList.add('d-none');
             alert('An error occurred: ' + error.message);
         });

@@ -4,10 +4,10 @@ This file contains all model definitions to make it easier to manage and update 
 """
 
 # Study Guide Generation Model
-STUDY_GUIDE_MODEL = "gemini-2.5-pro-exp-03-25"
+STUDY_GUIDE_MODEL = "gemini-2.0-flash"
 
 # Quiz Generation Model
-QUIZ_MODEL = "gemini-2.5-pro-exp-03-25"
+QUIZ_MODEL = "gemini-2.0-flash"
 
 # Chat Models
 CHAT_BASIC_MODEL = "gemini-2.0-flash"
