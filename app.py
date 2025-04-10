@@ -11,6 +11,7 @@ from queue import Queue
 import threading
 import time
 import re
+from utils import upload_files, load_files_from_uris, create_input_with_files, generate_quiz_questions
 
 # Load environment variables from .env file
 load_dotenv()
@@ -43,89 +44,20 @@ if not gemini_api_key:
     # raise ValueError("GEMINI_API_KEY not found. Please set it in the .env file.")
 genai.configure(api_key=gemini_api_key)
 
-# Helper functions from multi_file.py
-def upload_files(file_paths):
-    """
-    Upload files to Gemini and save their URIs to a JSON file.
-    Returns the file references for immediate use.
-    """
-    # Upload files and get references
-    file_refs = [genai.upload_file(file_path) for file_path in file_paths]
-    
-    # Extract URIs and save to file_uris.json
-    file_uris = [file_ref.uri.split('/')[-1] for file_ref in file_refs]
-    with open('file_uris.json', 'w') as f:
-        json.dump(file_uris, f)
-    
-    return file_refs
-
-def load_files_from_uris():
-    """
-    Load files using URIs saved in file_uris.json.
-    This is faster than re-uploading files that have already been uploaded.
-    """
-    if not os.path.exists('file_uris.json'):
-        return None
-    
-    with open('file_uris.json', 'r') as f:
-        file_uris = json.load(f)
-    
-    file_refs = []
-    for uri in file_uris:
-        file_ref = genai.get_file(uri)
-        file_refs.append(file_ref)
-    
-    return file_refs
-
-def create_input_with_files(file_refs, additional_text=None):
-    """
-    Create an input list with files separated by two newlines.
-    Prepend the file display name before each file.
-    Optionally append additional text at the end.
-    """
-    input_list = []
-    for i, file_ref in enumerate(file_refs):
-        # Prepend the file display name
-        input_list.append(f"File: {file_ref.display_name}\n")
-        input_list.append(file_ref)
-        if i < len(file_refs) - 1:
-            input_list.append('\n\n')  # Add two new lines between files
-    
-    if additional_text:
-        input_list.append(additional_text)
-    
-    return input_list
-
 def generate_study_guide(file_refs):
     """Generate a structured study guide from the files"""
     # Create new model configured for JSON response
     json_response_model = genai.GenerativeModel(
-        # model_name='gemini-2.0-pro-exp-02-05',
-        model_name = 'gemini-2.5-pro-exp-03-25',
-        # system_instruction="Always respond in English and format responses as valid JSON. "
+        model_name = 'gemini-2.0-flash',
     )
     
-    # Prompt for structured study guide
+    # Prompt for structured study guide - without the quiz generation specifics
     structured_prompt = create_input_with_files(
         file_refs, 
-        "\n\nOrganize all concepts extracted from the files into a structured study guide. The output should be a JSON array of units (the total number of units cannot exceed 3x (the number of provided files)). Each unit must contain a 'unit' (the title of the unit) and an 'overview' that summarizes the key ideas of that unit. Each unit should also have a 'sections' array. Every section within the unit must include a 'section_title', a 'narrative' explanation that details the concepts in that section, and a 'key_points' array that lists the essential takeaways. For each section, generate three quiz questions that test understanding of the material. Each quiz question should be a JSON object with a 'question', an array of four 'choices' (all with roughly equivalent length & complexity), and a 'correct_answer' that matches one of the choices. Additionally, at the end of each unit, generate a unit-level quiz consisting of ten quiz questions in the same format. Ensure that the units progressively build on each other to form a cohesive understanding of the course material. Use information primarily from the course materials, and supplement with additional details as needed."
+        "\n\nOrganize all concepts extracted from the files into a structured study guide. The output should be a JSON array of units (the total number of units cannot exceed 3x (the number of provided files)). Each unit must contain a 'unit' (the title of the unit) and an 'overview' that summarizes the key ideas of that unit. Each unit should also have a 'sections' array. Every section within the unit must include a 'section_title', a 'narrative' explanation that details the concepts in that section, and a 'key_points' array that lists the essential takeaways. Ensure the units progressively build on each other to form a cohesive understanding of the course material. Use information primarily from the course materials, and supplement with additional details as needed."
     )
     
-    # Define nested schemas for the JSON response
-    quiz_schema = {
-        "type": "object",
-        "properties": {
-            "question": {"type": "string"},
-            "choices": {
-                "type": "array",
-                "items": {"type": "string"},
-                "description": "Array of four choices for the quiz question. All choices should be of roughly equivalent length and complexity."
-            },
-            "correct_answer": {"type": "string"}
-        },
-        "required": ["question", "choices", "correct_answer"]
-    }
-    
+    # Define schema for the response (without quiz-specific schema parts)
     section_schema = {
         "type": "object",
         "properties": {
@@ -134,14 +66,11 @@ def generate_study_guide(file_refs):
             "key_points": {
                 "type": "array",
                 "items": {"type": "string"}
-            },
-            "quizzes": {
-                "type": "array",
-                "items": quiz_schema
             }
         },
-        "required": ["section_title", "narrative", "key_points", "quizzes"]
+        "required": ["section_title", "narrative", "key_points"]
     }
+    
     tokens = json_response_model.count_tokens(structured_prompt)
     print(f"Token count for structured prompt: {tokens}")
     
@@ -160,13 +89,9 @@ def generate_study_guide(file_refs):
                         "sections": {
                             "type": "array",
                             "items": section_schema
-                        },
-                        "unit_quiz": {
-                            "type": "array",
-                            "items": quiz_schema
                         }
                     },
-                    "required": ["unit", "overview", "sections", "unit_quiz"]
+                    "required": ["unit", "overview", "sections"]
                 }
             }
         }
@@ -183,13 +108,38 @@ def generate_study_guide(file_refs):
         if end_idx != -1:
             response_text = response_text[start_idx:end_idx].strip()
     
+    # Parse the JSON data
+    study_guide_data = json.loads(response_text)
+    
+    # Now add the quizzes to each section and unit using our consolidated quiz function
+    for unit_index, unit in enumerate(study_guide_data):
+        unit_title = unit['unit']
+        
+        # Add quiz questions to each section
+        for section_index, section in enumerate(unit['sections']):
+            section_title = section['section_title']
+            context_prompt = f"for section titled '{section_title}' in unit '{unit_title}'"
+            
+            # Generate 3 questions for this section
+            section_quizzes = generate_quiz_questions(file_refs, 3, context_prompt)
+            
+            # Add the quizzes to the section data
+            section['quizzes'] = section_quizzes
+        
+        # Generate 10 questions for the unit assessment
+        context_prompt = f"for the overall unit titled '{unit_title}'"
+        unit_quiz_list = generate_quiz_questions(file_refs, 10, context_prompt)
+        
+        # Add the unit quiz to the unit data
+        unit['unit_quiz'] = unit_quiz_list
+    
     # Save clean JSON response to file
     output_file_path = os.path.join('static', 'output.json')
     with open(output_file_path, 'w') as f:
-        f.write(response_text)
+        json.dump(study_guide_data, f, indent=2)
     
     # Return the parsed JSON data
-    return json.loads(response_text)
+    return study_guide_data
 
 # Flask routes
 @app.route('/')
@@ -526,7 +476,6 @@ def generate_quiz():
     try:
         data = request.get_json()
         model = data.get('model', 'gemini-2.5-pro-exp-03-25')
-        # model = data.get('model', 'gemini-2.0-flash')
         question_count = data.get('question_count', 10)
         
         # Use the same file loading method as chat functionality
@@ -540,12 +489,12 @@ def generate_quiz():
         # Generate a unique ID for this quiz generation
         generation_id = str(uuid.uuid4())
 
-        print(question_count)
+        print(f"Generating quiz with {question_count} questions")
         
         # Start the quiz generation in a background thread
         thread = threading.Thread(
             target=generate_quiz_in_background,
-            args=(generation_id, model, question_count, file_refs)
+            args=(generation_id, question_count, file_refs)
         )
         thread.daemon = True
         thread.start()
@@ -590,7 +539,7 @@ def cancel_quiz(generation_id):
 # Store quiz generation results
 quiz_results = {}
 
-def generate_quiz_in_background(generation_id, model, question_count, file_refs):
+def generate_quiz_in_background(generation_id, question_count, file_refs):
     try:
         if not file_refs:
             quiz_results[generation_id] = {
@@ -599,44 +548,18 @@ def generate_quiz_in_background(generation_id, model, question_count, file_refs)
             }
             return
         
-        print(question_count)
+        # Use our consolidated quiz generation function
+        questions_list = generate_quiz_questions(file_refs, question_count)
         
-        # Prepare the prompt for the AI
-        prompt = f"""
-        Create a comprehensive exam preparation quiz with {question_count} multiple-choice questions based on the provided study materials.
+        if not questions_list:
+            quiz_results[generation_id] = {
+                'status': 'error',
+                'message': 'Failed to generate quiz questions'
+            }
+            return
         
-        Each question should:
-        1. Test important concepts that might appear on an exam
-        2. Have 4 answer choices (A, B, C, D)
-        3. Have only one correct answer
-        
-        Format the output as JSON with this structure:
-        {{
-            "questions": [
-                {{
-                    "question": "Question text here",
-                    "choices": ["Choice A", "Choice B", "Choice C", "Choice D"],
-                    "correct_answer": "The exact text of the correct choice"
-                }}
-            ]
-        }}
-        
-        Ensure the questions cover all important topics in the material and vary in difficulty.
-        """
-
-        print(prompt)
-        
-        # Create a new model for the quiz generation
-        quiz_model = genai.GenerativeModel(model_name=model)
-        
-        # Use the create_input_with_files function just like in chat functionality
-        input_prompt = create_input_with_files(file_refs, additional_text=prompt)
-        
-        # Generate content with the files
-        response = quiz_model.generate_content(input_prompt)
-        
-        # Extract the quiz JSON from the response
-        quiz_json = extract_json_from_response(response)
+        # Format the response in the expected structure
+        quiz_json = {'questions': questions_list}
         
         # Store the quiz result
         quiz_results[generation_id] = {
@@ -671,21 +594,9 @@ def quiz_status(generation_id):
     
     return jsonify(result)
 
-def extract_json_from_response(response):
-    try:
-        text = response.text
-        # Look for JSON content between curly braces
-        json_match = re.search(r'({[\s\S]*})', text)
-        if json_match:
-            json_str = json_match.group(1)
-            return json.loads(json_str)
-        else:
-            # If no JSON pattern found, try to parse the whole response
-            return json.loads(text)
-    except Exception as e:
-        print(f"Error extracting JSON: {e}")
-        # As a fallback, return a simple error structure
-        return {'error': 'Failed to parse JSON response', 'questions': []}
+# Deprecated - functionality moved to utils.py
+# def extract_json_from_response(response):
+#     # This function has been moved to utils.py
 
 # We can remove this unused function or keep it for future use
 def get_document_uris():

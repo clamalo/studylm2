@@ -22,7 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     let quizGenerationId = null;
     let quizGenerationStatus = 'idle'; // 'idle', 'generating', 'complete'
     let totalQuestions = 0; // Track total questions for validation
+    let quizSubmitted = false; // Track if quiz has been submitted
     const defaultModel = 'gemini-2.5-pro-exp-03-25'; // Default model for quiz generation
+    
+    // Add the shared QuizUI styles
+    QuizUI.addStyles();
     
     // Check for existing quiz in localStorage when page loads
     checkExistingQuiz();
@@ -52,6 +56,38 @@ document.addEventListener('DOMContentLoaded', function() {
         cancelQuizBtn.addEventListener('click', handleCancelQuizGeneration);
     }
 
+    // Use event delegation to handle quiz option changes
+    // This ensures ALL quiz options are captured, even if they're added after initial page load
+    if (quizContent) {
+        quizContent.addEventListener('change', function(e) {
+            // Check if the changed element is a quiz option
+            if (e.target && e.target.classList.contains('quiz-option')) {
+                // Important: We need to ensure quizSelections gets properly updated
+                const questionIndex = parseInt(e.target.dataset.questionIndex);
+                const choiceIndex = parseInt(e.target.dataset.choiceIndex);
+                const selectedChoiceText = e.target.closest('.card-body').querySelector(`label[for="${e.target.id}"]`).textContent.trim();
+                const correctAnswerText = e.target.dataset.correct;
+                const correctIndex = e.target.dataset.correctIndex !== undefined ? 
+                    parseInt(e.target.dataset.correctIndex) : null;
+                
+                // Update quizSelections with the new selection
+                quizSelections[questionIndex] = {
+                    selectedIndex: choiceIndex,
+                    correctIndex: correctIndex,
+                    selected: selectedChoiceText,
+                    correct: correctAnswerText
+                };
+                
+                // Save the updated quizSelections to localStorage
+                localStorage.setItem('quizSelections', JSON.stringify(quizSelections));
+                console.log('Updated and saved quiz selections:', Object.keys(quizSelections).length, 'selections');
+                
+                // Update button state
+                updateAnswerCount();
+            }
+        });
+    }
+    
     // Sync the question count dropdowns
     if (questionCountSelect && headerQuestionCountSelect) {
         // Sync initial value
@@ -108,8 +144,10 @@ document.addEventListener('DOMContentLoaded', function() {
     function resetQuizState() {
         quizGenerationStatus = 'idle';
         quizGenerationId = null;
+        quizSubmitted = false;
         localStorage.removeItem('quizGenerationStatus');
         localStorage.removeItem('quizGenerationId');
+        localStorage.removeItem('quizSubmitted');
         showQuizInitialState();
         
         // Reset cancel button if it exists
@@ -143,6 +181,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const savedQuiz = localStorage.getItem('studyLmQuiz');
         const savedStatus = localStorage.getItem('quizGenerationStatus');
         quizGenerationId = localStorage.getItem('quizGenerationId');
+        quizSubmitted = localStorage.getItem('quizSubmitted') === 'true';
         
         if (savedStatus === 'generating' && quizGenerationId) {
             showQuizLoadingState();
@@ -155,9 +194,16 @@ document.addEventListener('DOMContentLoaded', function() {
                 showQuizContent();
                 renderQuiz(quizData);
                 quizGenerationStatus = 'complete';
+                
+                // If quiz was previously submitted, re-evaluate it to show results
+                if (quizSubmitted) {
+                    console.log('Restoring submitted quiz state');
+                    restoreSubmittedQuizState();
+                }
             } catch (e) {
                 // If the saved quiz is invalid, clear it and show initial state
                 localStorage.removeItem('studyLmQuiz');
+                localStorage.removeItem('quizSubmitted');
                 showQuizInitialState();
             }
         } else {
@@ -165,12 +211,102 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
+    // Function to restore submitted quiz state
+    function restoreSubmittedQuizState() {
+        if (!quizData || !quizSelections) return;
+        
+        // We need to wait a moment for the quiz UI to fully render
+        setTimeout(() => {
+            // Get the saved quiz result if it exists
+            const savedResult = localStorage.getItem('quizResult');
+            if (savedResult) {
+                try {
+                    const resultData = JSON.parse(savedResult);
+                    // Display the result in the score container
+                    if (quizScoreContainer) {
+                        const scoreElement = document.createElement('div');
+                        scoreElement.className = `alert ${resultData.alertClass}`;
+                        scoreElement.innerHTML = resultData.html;
+                        quizScoreContainer.innerHTML = '';
+                        quizScoreContainer.appendChild(scoreElement);
+                    }
+                } catch (e) {
+                    console.error('Error restoring quiz result:', e);
+                }
+            }
+            
+            // Disable all question inputs and show correct/wrong feedback
+            for (const questionIndex in quizSelections) {
+                const answer = quizSelections[questionIndex];
+                const qIndex = parseInt(questionIndex);
+                
+                // Find the question card
+                const questionCard = document.querySelector(`.question-card[data-question-index="${qIndex}"]`);
+                if (!questionCard) continue;
+                
+                // Find the selected radio input
+                const selectedInput = document.querySelector(`input[name="quiz-question-${qIndex}"][value="${answer.selectedIndex}"]`);
+                if (!selectedInput) continue;
+                
+                const formCheck = selectedInput.closest('.form-check');
+                const cardBody = selectedInput.closest('.card-body');
+                const feedbackDiv = cardBody.querySelector('.answer-feedback');
+                const correctFeedback = feedbackDiv.querySelector('.correct-answer');
+                const wrongFeedback = feedbackDiv.querySelector('.wrong-answer');
+                
+                // Show feedback
+                feedbackDiv.classList.remove('d-none');
+                
+                if (answer.selectedIndex === answer.correctIndex) {
+                    // Correct answer
+                    correctFeedback.classList.remove('d-none');
+                    wrongFeedback.classList.add('d-none');
+                    formCheck.classList.add('correct-answer');
+                } else {
+                    // Wrong answer
+                    correctFeedback.classList.add('d-none');
+                    wrongFeedback.classList.remove('d-none');
+                    formCheck.classList.add('wrong-answer');
+                    
+                    // Find and highlight the correct answer
+                    const correctInput = document.querySelector(`input[name="quiz-question-${qIndex}"][value="${answer.correctIndex}"]`);
+                    if (correctInput) {
+                        const correctFormCheck = correctInput.closest('.form-check');
+                        correctFormCheck.classList.add('correct-answer');
+                    }
+                }
+                
+                // Disable all options for this question
+                const relatedOptions = document.querySelectorAll(`input[name="quiz-question-${qIndex}"]`);
+                relatedOptions.forEach(opt => {
+                    opt.disabled = true;
+                });
+            }
+            
+            // Update submit button
+            if (submitQuizBtn) {
+                submitQuizBtn.disabled = true;
+                submitQuizBtn.innerHTML = '<i class="bi bi-check2-all"></i> Review Answers';
+            }
+            
+            // Update the new quiz button
+            if (generateNewQuizBtn) {
+                generateNewQuizBtn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Try Another Quiz';
+            }
+            
+        }, 100);
+    }
+    
     // Function to start quiz generation
     function startQuizGeneration() {
         // Clear any existing quiz
         quizData = null;
         quizSelections = {};
+        quizSubmitted = false;
         localStorage.removeItem('studyLmQuiz');
+        localStorage.removeItem('quizSelections');
+        localStorage.removeItem('quizSubmitted');
+        localStorage.removeItem('quizResult');
         
         // Show loading state
         showQuizLoadingState();
@@ -214,32 +350,6 @@ document.addEventListener('DOMContentLoaded', function() {
             console.error('Error starting quiz generation:', error);
             showError('Failed to start quiz generation. Please try again.');
         });
-    }
-    
-    // Function to cancel quiz generation
-    function cancelQuizGeneration() {
-        if (quizGenerationStatus === 'generating' && quizGenerationId) {
-            // Show a confirmation dialog
-            if (confirm('Are you sure you want to cancel quiz generation?')) {
-                // Call the cancel endpoint
-                fetch(`/cancel-quiz/${quizGenerationId}`, {
-                    method: 'POST'
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        // Reset quiz state
-                        quizGenerationStatus = 'idle';
-                        localStorage.removeItem('quizGenerationId');
-                        localStorage.removeItem('quizGenerationStatus');
-                        showQuizInitialState();
-                    }
-                })
-                .catch(error => {
-                    console.error('Error canceling quiz generation:', error);
-                });
-            }
-        }
     }
     
     // Function to check quiz generation status
@@ -286,90 +396,13 @@ document.addEventListener('DOMContentLoaded', function() {
             });
     }
     
-    // Function to render the quiz UI
+    // Function to render the quiz UI - using shared module
     function renderQuiz(quizData) {
-        quizContent.innerHTML = '';
-        
-        if (!quizData || !quizData.questions || !quizData.questions.length) {
-            showError('No quiz questions available');
-            return;
-        }
-        
-        // Set the total number of questions for validation
-        totalQuestions = quizData.questions.length;
+        // Use the shared QuizUI module to render the quiz
+        totalQuestions = QuizUI.renderQuizUI(quizData, quizContent, quizSelections, updateAnswerCount);
         console.log(`Quiz loaded with ${totalQuestions} questions`);
         
-        // Reset quiz selections
-        quizSelections = {};
-        
-        // Add quiz title and description
-        const titleSection = document.createElement('div');
-        titleSection.className = 'mb-4';
-        titleSection.innerHTML = `
-            <h2 class="mb-3">Comprehensive Exam Preparation</h2>
-            <p class="lead">This quiz contains ${quizData.questions.length} questions covering essential concepts from your study materials.</p>
-            <p class="text-muted mb-4">Select the best answer for each question. You can check your answers when finished.</p>
-        `;
-        quizContent.appendChild(titleSection);
-        
-        // Render each question
-        quizData.questions.forEach((question, index) => {
-            const questionNumber = index + 1;
-            const questionCard = document.createElement('div');
-            questionCard.className = 'card question-card mb-4';
-            questionCard.dataset.questionIndex = index;
-            
-            // Create the HTML for the question card
-            let choicesHtml = '';
-            question.choices.forEach((choice, choiceIndex) => {
-                choicesHtml += `
-                    <div class="form-check">
-                        <input class="form-check-input quiz-option" 
-                            type="radio" 
-                            name="quiz-question-${index}" 
-                            value="${choiceIndex}"
-                            data-question-index="${index}"
-                            data-choice-index="${choiceIndex}"
-                            id="quiz-q${index}-c${choiceIndex}">
-                        <label class="form-check-label" for="quiz-q${index}-c${choiceIndex}">
-                            ${choice}
-                        </label>
-                    </div>
-                `;
-            });
-            
-            questionCard.innerHTML = `
-                <div class="card-header">
-                    <div class="d-flex justify-content-between align-items-center">
-                        <h5 class="mb-0">Q${questionNumber}: ${question.question}</h5>
-                        <span class="badge bg-primary">${questionNumber}/${quizData.questions.length}</span>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="choices">
-                        ${choicesHtml}
-                    </div>
-                    <div class="answer-feedback mt-3 d-none">
-                        <div class="alert alert-success correct-answer d-none">
-                            <i class="bi bi-check-circle-fill me-2"></i> Correct! The answer is: <strong>${question.correct_answer}</strong>
-                        </div>
-                        <div class="alert alert-danger wrong-answer d-none">
-                            <i class="bi bi-x-circle-fill me-2"></i> Incorrect. The correct answer is: <strong>${question.correct_answer}</strong>
-                        </div>
-                    </div>
-                </div>
-            `;
-            
-            quizContent.appendChild(questionCard);
-            
-            // Store the correct answer index for easier comparison later
-            const correctIndex = question.choices.findIndex(choice => choice === question.correct_answer);
-            if (correctIndex !== -1) {
-                question.correctIndex = correctIndex;
-            }
-        });
-        
-        // Show quiz elements and initialize button state *before* restoring selections
+        // Show quiz elements
         showElement(printQuizBtn.parentElement);
         showElement(quizControls);
         showElement(quizFooter); // Show footer which contains the button
@@ -388,9 +421,6 @@ document.addEventListener('DOMContentLoaded', function() {
                 headerQuestionCountSelect.value = savedQuestionCount;
             }
         }
-
-        // Add event listeners for the options
-        attachQuizOptionListeners();
 
         // Restore any saved answers
         const savedSelections = localStorage.getItem('quizSelections');
@@ -414,7 +444,7 @@ document.addEventListener('DOMContentLoaded', function() {
                         }
                     }
 
-                    // Update the button state *after* restoring selections
+                    // Update the button state after restoring selections
                     updateAnswerCount();
                 } else {
                      // If saved selections don't match, clear them
@@ -432,67 +462,12 @@ document.addEventListener('DOMContentLoaded', function() {
              // Ensure button state is correct even if no selections were saved
              updateAnswerCount();
         }
+        
+        // Note: we're no longer adding individual change listeners here 
+        // because we're using event delegation in the main event listener
     }
 
-    // Attach click event listeners to quiz options
-    function attachQuizOptionListeners() {
-        const quizOptions = document.querySelectorAll('.quiz-option');
-
-        quizOptions.forEach(option => {
-            option.addEventListener('change', function() {
-                const questionIndex = parseInt(this.dataset.questionIndex);
-                const choiceIndex = parseInt(this.dataset.choiceIndex);
-                const formCheck = this.closest('.form-check');
-                const cardBody = formCheck.closest('.card-body');
-
-                // Remove any previous selection highlight in this question
-                cardBody.querySelectorAll('.form-check').forEach(fc => {
-                    fc.classList.remove('selected-answer');
-                });
-
-                // Add highlight to the selected answer
-                formCheck.classList.add('selected-answer');
-
-                // Get the text of the selected choice for display purposes
-                const selectedChoiceText = quizData.questions[questionIndex].choices[choiceIndex];
-                const correctAnswerText = quizData.questions[questionIndex].correct_answer;
-                const correctIndex = quizData.questions[questionIndex].correctIndex != null ? quizData.questions[questionIndex].correctIndex :
-                                    quizData.questions[questionIndex].choices.indexOf(correctAnswerText);
-
-                // Store the selection using indices
-                quizSelections[questionIndex] = {
-                    selectedIndex: choiceIndex,
-                    correctIndex: correctIndex,
-                    selected: selectedChoiceText,
-                    correct: correctAnswerText
-                };
-
-                console.log(`Selected answer for question ${questionIndex}: Choice #${choiceIndex}`);
-                console.log(`Current selections: ${Object.keys(quizSelections).length}/${totalQuestions}`);
-
-                // Update the button state
-                updateAnswerCount();
-            });
-        });
-
-        // Make entire form-check div clickable
-        document.querySelectorAll('.form-check').forEach(check => {
-            check.addEventListener('click', function(e) {
-                // Only proceed if we didn't click on the radio button itself
-                if (!e.target.classList.contains('form-check-input')) {
-                    const radioButton = this.querySelector('.form-check-input');
-                    if (radioButton && !radioButton.disabled) {
-                        radioButton.checked = true;
-                        // Trigger the change event
-                        const event = new Event('change', { bubbles: true });
-                        radioButton.dispatchEvent(event);
-                    }
-                }
-            });
-        });
-    }
-
-    // New function to directly update the answer count and button state
+    // Function to update answer count and button state
     function updateAnswerCount() {
         // Ensure totalQuestions is valid before proceeding
         if (typeof totalQuestions !== 'number' || totalQuestions <= 0) {
@@ -525,135 +500,35 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    // Function to evaluate quiz answers
+    // Function to evaluate quiz answers - using shared module
     function evaluateQuiz() {
-        let correctCount = 0;
-        let animationDelay = 0;
-        
         // Store answer states to localStorage
         localStorage.setItem('quizSelections', JSON.stringify(quizSelections));
         
-        // Disable submit button
-        submitQuizBtn.disabled = true;
-        submitQuizBtn.innerHTML = '<i class="bi bi-check2-all"></i> Review Answers';
+        // Mark the quiz as submitted
+        quizSubmitted = true;
+        localStorage.setItem('quizSubmitted', 'true');
         
-        // Clear any previous quiz score
-        if (quizScoreContainer) {
-            quizScoreContainer.innerHTML = '';
-        }
-        
-        // Process each answer
-        for (const questionIndex in quizSelections) {
-            const answer = quizSelections[questionIndex];
-            const qIndex = parseInt(questionIndex);
-            
-            // Find the question element
-            const questionCard = document.querySelector(`.question-card[data-question-index="${qIndex}"]`);
-            if (!questionCard) continue;
-            
-            // Find the selected radio input using its index rather than value
-            const radioInput = document.querySelector(`input[name="quiz-question-${qIndex}"][value="${answer.selectedIndex}"]`);
-            if (!radioInput) continue;
-            
-            const formCheck = radioInput.closest('.form-check');
-            const cardBody = radioInput.closest('.card-body');
-            const feedbackDiv = cardBody.querySelector('.answer-feedback');
-            const correctFeedback = feedbackDiv.querySelector('.correct-answer');
-            const wrongFeedback = feedbackDiv.querySelector('.wrong-answer');
-            
-            // Show the feedback with a staggered animation delay
-            setTimeout(() => {
-                // Show the feedback div
-                feedbackDiv.classList.remove('d-none');
-                
-                // Compare using indices instead of text
-                if (answer.selectedIndex === answer.correctIndex) {
-                    // Show correct feedback
-                    correctFeedback.classList.remove('d-none');
-                    wrongFeedback.classList.add('d-none');
-                    
-                    // Highlight the correct answer
-                    formCheck.classList.add('correct-answer');
-                    correctCount++;
-                } else {
-                    // Show wrong feedback
-                    correctFeedback.classList.add('d-none');
-                    wrongFeedback.classList.remove('d-none');
-                    
-                    // Highlight wrong answer and mark the correct one
-                    formCheck.classList.add('wrong-answer');
-                    
-                    // Find and highlight the correct answer option using index
-                    const correctOption = document.querySelector(`input[name="quiz-question-${qIndex}"][value="${answer.correctIndex}"]`);
-                    if (correctOption) {
-                        const correctFormCheck = correctOption.closest('.form-check');
-                        correctFormCheck.classList.add('correct-answer');
-                    }
-                }
-                
-                // Disable all options for this question
-                const relatedOptions = document.querySelectorAll(`input[name="quiz-question-${qIndex}"]`);
-                relatedOptions.forEach(opt => {
-                    opt.disabled = true;
-                });
-                
-                // Scroll to the question if it's not visible
-                questionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-            }, animationDelay);
-            
-            animationDelay += 100; // Stagger the animations
-        }
-        
-        // Show overall score after all feedback is shown
-        setTimeout(() => {
-            const totalQuestions = quizData.questions.length;
-            const percentage = Math.round((correctCount / totalQuestions) * 100);
-            
-            const scoreElement = document.createElement('div');
-            scoreElement.className = 'alert mt-3';
-            
-            let feedbackClass = 'alert-info';
-            let feedbackIcon = 'info-circle-fill';
-            let feedbackMessage = 'Keep practicing to improve!';
-            
-            if (percentage >= 80) {
-                feedbackClass = 'alert-success';
-                feedbackIcon = 'trophy-fill';
-                feedbackMessage = 'Excellent work! You\'re well-prepared for the exam.';
-            } else if (percentage >= 60) {
-                feedbackClass = 'alert-info';
-                feedbackIcon = 'patch-check-fill';
-                feedbackMessage = 'Good job! Review the incorrect answers to strengthen your knowledge.';
-            } else {
-                feedbackClass = 'alert-warning';
-                feedbackIcon = 'exclamation-triangle-fill';
-                feedbackMessage = 'Review the material again to improve your understanding.';
+        // Capture score container content after evaluation for persistent storage
+        const captureResult = () => {
+            if (quizScoreContainer && quizScoreContainer.querySelector('.alert')) {
+                const resultElement = quizScoreContainer.querySelector('.alert');
+                const resultData = {
+                    html: resultElement.innerHTML,
+                    alertClass: resultElement.className.replace('alert ', '')
+                };
+                localStorage.setItem('quizResult', JSON.stringify(resultData));
             }
-            
-            scoreElement.className = `alert ${feedbackClass}`;
-            scoreElement.innerHTML = `
-                <div class="d-flex align-items-center">
-                    <i class="bi bi-${feedbackIcon} fs-3 me-3"></i>
-                    <div>
-                        <h5 class="mb-1">Quiz Results</h5>
-                        <p class="mb-1">Your score: <strong>${correctCount}/${totalQuestions}</strong> (${percentage}%)</p>
-                        <p class="mb-0 small">${feedbackMessage}</p>
-                    </div>
-                </div>
-            `;
-            
-            // Add score to the quiz footer
-            if (quizScoreContainer) {
-                quizScoreContainer.appendChild(scoreElement);
-                quizScoreContainer.style.animation = 'fadeIn 0.8s';
-                
-                // Scroll to the bottom to show the score
-                quizFooter.scrollIntoView({ behavior: 'smooth' });
-            }
-            
-            // Change "Generate New Quiz" button text
-            generateNewQuizBtn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Try Another Quiz';
-        }, animationDelay + 500);
+        };
+        
+        // Use the shared QuizUI module to evaluate the quiz
+        QuizUI.evaluateQuizUI(quizSelections, quizData, quizScoreContainer, submitQuizBtn);
+        
+        // Wait a brief moment for the UI to update before capturing the result
+        setTimeout(captureResult, 500);
+        
+        // Change "Generate New Quiz" button text
+        generateNewQuizBtn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Try Another Quiz';
     }
     
     // Function to confirm and generate a new quiz
@@ -661,6 +536,9 @@ document.addEventListener('DOMContentLoaded', function() {
         if (confirm('Are you sure you want to generate a new quiz? Your current quiz will be lost.')) {
             localStorage.removeItem('studyLmQuiz');
             localStorage.removeItem('quizSelections');
+            localStorage.removeItem('quizSubmitted');
+            localStorage.removeItem('quizResult');
+            quizSubmitted = false;
             
             // Use the header question count value for the new quiz
             const newQuestionCount = headerQuestionCountSelect ? 
@@ -707,7 +585,9 @@ document.addEventListener('DOMContentLoaded', function() {
         hideElement(quizStatusContainer);
         showElement(printQuizBtn.parentElement);
 
-        if (quizScoreContainer) {
+        // Only clear the score container if the quiz is not submitted
+        // This ensures we don't wipe out the results when reloading a completed quiz
+        if (quizScoreContainer && !quizSubmitted) {
             quizScoreContainer.innerHTML = '';
         }
     }

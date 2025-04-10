@@ -2,83 +2,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Track quiz answer selections
     const quizSelections = {};
     
+    // Add the shared QuizUI styles
+    QuizUI.addStyles();
+    
     // Handle section quiz radio button selection
     const sectionQuizOptions = document.querySelectorAll('.section-quiz-option');
-    sectionQuizOptions.forEach(option => {
-        option.addEventListener('change', function() {
-            const quizGroup = this.dataset.quizGroup;
-            
-            if (!quizSelections[quizGroup]) {
-                quizSelections[quizGroup] = {};
-            }
-            
-            // Store the selected answer for this question
-            const questionName = this.getAttribute('name');
-            quizSelections[quizGroup][questionName] = {
-                selected: this.value,
-                correct: this.dataset.correct
-            };
-            
-            // Highlight the selected answer
-            const formCheck = this.closest('.form-check');
-            const cardBody = formCheck.closest('.card-body');
-            
-            // Remove any previous selection highlight in this question
-            cardBody.querySelectorAll('.form-check').forEach(fc => {
-                fc.classList.remove('selected-answer');
-            });
-            
-            // Add highlight to the selected answer with animation
-            formCheck.classList.add('selected-answer');
-            formCheck.style.animation = 'pulse 0.5s';
-            
-            // Enable the submit button if at least one answer is selected
-            const submitButton = document.getElementById(`submit-${quizGroup}`);
-            if (submitButton && Object.keys(quizSelections[quizGroup]).length > 0) {
-                submitButton.disabled = false;
-                submitButton.classList.add('animate__animated', 'animate__pulse');
-            }
-        });
-    });
+    QuizUI.attachQuizHandlers(sectionQuizOptions, quizSelections);
     
-    // Handle unit quiz radio button selection (same functionality with section quizzes)
+    // Handle unit quiz radio button selection
     const unitQuizOptions = document.querySelectorAll('.unit-quiz-option');
-    unitQuizOptions.forEach(option => {
-        option.addEventListener('change', function() {
-            const quizGroup = this.dataset.quizGroup;
-            
-            if (!quizSelections[quizGroup]) {
-                quizSelections[quizGroup] = {};
-            }
-            
-            // Store the selected answer for this question
-            const questionName = this.getAttribute('name');
-            quizSelections[quizGroup][questionName] = {
-                selected: this.value,
-                correct: this.dataset.correct
-            };
-            
-            // Highlight the selected answer
-            const formCheck = this.closest('.form-check');
-            const cardBody = formCheck.closest('.card-body');
-            
-            // Remove any previous selection highlight in this question
-            cardBody.querySelectorAll('.form-check').forEach(fc => {
-                fc.classList.remove('selected-answer');
-            });
-            
-            // Add highlight to the selected answer with animation
-            formCheck.classList.add('selected-answer');
-            formCheck.style.animation = 'pulse 0.5s';
-            
-            // Enable the submit button if at least one answer is selected
-            const submitButton = document.getElementById(`submit-${quizGroup}`);
-            if (submitButton && Object.keys(quizSelections[quizGroup]).length > 0) {
-                submitButton.disabled = false;
-                submitButton.classList.add('animate__animated', 'animate__pulse');
-            }
-        });
-    });
+    QuizUI.attachQuizHandlers(unitQuizOptions, quizSelections);
     
     // Handle section quiz submissions
     document.querySelectorAll('[id^="submit-section-quiz-"]').forEach(button => {
@@ -96,310 +29,18 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Function to evaluate and show quiz results
+    // Function to evaluate and show quiz results using shared module
     function evaluateQuiz(quizGroup) {
         if (!quizSelections[quizGroup]) return;
         
-        let correctCount = 0;
-        let totalQuestions = 0;
-        let animationDelay = 0;
-        
-        // Process each answer in the quiz group
-        for (const questionName in quizSelections[quizGroup]) {
-            const question = quizSelections[quizGroup][questionName];
-            totalQuestions++;
-            
-            // Find the question element
-            const radioInput = document.querySelector(`input[name="${questionName}"][value="${question.selected}"]`);
-            if (!radioInput) continue;
-            
-            const formCheck = radioInput.closest('.form-check');
-            const cardBody = radioInput.closest('.card-body');
-            const quizCard = radioInput.closest('.quiz-card');
-            const feedbackDiv = cardBody.querySelector('.answer-feedback');
-            const correctFeedback = feedbackDiv.querySelector('.correct-answer');
-            const wrongFeedback = feedbackDiv.querySelector('.wrong-answer');
-            
-            // Show the feedback div with slight delay for visual effect
-            setTimeout(() => {
-                // Show the feedback div
-                feedbackDiv.classList.remove('d-none');
-                feedbackDiv.style.animation = 'fadeIn 0.5s';
-                
-                if (question.selected === question.correct) {
-                    // Show correct feedback
-                    correctFeedback.classList.remove('d-none');
-                    wrongFeedback.classList.add('d-none');
-                    
-                    // Clear existing classes and highlight only the correct answer
-                    cardBody.querySelectorAll('.form-check').forEach(fc => {
-                        fc.classList.remove('correct-answer', 'wrong-answer');
-                    });
-                    
-                    // Highlight the correct answer in green
-                    formCheck.classList.add('correct-answer');
-                    formCheck.style.animation = 'pulse 0.8s';
-                    
-                    correctCount++;
-                    
-                    // Play a success sound
-                    playSound('success');
-                    
-                    // Add green border to card
-                    quizCard.style.borderLeft = '4px solid var(--success)';
-                } else {
-                    // Show wrong feedback
-                    correctFeedback.classList.add('d-none');
-                    wrongFeedback.classList.remove('d-none');
-                    
-                    // Clear existing classes
-                    cardBody.querySelectorAll('.form-check').forEach(fc => {
-                        fc.classList.remove('correct-answer', 'wrong-answer');
-                    });
-                    
-                    // Highlight the wrong answer in red
-                    formCheck.classList.add('wrong-answer');
-                    formCheck.style.animation = 'shake 0.8s';
-                    
-                    // Find and highlight the correct answer option
-                    const correctOption = cardBody.querySelector(`input[value="${question.correct}"]`);
-                    if (correctOption) {
-                        const correctFormCheck = correctOption.closest('.form-check');
-                        correctFormCheck.classList.add('correct-answer');
-                        setTimeout(() => {
-                            correctFormCheck.style.animation = 'pulse 0.8s';
-                        }, 400); // Slight delay to highlight the correct answer
-                    }
-                    
-                    // Play an error sound
-                    playSound('error');
-                    
-                    // Add red border to card
-                    quizCard.style.borderLeft = '4px solid var(--danger)';
-                }
-                
-                // Disable all options in this question
-                const relatedOptions = document.querySelectorAll(`input[name="${questionName}"]`);
-                relatedOptions.forEach(opt => {
-                    opt.disabled = true;
-                });
-                
-                // Scroll to make the feedback visible if needed
-                feedbackDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            }, animationDelay);
-            
-            animationDelay += 200; // Stagger the animations
-        }
-        
-        // Add score summary at the bottom near the submit button
+        // Find the score container for this quiz group
         const buttonContainer = document.getElementById(`submit-${quizGroup}`).parentNode;
         const scoreContainer = buttonContainer.querySelector('.quiz-score-container');
+        const submitButton = document.getElementById(`submit-${quizGroup}`);
         
-        if (scoreContainer) {
-            // Disable submit button
-            const submitButton = document.getElementById(`submit-${quizGroup}`);
-            submitButton.disabled = true;
-            submitButton.innerHTML = '<i class="bi bi-check2-all"></i> Completed';
-            
-            // Delay the score display for visual effect
-            setTimeout(() => {
-                // Add score to the score container
-                scoreContainer.innerHTML = '';
-                const scoreElement = document.createElement('div');
-                scoreElement.className = 'alert mt-3';
-                const percentage = Math.round(correctCount/totalQuestions*100);
-                let feedbackClass = 'alert-info';
-                let feedbackIcon = 'info-circle-fill';
-                let feedbackMessage = 'Keep practicing to improve!';
-                
-                if (percentage >= 80) {
-                    feedbackClass = 'alert-success';
-                    feedbackIcon = 'trophy-fill';
-                    feedbackMessage = 'Excellent work! You\'ve mastered this content.';
-                } else if (percentage >= 60) {
-                    feedbackClass = 'alert-info';
-                    feedbackIcon = 'patch-check-fill';
-                    feedbackMessage = 'Good job! Review the incorrect answers to strengthen your knowledge.';
-                } else {
-                    feedbackClass = 'alert-warning';
-                    feedbackIcon = 'exclamation-triangle-fill';
-                    feedbackMessage = 'Review this section again to improve your understanding.';
-                }
-                
-                scoreElement.className = `alert ${feedbackClass}`;
-                scoreElement.innerHTML = `
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-${feedbackIcon} fs-3 me-3"></i>
-                        <div>
-                            <h5 class="mb-1">Quiz Results</h5>
-                            <p class="mb-1">Your score: <strong>${correctCount}/${totalQuestions}</strong> (${percentage}%)</p>
-                            <p class="mb-0 small">${feedbackMessage}</p>
-                        </div>
-                    </div>
-                `;
-                scoreContainer.appendChild(scoreElement);
-                scoreElement.style.animation = 'fadeIn 0.8s';
-                
-                // If score is perfect, add confetti effect
-                if (percentage === 100) {
-                    triggerConfetti();
-                }
-            }, animationDelay + 300);
-        }
+        // Use the shared QuizUI module to evaluate the quiz
+        QuizUI.evaluateQuizUI(quizSelections, null, scoreContainer, submitButton, quizGroup);
     }
-    
-    // Make entire answer choice container clickable
-    const quizLabels = document.querySelectorAll('.form-check-label');
-    quizLabels.forEach(label => {
-        label.addEventListener('click', function() {
-            // Find the associated radio button and check it
-            const radioButton = this.closest('.form-check').querySelector('.form-check-input');
-            if (!radioButton.disabled) {
-                radioButton.checked = true;
-                // Trigger the change event on the radio button
-                const event = new Event('change', { bubbles: true });
-                radioButton.dispatchEvent(event);
-            }
-        });
-    });
-    
-    // Make the entire form-check div clickable
-    document.querySelectorAll('.form-check').forEach(check => {
-        check.addEventListener('click', function(e) {
-            // Only proceed if we didn't click on the radio button itself (it handles its own events)
-            if (!e.target.classList.contains('form-check-input')) {
-                const radioButton = this.querySelector('.form-check-input');
-                if (radioButton && !radioButton.disabled) {
-                    radioButton.checked = true;
-                    // Trigger the change event on the radio button
-                    const event = new Event('change', { bubbles: true });
-                    radioButton.dispatchEvent(event);
-                }
-            }
-        });
-    });
-    
-    // Function to play sounds
-    function playSound(type) {
-        // Only play sounds if user preference is set
-        if (localStorage.getItem('enableSounds') !== 'false') {
-            const audio = new Audio();
-            if (type === 'success') {
-                audio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-positive-interface-beep-221.mp3';
-            } else {
-                audio.src = 'https://assets.mixkit.co/sfx/preview/mixkit-interface-click-1126.mp3';
-            }
-            audio.volume = 0.2;
-            audio.play();
-        }
-    }
-    
-    // Confetti effect for perfect scores
-    function triggerConfetti() {
-        // Simple confetti effect using canvas (simplified version)
-        const canvas = document.createElement('canvas');
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        canvas.style.position = 'fixed';
-        canvas.style.top = '0';
-        canvas.style.left = '0';
-        canvas.style.pointerEvents = 'none';
-        canvas.style.zIndex = '9999';
-        document.body.appendChild(canvas);
-        
-        const ctx = canvas.getContext('2d');
-        const confettiCount = 200;
-        const confetti = [];
-        
-        // Create confetti particles
-        for (let i = 0; i < confettiCount; i++) {
-            confetti.push({
-                x: Math.random() * canvas.width,
-                y: Math.random() * canvas.height - canvas.height,
-                size: Math.random() * 10 + 5,
-                color: `hsl(${Math.random() * 360}, 70%, 60%)`,
-                speed: Math.random() * 3 + 2
-            });
-        }
-        
-        // Animation loop
-        let animationFrame;
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            let stillFalling = false;
-            confetti.forEach(c => {
-                c.y += c.speed;
-                ctx.fillStyle = c.color;
-                ctx.fillRect(c.x, c.y, c.size, c.size);
-                
-                if (c.y < canvas.height) {
-                    stillFalling = true;
-                }
-            });
-            
-            if (stillFalling) {
-                animationFrame = requestAnimationFrame(animate);
-            } else {
-                cancelAnimationFrame(animationFrame);
-                document.body.removeChild(canvas);
-            }
-        }
-        
-        animate();
-        
-        // Clean up after a few seconds
-        setTimeout(() => {
-            if (document.body.contains(canvas)) {
-                cancelAnimationFrame(animationFrame);
-                document.body.removeChild(canvas);
-            }
-        }, 5000);
-    }
-    
-    // Add styles for quiz elements and animations
-    const quizStyle = document.createElement('style');
-    quizStyle.innerHTML = `
-        /* Answer selection styling */
-        .selected-answer {
-            background-color: rgba(13, 110, 253, 0.08);
-            border-color: rgba(13, 110, 253, 0.3);
-            transform: translateX(5px);
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
-        }
-        
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-        
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            20%, 60% { transform: translateX(-5px); }
-            40%, 80% { transform: translateX(5px); }
-        }
-        
-        .quiz-score-container {
-            transition: all 0.3s ease;
-        }
-        
-        .quiz-card {
-            transition: all 0.3s ease;
-        }
-        
-        /* Improved focus state for accessibility */
-        .form-check-input:focus {
-            box-shadow: 0 0 0 0.25rem rgba(13, 110, 253, 0.25);
-        }
-    `;
-    document.head.appendChild(quizStyle);
     
     // Initialize reading time estimates and other features
     updateReadingTimeEstimates();
@@ -426,7 +67,9 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Find the section title to append to
             const sectionTitle = narrative.closest('.section').querySelector('.section-title');
-            sectionTitle.appendChild(badge);
+            if (sectionTitle) {
+                sectionTitle.appendChild(badge);
+            }
         });
     }
     
