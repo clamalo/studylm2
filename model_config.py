@@ -5,8 +5,8 @@ It also contains all prompt templates used by the application.
 """
 
 # Study Guide Generation Model
-# STUDY_GUIDE_MODEL = "gemini-2.5-pro-exp-03-25"
-STUDY_GUIDE_MODEL = "gemini-2.0-flash"
+STUDY_GUIDE_MODEL = "gemini-2.5-pro-exp-03-25"
+# STUDY_GUIDE_MODEL = "gemini-2.0-flash"
 
 # Quiz Generation Model
 QUIZ_MODEL = "gemini-2.0-flash"
@@ -63,6 +63,7 @@ STUDY_GUIDE_PROMPT = """
 - Adhere strictly to the specified JSON structure.
 - Ensure logical flow and progressive building of concepts between sections and units.
 - Focus intensely on making the `narrative` and `key_points` genuinely insightful and helpful for learning beyond a simple summary.
+- **Ensure everything is returned in markdown format.**
 """
 
 # Quiz Generation Prompt (Quality Focus)
@@ -86,11 +87,11 @@ QUIZ_GENERATION_PROMPT = """
 ]
 
 **INSTRUCTIONS:**
+- **Ensure all answer choices are equal in length and complexity. The correct answer should never be the longest or shortest choice.**
 - Adhere strictly to the JSON format and the 4-choice requirement.
 - Fulfill *all* critical quality requirements for *every* question generated.
 - Generate exactly {num_questions} questions.
 - Ensure 'correct_answer' text matches one of the 'choices' exactly.
-- Ensure all answer choices are equal in length, complexity, and plausibility. The correct answer should never be the longest or shortest choice.
 """
 
 # Section Quiz Context Prompt Template (Guidance Focus)

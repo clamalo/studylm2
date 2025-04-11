@@ -5,6 +5,27 @@ document.addEventListener('DOMContentLoaded', function() {
     // Add the shared QuizUI styles
     QuizUI.addStyles();
     
+    // Process markdown content
+    renderMarkdownContent();
+
+    // Function to render markdown content
+    function renderMarkdownContent() {
+        // Configure marked options
+        marked.setOptions({
+            breaks: true,          // Add <br> on a single line break
+            gfm: true,             // GitHub Flavored Markdown
+            headerIds: false,      // Don't add IDs to headers
+            mangle: false,         // Don't escape HTML
+            sanitize: false        // Don't sanitize HTML
+        });
+        
+        // Find all elements with md-content class and render their content as markdown
+        document.querySelectorAll('.md-content').forEach(element => {
+            const markdownText = element.textContent;
+            element.innerHTML = marked.parse(markdownText);
+        });
+    }
+    
     // Handle section quiz radio button selection
     const sectionQuizOptions = document.querySelectorAll('.section-quiz-option');
     QuizUI.attachQuizHandlers(sectionQuizOptions, quizSelections);
