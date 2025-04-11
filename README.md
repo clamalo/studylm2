@@ -114,7 +114,6 @@ StudyLM needs a few extra software pieces (called "dependencies") to work. Pytho
     ```bash
     pip3 install Flask google-generativeai werkzeug python-dotenv
     ```
-    *(Note: We install `python-dotenv` even though we use `export` here, as the code still includes it for flexibility).*
 3.  You should see text appear in the window, showing that software is being downloaded and installed. Wait until it finishes and you see the Terminal prompt again. If you see any warnings (yellow text), you can usually ignore them for now.
 
 **IMPORTANT: If you see errors** when trying to install these packages, you might need to install Apple's command line developer tools first:
@@ -145,23 +144,19 @@ StudyLM uses Google's Gemini AI. To use it, you need a special code called an "A
 3.  **Create a New API Key:** Click on "Create API Key".
 4.  **Copy Your API Key:** After creation, your unique API key will be displayed. It will be a long string of letters and numbers. **Copy this key carefully.** You will need it in the next step.
 
-**NOTE ABOUT RATE LIMITS**: Your free account will give you access to 15 Google API calls per day, free of charge. An API call is used every time you generate a new study guide or practice exam in quiz mode. These do not apply to chats: you have essentially unlimited chat mode. If you run out, you can wait until the next day, or you can investigate setting up a paid Google API plan by pressing "Set up Billing" next to your API key in AI Studio.
+**NOTE ABOUT RATE LIMITS**: Your free account will give you access to 15 Google API calls per day, free of charge. An API call is used every time you generate a new study guide or practice exam in quiz mode. These do not apply to chats: you have essentially unlimited chat mode. If you run out, you can wait until the next day, or you can investigate setting up a paid Google API plan by pressing "Set up Billing" next to your API key in Google AI Studio.
 
 ### 7b. Set the API Key in Your Terminal
 
-You need to tell the StudyLM application what your API key is *before* you run it. We will do this using the Terminal.
+You need to tell the StudyLM application what your API key is *before* you run it. We will do this by inserting it into an environment file in the project directory.
 
 1.  Make sure you are still in the **Terminal** window, and you are "inside" the StudyLM code folder (you should have done the `cd` command in Step 5).
 2.  Type the following command, but **replace `"YOUR_API_KEY_HERE"`** with the actual API key you copied from Google AI Studio. Make sure the key stays inside the quotation marks.
     ```bash
-    export GEMINI_API_KEY="YOUR_API_KEY_HERE"
+    sed -i '' 's/^GEMINI_API_KEY=.*/GEMINI_API_KEY="YOUR_API_KEY_HERE"/' .env
     ```
-    *(Example: If your key was `ABC123XYZ`, you would type: `export GEMINI_API_KEY="ABC123XYZ"`)*
-3.  Press the **Return** key. It might look like nothing happened, but you have now set the key for this *specific* Terminal session.
-
-**VERY IMPORTANT:**
-* You need to run this `export` command **every time** you open a **new** Terminal window and want to run StudyLM. The key is only set for the current session.
-* Make sure you run the `export` command in the **same** Terminal window *before* you run the `python3 run.py` command in the next section.
+    *(Example: If your key was `ABC123XYZ`, you would type: `sed -i '' 's/^GEMINI_API_KEY=.*/GEMINI_API_KEY="ABC123XYZ"/' .env`)*
+3.  Press the **Return** key. It might look like nothing happened, but you have now set the key for the project.
 
 ---
 

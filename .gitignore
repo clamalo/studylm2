@@ -2,6 +2,7 @@
 __pycache__/
 *.py[cod]
 *$py.class
+*.pyc
 
 # Distribution / packaging
 dist/
@@ -14,9 +15,6 @@ env/
 ENV/
 .env/
 .venv/
-
-# Environment variables
-.env
 
 # IDE files
 .vscode/
@@ -31,14 +29,16 @@ ENV/
 Icon
 ._*
 
-# Uploaded files (except for examples)
-uploads/*
+# Uploaded files
+uploads/
 
 # Logs
 *.log
 
 # Generated output
 static/generated/
+static/output.json
+file_uris.json
 
 # Jupyter Notebook
 .ipynb_checkpoints
@@ -46,6 +46,3 @@ static/generated/
 # Testing
 .coverage
 htmlcov/
-
-static/output.json
-file_uris.json
