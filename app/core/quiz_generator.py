@@ -46,7 +46,7 @@ class QuizGenerator:
                 model_name = model_config.DEFAULT_QUIZ_MODEL
             
             # Prepare the context string if provided
-            context_str = f" {context_prompt}" if context_prompt else ""
+            context_str = f":\n{context_prompt}" if context_prompt else "."
             
             # Get the quiz generation prompt from model_config
             prompt = model_config.QUIZ_GENERATION_PROMPT.format(
@@ -59,6 +59,8 @@ class QuizGenerator:
             
             # Use the create_input_with_files function to combine files and prompt
             input_prompt = FileService.create_input_with_files(file_refs, additional_text=prompt)
+
+            print(input_prompt)
             
             # Generate content with the files
             response = GeminiService.generate_content(quiz_model, input_prompt)

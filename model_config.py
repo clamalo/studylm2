@@ -5,7 +5,8 @@ It also contains all prompt templates used by the application.
 """
 
 # Study Guide Generation Model
-STUDY_GUIDE_MODEL = "gemini-2.5-pro-exp-03-25"
+# STUDY_GUIDE_MODEL = "gemini-2.5-pro-exp-03-25"
+STUDY_GUIDE_MODEL = "gemini-2.0-flash"
 
 # Quiz Generation Model
 QUIZ_MODEL = "gemini-2.0-flash"
@@ -31,44 +32,69 @@ DEFAULT_CHAT_MODEL = CHAT_BASIC_MODEL
 # PROMPT TEMPLATES
 #######################
 
-# Study Guide Generation Prompt
+# Study Guide Generation Prompt (Quality Focus)
 STUDY_GUIDE_PROMPT = """
-Organize all concepts extracted from the files into a structured study guide. 
-The output should be a JSON array of units (the total number of units cannot exceed 3x (the number of provided files)). 
-Each unit must contain a 'unit' (the title of the unit) and an 'overview' that summarizes the key ideas of that unit. 
-Each unit should also have a 'sections' array. Every section within the unit must include a 'section_title', 
-a 'narrative' explanation that details the concepts in that section, and a 'key_points' array that lists the essential takeaways. 
-Ensure the units progressively build on each other to form a cohesive understanding of the course material. 
-Use information primarily from the course materials, and supplement with additional details as needed.
+**TASK:** Analyze the provided files and generate a highly effective, structured study guide JSON focused on accelerating user comprehension and retention. This study guide should be very thorough and cover everything that the student needs to know for an exam on the provided material.
+
+**CORE PRINCIPLES FOR ALL CONTENT:**
+1.  **Clarity Above All:** Explain concepts in the simplest terms possible first, then introduce necessary terminology with clear definitions. Use analogies or comparisons to familiar ideas.
+2.  **Practical Relevance:** Don't just define concepts; explain *why* they matter and *when* or *how* they are applied in context, based on the materials.
+3.  **Engagement:** Write in a clear, direct, and somewhat engaging tone. Avoid dry, purely academic language where possible.
+4.  **Depth & Examples:** Provide sufficient detail for understanding, supported by concrete examples drawn from or analogous to the source material.
+5.  **Accuracy:** Base all factual content strictly on the provided materials.
+
+**OUTPUT FORMAT:** A JSON array of units (max 3x number of files).
+- Each unit object MUST contain:
+    - 'unit': (string) A clear, thematic title.
+    - 'overview': (string) **Write a concise, engaging overview.** Start with a hook (question, problem, surprising fact) related to the unit. Briefly introduce the main topics and emphasize their connection or overall importance within the subject. Make the user understand *why* this unit is relevant.
+    - 'sections': (array) Logically ordered section objects.
+
+- Each section object within 'sections' MUST contain:
+    - 'section_title': (string) A descriptive title.
+    - 'narrative': (string) **Provide a clear, comprehensive explanation.**
+        - *Prioritize Clarity:* Break down complexity. Explain step-by-step if needed. Use analogies. Define terms clearly upon introduction.
+        - *Show Relevance:* Explicitly connect the concept to practical applications or consequences mentioned or implied in the source text. Answer the "so what?" question for the user.
+        - *Use Concrete Examples:* Include 1-2 specific examples that illustrate the concept effectively.
+    - 'key_points': (array of strings) **List 3-5 truly essential takeaways.**
+        - *Focus on Action/Insight:* Phrase points as concise, actionable advice, core principles, or crucial distinctions (e.g., "Key factor determining X is Y", "Always check for condition Z before applying technique W", "Distinguish A from B by focusing on C").
+        - *High Value:* These should be the absolute must-remember items for understanding or applying the section's content. Avoid redundancy with the narrative.
+
+**INSTRUCTIONS:**
+- Adhere strictly to the specified JSON structure.
+- Ensure logical flow and progressive building of concepts between sections and units.
+- Focus intensely on making the `narrative` and `key_points` genuinely insightful and helpful for learning beyond a simple summary.
 """
 
-# Quiz Generation Prompt
+# Quiz Generation Prompt (Quality Focus)
 QUIZ_GENERATION_PROMPT = """
-Create a comprehensive exam preparation quiz with {num_questions} multiple-choice questions based on the provided study materials{context_str}.
+**TASK:** Generate a high-quality quiz that effectively tests comprehension and ability to apply concepts. The quiz should have {num_questions} multiple-choice questions based *strictly* on the provided study materials{context_str}
 
-Each question should:
-1. Test important concepts that might appear on an exam
-2. Have exactly 4 answer choices
-3. Have only one correct answer
+**CRITICAL REQUIREMENTS FOR EACH QUESTION:**
+1.  **Test Application/Analysis:** Questions MUST go beyond simple fact recall. They should require the user to *apply* rules, *interpret* information, *analyze* scenarios presented in the text, or *solve problems* using methods described in the material. Ask 'how' or 'why' based on the text.
+2.  **Material-Grounded:** The correct answer MUST be unambiguously supported by the provided text. All distractors should be definitively incorrect according to the text.
+3.  **Plausible & Informative Distractors:** Incorrect choices MUST be plausible and directly related to the topic. Ideally, they should represent common misunderstandings, incorrect applications of concepts from the text, or closely related concepts that are *not* the correct answer in this context. **Avoid vague, irrelevant, or obviously wrong options.**
+4.  **Clarity and Precision:** Word the question and all choices clearly and precisely. Ensure there is only *one* best answer among the choices based *only* on the provided materials.
+5.  **Focus on Core Concepts:** Target the most important ideas, processes, or implications within the provided context. Do not ask about trivial details or peripheral mentions.
 
-Format your entire response as a valid JSON array of objects. Each object should have the following structure:
+**OUTPUT FORMAT:** A valid JSON array of objects. Each object MUST have EXACTLY the following structure:
 [
-    {{
-        "question": "Question text here",
-        "choices": ["Choice A", "Choice B", "Choice C", "Choice D"],
-        "correct_answer": "The exact text of the correct choice"
-    }}
+  {{
+    "question": "Question text here...",
+    "choices": ["Choice A", "Choice B", "Choice C", "Choice D"], // Exactly 4 choices
+    "correct_answer": "The exact text of the correct choice" // Must perfectly match one choice text
+  }}
 ]
 
-Ensure all questions are directly related to the content in the provided materials. 
-Ensure each question has EXACTLY 4 choices.
-Ensure all choices are equal in length and complexity.
-Ensure the correct_answer value exactly matches one of the choices.
+**INSTRUCTIONS:**
+- Adhere strictly to the JSON format and the 4-choice requirement.
+- Fulfill *all* critical quality requirements for *every* question generated.
+- Generate exactly {num_questions} questions.
+- Ensure 'correct_answer' text matches one of the 'choices' exactly.
 """
 
 # Section Quiz Context Prompt Template
 SECTION_QUIZ_PROMPT_TEMPLATE = """
-Generate questions for section titled '{section_title}' in unit '{unit_title}'.
+SECTION TITLE: '{section_title}' in unit '{unit_title}'.
 
 SECTION CONTENT:
 Overview: {section_overview}
@@ -79,7 +105,7 @@ Key Points:
 
 # Unit Quiz Context Prompt Template
 UNIT_QUIZ_PROMPT_TEMPLATE = """
-Generate comprehensive assessment questions for the entire unit titled '{unit_title}'.
+UNIT TITLE: '{unit_title}'.
 
 UNIT CONTENT:
 Unit Overview: {unit_overview}

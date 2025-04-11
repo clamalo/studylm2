@@ -80,7 +80,7 @@ def send_chat():
             while not done:
                 try:
                     # Try to get a message from the queue with a timeout
-                    message = queue.get(timeout=60)  # 60 second timeout
+                    message = queue.get(timeout=180)  # 180 second timeout
                     logger.debug(f"Got message from queue for chat_id {chat_id}: {str(message)[:100]}...")
                     
                     # Check if this is a done message
