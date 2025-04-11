@@ -5,8 +5,7 @@ It also contains all prompt templates used by the application.
 """
 
 # Study Guide Generation Model
-# STUDY_GUIDE_MODEL = "gemini-2.5-pro-exp-03-25"
-STUDY_GUIDE_MODEL = "gemini-2.0-flash"
+STUDY_GUIDE_MODEL = "gemini-2.5-pro-exp-03-25"
 
 # Quiz Generation Model
 QUIZ_MODEL = "gemini-2.0-flash"
