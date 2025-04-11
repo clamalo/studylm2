@@ -201,6 +201,165 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transform: translateY(-2px);
         }
+        
+        .key-points-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-points-list li {
+            position: relative;
+            padding: 0.5rem 1rem 0.5rem 2rem;
+            margin-bottom: 0.5rem;
+            background-color: var(--light);
+            border-radius: var(--radius-md);
+            transition: transform 0.2s ease;
+        }
+        
+        .key-points-list li:hover {
+            transform: translateX(5px);
+            background-color: var(--focus-bg);
+        }
+        
+        .key-points-list li:before {
+            content: "•";
+            color: var(--secondary);
+            font-weight: bold;
+            display: inline-block;
+            position: absolute;
+            left: 1rem;
+        }
+        
+        .btn-floating {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: none;
+            box-shadow: var(--shadow-lg);
+            z-index: 99;
+        }
+        
+        .btn-floating.visible {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .btn-floating i {
+            font-size: 1.25rem;
+            line-height: 1;
+        }
+        
+        .toc-link.active {
+            background-color: var(--primary);
+            color: var(--white);
+        }
+        
+        .toc-sub-link.active {
+            color: var(--primary);
+            font-weight: 600;
+        }
+        
+        .accordion-button:not(.collapsed) {
+            background-color: var(--focus-bg);
+            color: var(--primary);
+        }
+        
+        .accordion-button:focus {
+            box-shadow: none;
+            border-color: var(--light-gray);
+        }
+        
+        .unit-btn.active {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .unit-navigation button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        /* Fade-in animation for unit transitions */
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        .unit-section.active {
+            display: block !important;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .section {
+            margin-bottom: 3rem !important;
+            padding: 1.5rem;
+            border-left: 4px solid var(--primary);
+            background-color: var(--light);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-sm);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .section:hover {
+            transform: translateY(-3px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .section-title {
+            color: var(--primary);
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: var(--space-sm);
+            margin-bottom: var(--space-lg);
+            font-weight: 700;
+        }
+        
+        /* For printing */
+        @media print {
+            .navbar, .mode-toggle-container, .sticky-toc, .col-12.mb-4.d-block.d-lg-none,
+            footer, .btn-floating, .d-grid, .card-footer, .btn, .unit-selector {
+                display: none !important;
+            }
+            
+            .container {
+                width: 100%;
+                max-width: 100%;
+                padding: 0;
+            }
+            
+            .card {
+                border: none;
+                box-shadow: none;
+            }
+            
+            .card-header {
+                background-color: transparent !important;
+                color: black !important;
+                border-bottom: 1px solid #ddd;
+            }
+            
+            .col-lg-9 {
+                width: 100%;
+                flex: 0 0 100%;
+                max-width: 100%;
+            }
+            
+            .section {
+                page-break-inside: avoid;
+            }
+            
+            .unit-section {
+                page-break-before: always;
+                display: block !important;
+            }
+            
+            .unit-section:first-child {
+                page-break-before: avoid;
+            }
+        }
     </style>
 </head>
 <body>
@@ -504,11 +663,11 @@
         </div>
     </div>
     
-    <footer class="bg-light border-top mt-4 py-4">
+    <footer class="bg-light border-top mt-5 py-4">
         <div class="container">
             <div class="row">
                 <div class="col-md-6">
-                    <p class="mb-0 text-muted">&copy; 2023 StudyLM - A personal study tool</p>
+                    <p class="mb-0 text-muted">&copy; <span id="copyright-year"></span> StudyLM - A personal study tool</p>
                 </div>
                 <div class="col-md-6 text-md-end">
                     <ul class="list-inline mb-0">
@@ -524,158 +683,6 @@
         <i class="bi bi-arrow-up"></i>
     </a>
     
-    <style>
-        .key-points-list {
-            list-style: none;
-            padding-left: 0;
-        }
-        
-        .key-points-list li {
-            position: relative;
-            padding: 0.5rem 1rem 0.5rem 2rem;
-            margin-bottom: 0.5rem;
-            background-color: var(--light);
-            border-radius: var(--radius-md);
-            transition: transform 0.2s ease;
-        }
-        
-        .key-points-list li:hover {
-            transform: translateX(5px);
-            background-color: var(--focus-bg);
-        }
-        
-        .key-points-list li:before {
-            content: "•";
-            color: var(--secondary);
-            font-weight: bold;
-            display: inline-block;
-            position: absolute;
-            left: 1rem;
-        }
-        
-        .btn-floating {
-            position: fixed;
-            bottom: 30px;
-            right: 30px;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 50px;
-            z-index: 99;
-            display: none;
-            box-shadow: var(--shadow-lg);
-        }
-        
-        .toc-link.active {
-            background-color: var(--primary);
-            color: var(--white);
-        }
-        
-        .toc-sub-link.active {
-            color: var(--primary);
-            font-weight: 600;
-        }
-        
-        .accordion-button:not(.collapsed) {
-            background-color: var(--focus-bg);
-            color: var(--primary);
-        }
-        
-        .accordion-button:focus {
-            box-shadow: none;
-            border-color: var(--light-gray);
-        }
-        
-        .unit-btn.active {
-            background-color: var(--primary);
-            color: white;
-        }
-        
-        .unit-navigation button:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-        
-        /* Fade-in animation for unit transitions */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .unit-section.active {
-            display: block !important;
-            animation: fadeIn 0.5s ease;
-        }
-        
-        .section {
-            margin-bottom: 3rem !important;
-            padding: 1.5rem;
-            border-left: 4px solid var(--primary);
-            background-color: var(--light);
-            border-radius: var(--radius-md);
-            box-shadow: var(--shadow-sm);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .section:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-md);
-        }
-
-        .section-title {
-            color: var(--primary);
-            border-bottom: 2px solid var(--light-gray);
-            padding-bottom: var(--space-sm);
-            margin-bottom: var(--space-lg);
-            font-weight: 700;
-        }
-        
-        /* For printing */
-        @media print {
-            .navbar, .mode-toggle-container, .sticky-toc, .col-12.mb-4.d-block.d-lg-none,
-            footer, .btn-floating, .d-grid, .card-footer, .btn, .unit-selector {
-                display: none !important;
-            }
-            
-            .container {
-                width: 100%;
-                max-width: 100%;
-                padding: 0;
-            }
-            
-            .card {
-                border: none;
-                box-shadow: none;
-            }
-            
-            .card-header {
-                background-color: transparent !important;
-                color: black !important;
-                border-bottom: 1px solid #ddd;
-            }
-            
-            .col-lg-9 {
-                width: 100%;
-                flex: 0 0 100%;
-                max-width: 100%;
-            }
-            
-            .section {
-                page-break-inside: avoid;
-            }
-            
-            .unit-section {
-                page-break-before: always;
-                display: block !important;
-            }
-            
-            .unit-section:first-child {
-                page-break-before: avoid;
-            }
-        }
-    </style>
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="/static/js/quiz_ui.js"></script>
     <script src="/static/js/study_guide.js"></script>
@@ -915,9 +922,9 @@
             
             window.addEventListener('scroll', function() {
                 if (window.pageYOffset > 300) {
-                    backToTopButton.style.display = 'block';
+                    backToTopButton.classList.add('visible');
                 } else {
-                    backToTopButton.style.display = 'none';
+                    backToTopButton.classList.remove('visible');
                 }
             });
             
@@ -1001,6 +1008,9 @@
             
             // Initialize units display - wrap in a timeout to ensure DOM is fully ready
             setTimeout(initializeUnits, 0);
+
+            // Set copyright year to current year
+            document.getElementById('copyright-year').textContent = new Date().getFullYear();
         });
     </script>
 </body>

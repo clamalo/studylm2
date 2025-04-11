@@ -62,6 +62,7 @@ Format your entire response as a valid JSON array of objects. Each object should
 
 Ensure all questions are directly related to the content in the provided materials. 
 Ensure each question has EXACTLY 4 choices.
+Ensure all choices are equal in length and complexity.
 Ensure the correct_answer value exactly matches one of the choices.
 """
 
