@@ -507,6 +507,9 @@ document.addEventListener('DOMContentLoaded', function() {
         quizSubmitted = true;
         localStorage.setItem('quizSubmitted', 'true');
         
+        // Remember current scroll position
+        const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+        
         // Capture score container content after evaluation for persistent storage
         const captureResult = () => {
             if (quizScoreContainer && quizScoreContainer.querySelector('.alert')) {
@@ -516,6 +519,9 @@ document.addEventListener('DOMContentLoaded', function() {
                     alertClass: resultElement.className.replace('alert ', '')
                 };
                 localStorage.setItem('quizResult', JSON.stringify(resultData));
+                
+                // Restore scroll position
+                window.scrollTo(0, scrollPosition);
             }
         };
         
@@ -523,7 +529,11 @@ document.addEventListener('DOMContentLoaded', function() {
         QuizUI.evaluateQuizUI(quizSelections, quizData, quizScoreContainer, submitQuizBtn);
         
         // Wait a brief moment for the UI to update before capturing the result
-        setTimeout(captureResult, 500);
+        setTimeout(() => {
+            captureResult();
+            // Restore scroll position again just to be safe
+            window.scrollTo(0, scrollPosition);
+        }, 100);
         
         // Change "Generate New Quiz" button text
         generateNewQuizBtn.innerHTML = '<i class="bi bi-arrow-repeat"></i> Try Another Quiz';

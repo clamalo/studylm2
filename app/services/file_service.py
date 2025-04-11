@@ -59,14 +59,31 @@ class FileService:
             raise
     
     @staticmethod
-    def upload_files_to_gemini(file_paths):
-        """Upload files to Gemini and save their URIs"""
+    def upload_files_to_gemini(file_paths, operation_id=None, progress_callback=None):
+        """
+        Upload files to Gemini and save their URIs
+        
+        Args:
+            file_paths: List of file paths to upload
+            operation_id: Optional ID for tracking progress
+            progress_callback: Optional callback function for tracking progress
+                               with signature (filename, index, total)
+        """
         try:
             # Upload files and get references
             file_refs = []
             file_uris = []
             
-            for file_path in file_paths:
+            total_files = len(file_paths)
+            
+            for index, file_path in enumerate(file_paths):
+                # Extract filename for progress message
+                filename = os.path.basename(file_path)
+                
+                # Report progress if callback is provided but don't affect the progress meter
+                if progress_callback and operation_id:
+                    progress_callback(filename, index + 1, total_files)
+                
                 file_ref = GeminiService.upload_file(file_path)
                 file_refs.append(file_ref)
                 file_uris.append(file_ref.uri.split('/')[-1])

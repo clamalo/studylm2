@@ -195,7 +195,6 @@ const QuizUI = {
     evaluateQuizUI: function(quizSelections, quizData, scoreContainer, submitBtn, quizGroup) {
         let correctCount = 0;
         let totalQuestions = 0;
-        let animationDelay = 0;
         
         // Handle different quiz types (main quiz or study guide section quiz)
         if (quizGroup) {
@@ -217,68 +216,54 @@ const QuizUI = {
                 const correctFeedback = feedbackDiv.querySelector('.correct-answer');
                 const wrongFeedback = feedbackDiv.querySelector('.wrong-answer');
                 
-                // Show the feedback with a staggered animation delay
-                setTimeout(() => {
-                    // Show the feedback div
-                    feedbackDiv.classList.remove('d-none');
-                    feedbackDiv.style.animation = 'fadeIn 0.5s';
+                // Show the feedback div
+                feedbackDiv.classList.remove('d-none');
+                
+                if (answer.selected === answer.correct) {
+                    // Show correct feedback
+                    correctFeedback.classList.remove('d-none');
+                    wrongFeedback.classList.add('d-none');
                     
-                    if (answer.selected === answer.correct) {
-                        // Show correct feedback
-                        correctFeedback.classList.remove('d-none');
-                        wrongFeedback.classList.add('d-none');
-                        
-                        // Highlight the correct answer
-                        formCheck.classList.add('correct-answer');
-                        formCheck.style.animation = 'pulse 0.8s';
-                        correctCount++;
-                        
-                        // Add green border to card if it exists
-                        if (quizCard) {
-                            quizCard.style.borderLeft = '4px solid var(--success)';
-                        }
-                        
-                        // Play sound if available
-                        this.playSound('success');
-                    } else {
-                        // Show wrong feedback
-                        correctFeedback.classList.add('d-none');
-                        wrongFeedback.classList.remove('d-none');
-                        
-                        // Highlight the wrong answer
-                        formCheck.classList.add('wrong-answer');
-                        formCheck.style.animation = 'shake 0.8s';
-                        
-                        // Find and highlight the correct answer option
-                        const correctOption = document.querySelector(`input[name="${questionName}"][value="${answer.correct}"]`);
-                        if (correctOption) {
-                            const correctFormCheck = correctOption.closest('.form-check');
-                            correctFormCheck.classList.add('correct-answer');
-                            setTimeout(() => {
-                                correctFormCheck.style.animation = 'pulse 0.8s';
-                            }, 400);
-                        }
-                        
-                        // Add red border to card if it exists
-                        if (quizCard) {
-                            quizCard.style.borderLeft = '4px solid var(--danger)';
-                        }
-                        
-                        // Play sound if available
-                        this.playSound('error');
+                    // Highlight the correct answer
+                    formCheck.classList.add('correct-answer');
+                    correctCount++;
+                    
+                    // Add green border to card if it exists
+                    if (quizCard) {
+                        quizCard.style.borderLeft = '4px solid var(--success)';
                     }
                     
-                    // Disable all options for this question
-                    const relatedOptions = document.querySelectorAll(`input[name="${questionName}"]`);
-                    relatedOptions.forEach(opt => {
-                        opt.disabled = true;
-                    });
+                    // Play sound if available
+                    this.playSound('success');
+                } else {
+                    // Show wrong feedback
+                    correctFeedback.classList.add('d-none');
+                    wrongFeedback.classList.remove('d-none');
                     
-                    // Scroll to make the feedback visible if needed
-                    feedbackDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                }, animationDelay);
+                    // Highlight the wrong answer
+                    formCheck.classList.add('wrong-answer');
+                    
+                    // Find and highlight the correct answer option
+                    const correctOption = document.querySelector(`input[name="${questionName}"][value="${answer.correct}"]`);
+                    if (correctOption) {
+                        const correctFormCheck = correctOption.closest('.form-check');
+                        correctFormCheck.classList.add('correct-answer');
+                    }
+                    
+                    // Add red border to card if it exists
+                    if (quizCard) {
+                        quizCard.style.borderLeft = '4px solid var(--danger)';
+                    }
+                    
+                    // Play sound if available
+                    this.playSound('error');
+                }
                 
-                animationDelay += 200; // Stagger the animations
+                // Disable all options for this question
+                const relatedOptions = document.querySelectorAll(`input[name="${questionName}"]`);
+                relatedOptions.forEach(opt => {
+                    opt.disabled = true;
+                });
             }
         } else {
             // Main quiz evaluation
@@ -303,104 +288,88 @@ const QuizUI = {
                 const correctFeedback = feedbackDiv.querySelector('.correct-answer');
                 const wrongFeedback = feedbackDiv.querySelector('.wrong-answer');
                 
-                // Show the feedback with a staggered animation delay
-                setTimeout(() => {
-                    // Show the feedback div
-                    feedbackDiv.classList.remove('d-none');
-                    
-                    if (answer.selectedIndex === answer.correctIndex) {
-                        // Show correct feedback
-                        correctFeedback.classList.remove('d-none');
-                        wrongFeedback.classList.add('d-none');
-                        
-                        // Highlight the correct answer
-                        formCheck.classList.add('correct-answer');
-                        correctCount++;
-                    } else {
-                        // Show wrong feedback
-                        correctFeedback.classList.add('d-none');
-                        wrongFeedback.classList.remove('d-none');
-                        
-                        // Highlight wrong answer and mark the correct one
-                        formCheck.classList.add('wrong-answer');
-                        
-                        // Find and highlight the correct answer option
-                        const correctOption = document.querySelector(`input[name="quiz-question-${qIndex}"][value="${answer.correctIndex}"]`);
-                        if (correctOption) {
-                            const correctFormCheck = correctOption.closest('.form-check');
-                            correctFormCheck.classList.add('correct-answer');
-                        }
-                    }
-                    
-                    // Disable all options for this question
-                    const relatedOptions = document.querySelectorAll(`input[name="quiz-question-${qIndex}"]`);
-                    relatedOptions.forEach(opt => {
-                        opt.disabled = true;
-                    });
-                    
-                    // Scroll to the question if it's not visible
-                    questionCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, animationDelay);
+                // Show the feedback div
+                feedbackDiv.classList.remove('d-none');
                 
-                animationDelay += 100; // Stagger the animations
+                if (answer.selectedIndex === answer.correctIndex) {
+                    // Show correct feedback
+                    correctFeedback.classList.remove('d-none');
+                    wrongFeedback.classList.add('d-none');
+                    
+                    // Highlight the correct answer
+                    formCheck.classList.add('correct-answer');
+                    correctCount++;
+                } else {
+                    // Show wrong feedback
+                    correctFeedback.classList.add('d-none');
+                    wrongFeedback.classList.remove('d-none');
+                    
+                    // Highlight wrong answer and mark the correct one
+                    formCheck.classList.add('wrong-answer');
+                    
+                    // Find and highlight the correct answer option
+                    const correctOption = document.querySelector(`input[name="quiz-question-${qIndex}"][value="${answer.correctIndex}"]`);
+                    if (correctOption) {
+                        const correctFormCheck = correctOption.closest('.form-check');
+                        correctFormCheck.classList.add('correct-answer');
+                    }
+                }
+                
+                // Disable all options for this question
+                const relatedOptions = document.querySelectorAll(`input[name="quiz-question-${qIndex}"]`);
+                relatedOptions.forEach(opt => {
+                    opt.disabled = true;
+                });
             }
         }
         
-        // Show overall score after all feedback is shown
-        setTimeout(() => {
+        // Update submit button if provided
+        if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="bi bi-check2-all"></i> Review Answers';
+        }
+        
+        // Display score if container is provided
+        if (scoreContainer) {
             const percentage = Math.round((correctCount / totalQuestions) * 100);
+            scoreContainer.innerHTML = '';
+            const scoreElement = document.createElement('div');
+            scoreElement.className = 'alert mt-3';
             
-            // Update submit button if provided
-            if (submitBtn) {
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="bi bi-check2-all"></i> Review Answers';
+            let feedbackClass = 'alert-info';
+            let feedbackIcon = 'info-circle-fill';
+            let feedbackMessage = 'Keep practicing to improve!';
+            
+            if (percentage >= 80) {
+                feedbackClass = 'alert-success';
+                feedbackIcon = 'trophy-fill';
+                feedbackMessage = 'Excellent work! You\'re well-prepared for the exam.';
+            } else if (percentage >= 60) {
+                feedbackClass = 'alert-info';
+                feedbackIcon = 'patch-check-fill';
+                feedbackMessage = 'Good job! Review the incorrect answers to strengthen your knowledge.';
+            } else {
+                feedbackClass = 'alert-warning';
+                feedbackIcon = 'exclamation-triangle-fill';
+                feedbackMessage = 'Review the material again to improve your understanding.';
             }
             
-            // Display score if container is provided
-            if (scoreContainer) {
-                scoreContainer.innerHTML = '';
-                const scoreElement = document.createElement('div');
-                scoreElement.className = 'alert mt-3';
-                
-                let feedbackClass = 'alert-info';
-                let feedbackIcon = 'info-circle-fill';
-                let feedbackMessage = 'Keep practicing to improve!';
-                
-                if (percentage >= 80) {
-                    feedbackClass = 'alert-success';
-                    feedbackIcon = 'trophy-fill';
-                    feedbackMessage = 'Excellent work! You\'re well-prepared for the exam.';
-                    
-                    // Confetti code removed
-                } else if (percentage >= 60) {
-                    feedbackClass = 'alert-info';
-                    feedbackIcon = 'patch-check-fill';
-                    feedbackMessage = 'Good job! Review the incorrect answers to strengthen your knowledge.';
-                } else {
-                    feedbackClass = 'alert-warning';
-                    feedbackIcon = 'exclamation-triangle-fill';
-                    feedbackMessage = 'Review the material again to improve your understanding.';
-                }
-                
-                scoreElement.className = `alert ${feedbackClass}`;
-                scoreElement.innerHTML = `
-                    <div class="d-flex align-items-center">
-                        <i class="bi bi-${feedbackIcon} fs-3 me-3"></i>
-                        <div>
-                            <h5 class="mb-1">Quiz Results</h5>
-                            <p class="mb-1">Your score: <strong>${correctCount}/${totalQuestions}</strong> (${percentage}%)</p>
-                            <p class="mb-0 small">${feedbackMessage}</p>
-                        </div>
+            scoreElement.className = `alert ${feedbackClass}`;
+            scoreElement.innerHTML = `
+                <div class="d-flex align-items-center">
+                    <i class="bi bi-${feedbackIcon} fs-3 me-3"></i>
+                    <div>
+                        <h5 class="mb-1">Quiz Results</h5>
+                        <p class="mb-1">Your score: <strong>${correctCount}/${totalQuestions}</strong> (${percentage}%)</p>
+                        <p class="mb-0 small">${feedbackMessage}</p>
                     </div>
-                `;
-                
-                scoreContainer.appendChild(scoreElement);
-                scoreContainer.style.animation = 'fadeIn 0.8s';
-                
-                // Scroll to show the score
-                scoreContainer.scrollIntoView({ behavior: 'smooth' });
-            }
-        }, animationDelay + 500);
+                </div>
+            `;
+            
+            scoreContainer.appendChild(scoreElement);
+            
+            // No scrolling to score container - let it appear naturally where it is
+        }
         
         return {
             correct: correctCount,

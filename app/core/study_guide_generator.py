@@ -74,7 +74,6 @@ class StudyGuideGenerator:
             structured_prompt = model_config.STUDY_GUIDE_PROMPT
             
             # Create input with files and prompt
-            log_progress("Preparing input with files...", progress=0)
             input_prompt = FileService.create_input_with_files(file_refs, additional_text=structured_prompt)
             
             # Log token count for the structured prompt

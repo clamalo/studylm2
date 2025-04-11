@@ -155,7 +155,7 @@ You need to tell the StudyLM application what your API key is *before* you run i
     ```bash
     sed -i '' 's/^GEMINI_API_KEY=.*/GEMINI_API_KEY="YOUR_API_KEY_HERE"/' .env
     ```
-    *(Example: If your key was `ABC123XYZ`, you would type: `sed -i '' 's/^GEMINI_API_KEY=.*/GEMINI_API_KEY="ABC123XYZ"/' .env`)*
+    *(Example: If your key was `ABC123XYZ`, you would type: `sed -i '' 's/^GEMINI_API_KEY=.*/GEMINI_API_KEY="ABC123XYZ"/' .env`). The command must be entered exactly correctly for this to work; make sure you've inserted your key perfectly.*
 3.  Press the **Return** key. It might look like nothing happened, but you have now set the key for the project.
 
 ---

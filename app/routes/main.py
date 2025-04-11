@@ -42,7 +42,6 @@ def upload_handler():
             file_paths.append(file_path)
         
         current_app.logger.info(f"Saved {len(file_paths)} uploaded files")
-        add_progress_message(operation_id, f"Saved {len(file_paths)} files")
         
         # Get the current app for the background thread
         app = current_app._get_current_object()
@@ -76,9 +75,30 @@ def process_files_in_background(file_paths, operation_id, app):
                 os.remove('file_uris.json')
                 app.logger.info("Removed existing file_uris.json")
             
+            # Create a progress callback for file uploads
+            def file_upload_progress(filename, index, total):
+                # Just display a message without affecting the progress percentage
+                add_progress_message(
+                    operation_id, 
+                    f"Uploading file: {filename} ({index}/{total})",
+                    status="uploading"
+                )
+            
             # Upload the new files to Gemini using our service
-            file_refs = FileService.upload_files_to_gemini(file_paths)
-            app.logger.info(f"Uploaded {len(file_refs)} files to Gemini API")
+            file_refs = FileService.upload_files_to_gemini(
+                file_paths, 
+                operation_id=operation_id,
+                progress_callback=file_upload_progress
+            )
+            app.logger.info(f"Uploaded {len(file_refs)} files")
+
+            # Cleanup
+            try:
+                for file_path in file_paths:
+                    os.remove(file_path)
+                    app.logger.info(f"Deleted local file: {file_path}")
+            except OSError as e:
+                app.logger.error(f"Error deleting local file {file_path}: {e}")
             
             # Starting study guide generation - set to 0% progress
             add_progress_message(operation_id, "Starting study guide generation...", status="generating", progress=0)
