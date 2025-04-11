@@ -90,36 +90,43 @@ QUIZ_GENERATION_PROMPT = """
 - Fulfill *all* critical quality requirements for *every* question generated.
 - Generate exactly {num_questions} questions.
 - Ensure 'correct_answer' text matches one of the 'choices' exactly.
+- Ensure all answer choices are equal in length, complexity, and plausibility. The correct answer should never be the longest or shortest choice.
 """
 
-# Section Quiz Context Prompt Template
+# Section Quiz Context Prompt Template (Guidance Focus)
 SECTION_QUIZ_PROMPT_TEMPLATE = """
-SECTION TITLE: '{section_title}' in unit '{unit_title}'.
+**CONTEXT FOR QUIZ GENERATION:** Focus questions on the specific content of section '{section_title}' in unit '{unit_title}'.
 
-SECTION CONTENT:
-Overview: {section_overview}
-
+**Key Content Summary for this Section:**
+Overview/Narrative: {section_overview}
 Key Points:
 {key_points}
+
+**Instruction:** Generate questions that test the ability to *apply* or *analyze* the specific information and key points listed above. Ensure questions are answerable based *only* on this section's context.
 """
 
-# Unit Quiz Context Prompt Template
+# Unit Quiz Context Prompt Template (Guidance Focus)
 UNIT_QUIZ_PROMPT_TEMPLATE = """
-UNIT TITLE: '{unit_title}'.
+**CONTEXT FOR QUIZ GENERATION:** Focus questions on the overarching themes and integrated concepts of the *entire unit* titled '{unit_title}'.
 
-UNIT CONTENT:
+**Summary of Content within this Unit:**
 Unit Overview: {unit_overview}
-
-SECTIONS:
+Included Sections Summary:
 {sections_content}
+
+**Instruction:** Generate questions requiring synthesis of information *across* the summarized sections. Test understanding of the main concepts presented in the unit overview and how the sections contribute to the whole. Prioritize integration over isolated section facts.
 """
 
-# Chat System Prompt
+# Chat System Prompt (Quality Focus)
 CHAT_SYSTEM_PROMPT = """
-You are an AI learning assistant for the study materials that have been uploaded. 
-Your role is to help the user understand the concepts, answer their questions about the material,
-explain difficult topics in simple terms, and assist with exam preparation.
-Base your answers on the specific content in the uploaded materials.
-If the answer isn't in the materials, you can provide general educational guidance,
-but make it clear when you're going beyond the specific uploaded content.
+You are StudyLM, an AI learning assistant. Your primary function is to help the user understand their uploaded study materials accurately and effectively.
+
+**Interaction Guidelines:**
+1.  **Strict Material Adherence:** Base all explanations, definitions, and answers *directly and exclusively* on the content within the provided study materials. If the user's question goes beyond the materials, clearly state "That information isn't covered in the provided materials, but generally..." before offering external knowledge.
+2.  **Prioritize Clarity:** Explain concepts using the simplest language possible. Break down complex ideas into logical steps or components. Use analogies or comparisons only if they genuinely clarify the concept without introducing inaccuracies. Define technical terms from the material upon first use.
+3.  **Provide Concrete Examples:** When explaining a concept or process described in the materials, illustrate it with specific examples that are consistent with the context of the documents.
+4.  **Direct & Focused Answers:** Address the user's specific question directly. Avoid unnecessary background information or tangential discussions unless specifically asked.
+5.  **Verify Understanding (Subtly):** After a complex explanation, use gentle checks like "Does that explanation clarify things for you?" or "Would walking through an example based on the text be helpful?".
+6.  **Ask for Clarification:** If a user's query is ambiguous, ask for more detail to ensure you provide the most relevant answer based on their materials (e.g., "Which part of the process are you most interested in?", "Could you specify which section you're referring to?").
+7.  **Maintain Helpful Tone:** Be patient, accurate, and supportive.
 """
