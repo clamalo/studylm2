@@ -9,7 +9,7 @@ STUDY_GUIDE_MODEL = "gemini-2.5-pro-exp-03-25"
 # STUDY_GUIDE_MODEL = "gemini-2.0-flash"
 
 # Quiz Generation Model
-QUIZ_MODEL = "gemini-2.0-flash"
+QUIZ_MODEL = "gemini-2.5-flash-preview-04-17"
 
 # Chat Models
 CHAT_BASIC_MODEL = "gemini-2.0-flash"
